@@ -1,0 +1,152 @@
+{
+  "common": {
+    "name": "esmobil",
+    "version": "0.4.2",
+    "news": {
+      "0.4.2": {
+        "en": "Fixed common.type: \"school\" is not a valid ioBroker adapter category - switched to the official \"date-and-time\" category (schedules/calendars)",
+        "de": "common.type korrigiert: \"school\" ist keine gültige ioBroker-Adapterkategorie - auf die offizielle Kategorie \"date-and-time\" (Zeitpläne/Kalender) umgestellt"
+      },
+      "0.4.1": {
+        "en": "Grade average calculation now ported 1:1 from the reference PHP project (+/- worth 0.3, only single-digit grades count, average shown as both a number and the nearest real grade notation like \"2+\")",
+        "de": "Notendurchschnitt jetzt 1:1 aus dem PHP-Referenzprojekt portiert (+/- zählt 0.3, nur einstellige Zensuren zählen, Durchschnitt als Zahl UND als nächstgelegene echte Zensur-Schreibweise wie \"2+\")"
+      },
+      "0.4.0": {
+        "en": "Added grade averages per subject (grades.subjects.<code>.average) and overall (grades.overallAverage); README/CI prepared for npm publish and repository submission",
+        "de": "Notendurchschnitt je Fach (grades.subjects.<kürzel>.average) und gesamt (grades.overallAverage) ergänzt; README/CI für npm-Veröffentlichung und Repository-Aufnahme vorbereitet"
+      },
+      "0.3.0": {
+        "en": "New-item detection for homework/remarks/grades: newCount/newEntries per category plus info.newItemsCount and info.lastNewAt as a reliable trigger point for your own notification automation",
+        "de": "Neu-Erkennung für Hausaufgaben/Bemerkungen/Zensuren: newCount/newEntries je Kategorie sowie info.newItemsCount und info.lastNewAt als zuverlässiger Auslösepunkt für eigene Benachrichtigungs-Automatisierungen"
+      },
+      "0.2.2": {
+        "en": "Fixed grades.subjectCount (previously counted all listed subjects, including ones with zero grades); added a browsable per-subject channel grades.subjects.<code> for every subject that has at least one grade",
+        "de": "grades.subjectCount korrigiert (zählte vorher alle gelisteten Fächer mit, auch mit null Zensuren); neuer, browsbarer Kanal grades.subjects.<kürzel> je Fach mit mindestens einer Zensur"
+      },
+      "0.2.1": {
+        "en": "plan.day1-day5 now always represent Monday-Friday of the relevant calendar school week (instead of the next 5 available days), each tagged with its weekday name",
+        "de": "plan.day1-day5 entsprechen jetzt immer Montag bis Freitag der jeweils relevanten Kalender-Schulwoche (statt der nächsten 5 verfügbaren Tage), jeweils mit Wochentagsnamen"
+      },
+      "0.2.0": {
+        "en": "Adapter icon now matches the ESmobil app icon; timetable now covers the next 5 available school days (\"week plan\") plus a bundled plan.week.days JSON state",
+        "de": "Adapter-Icon entspricht jetzt dem App-Icon; Stundenplan deckt jetzt die nächsten 5 verfügbaren Schultage ab (\"Wochenplan\") inklusive gebündeltem plan.week.days-JSON-State"
+      },
+      "0.1.1": {
+        "en": "Fixed admin instance display name, switched from cron/schedule mode to a daemon that polls immediately on start, added school-name keywords",
+        "de": "Anzeigename in der Admin-Instanzübersicht korrigiert, von Cron/Schedule-Modus auf einen Daemon umgestellt, der sofort beim Start abruft, Schulnamen als Keywords ergänzt"
+      },
+      "0.1.0": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung"
+      }
+    },
+    "title": "ESmobil",
+    "titleLang": {
+      "en": "ESmobil",
+      "de": "ESmobil"
+    },
+    "desc": {
+      "en": "Reads the school timetable (VpMobil/Indiware) and homework/remarks/grades (Home.InfoPoint) for one of the four TEGW schools (EOSW, EGW, EOSH, EGL). Not usable outside this school group - server addresses are built in per school, not user-configurable.",
+      "de": "Liest den Stundenplan (VpMobil/Indiware) sowie Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für eine der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL). Außerhalb dieses Schulverbunds nicht nutzbar - die Serveradressen sind je Schule fest hinterlegt, nicht frei konfigurierbar."
+    },
+    "authors": [
+      "Maik Ries <iobroker@ne-xt.de>",
+      "Christian Winter <iobroker@ne-xt.de>"
+    ],
+    "keywords": [
+      "esmobil",
+      "vpmobil",
+      "indiware",
+      "stundenplan",
+      "home.infopoint",
+      "tegw",
+      "schule",
+      "timetable",
+      "eosw",
+      "egw",
+      "eosh",
+      "egl",
+      "europäische oberschule waldenburg",
+      "europäisches gymnasium waldenburg",
+      "europäische oberschule hartmannsdorf",
+      "europäische grundschule lichtenstein",
+      "waldenburg",
+      "hartmannsdorf",
+      "lichtenstein"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "esmobil.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/beabel/iobroker.esmobil/main/admin/esmobil.png",
+    "type": "date-and-time",
+    "mode": "daemon",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=6.0.0"
+      }
+    ],
+    "protectedNative": [
+      "vpPassword",
+      "haPassword"
+    ],
+    "encryptedNative": [
+      "vpPassword",
+      "haPassword"
+    ],
+    "native": {
+      "school": "eosw",
+      "klasse": "",
+      "vpUsername": "schueler",
+      "vpPassword": "",
+      "haUsername": "",
+      "haPassword": "",
+      "pollHomeworkEtc": true,
+      "pollIntervalMinutes": 30
+    }
+  },
+  "native": {},
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "Information",
+          "de": "Information"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": {
+          "en": "Connected to the school servers",
+          "de": "Verbunden mit den Schulservern"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "iobroker.esmobil",
+  "version": "0.4.2",
+  "description": "ioBroker-Adapter für Stundenplan (VpMobil/Indiware) und Hausaufgaben/Bemerkungen/Zensuren (Home.InfoPoint) der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL)",
+  "author": {
+    "name": "Maik Ries",
+    "email": "iobroker@ne-xt.de"
+  },
+  "contributors": [
+    {
+      "name": "Christian Winter",
+      "email": "iobroker@ne-xt.de"
+    }
+  ],
+  "homepage": "https://github.com/beabel/iobroker.esmobil",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "esmobil",
+    "vpmobil",
+    "indiware",
+    "stundenplan",
+    "home.infopoint",
+    "tegw",
+    "schule",
+    "eosw",
+    "egw",
+    "eosh",
+    "egl",
+    "europäische oberschule waldenburg",
+    "europäisches gymnasium waldenburg",
+    "europäische oberschule hartmannsdorf",
+    "europäische grundschule lichtenstein",
+    "waldenburg",
+    "hartmannsdorf",
+    "lichtenstein"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beabel/iobroker.esmobil.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.2.3",
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "fast-xml-parser": "^4.5.1",
+    "tough-cookie": "^5.0.0"
+  },
+  "devDependencies": {
+    "@iobroker/testing": "^5.0.4",
+    "chai": "^4.5.0",
+    "mocha": "^10.8.2"
+  },
+  "main": "main.js",
+  "files": [
+    "admin/",
+    "lib/",
+    "io-package.json",
+    "main.js",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test": "npm run test:package && npm run test:unit"
+  },
+  "bugs": {
+    "url": "https://github.com/beabel/iobroker.esmobil/issues"
+  },
+  "readmeFilename": "README.md"
+}

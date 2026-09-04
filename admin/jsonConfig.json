@@ -1,0 +1,166 @@
+{
+  "type": "panel",
+  "i18n": true,
+  "items": {
+    "_schoolHeader": {
+      "type": "header",
+      "text": {
+        "en": "School",
+        "de": "Schule"
+      },
+      "size": 2
+    },
+    "school": {
+      "type": "select",
+      "label": {
+        "en": "School",
+        "de": "Schule"
+      },
+      "options": [
+        { "value": "eosw", "label": "Europäische Oberschule Waldenburg (EOSW)" },
+        { "value": "egw", "label": "Europäisches Gymnasium Waldenburg (EGW)" },
+        { "value": "eosh", "label": "Europäische Oberschule Hartmannsdorf (EOSH)" },
+        { "value": "egl", "label": "Europäische Grundschule Lichtenstein (EGL)" }
+      ],
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6
+    },
+    "_egshHint": {
+      "type": "staticText",
+      "newLine": true,
+      "text": {
+        "en": "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.",
+        "de": "Hinweis: Die Stundenplan-Adresse für EOSH ist in der Referenz-App unbestätigt (nach dem Muster der anderen Schulen geraten, nie verifiziert) - bitte nach dem ersten Lauf genau prüfen, ob echte Daten ankommen."
+      },
+      "hidden": "data.school !== 'eosh'"
+    },
+    "_eglHint": {
+      "type": "staticText",
+      "newLine": true,
+      "text": {
+        "en": "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.",
+        "de": "Hinweis: Diese Schule hat keinen Stundenplan über VpMobil - nur Hausaufgaben/Bemerkungen/Zensuren weiter unten sind verfügbar."
+      },
+      "hidden": "data.school !== 'egl'"
+    },
+    "_vpHeader": {
+      "type": "header",
+      "text": {
+        "en": "Timetable (VpMobil / Indiware)",
+        "de": "Stundenplan (VpMobil / Indiware)"
+      },
+      "size": 2,
+      "newLine": true,
+      "hidden": "data.school === 'egl'"
+    },
+    "klasse": {
+      "type": "text",
+      "label": {
+        "en": "Class (as shown by VpMobil, e.g. 08m2)",
+        "de": "Klasse (wie von VpMobil geliefert, z. B. 08m2)"
+      },
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "hidden": "data.school === 'egl'"
+    },
+    "vpUsername": {
+      "type": "text",
+      "label": {
+        "en": "VpMobil username (school-wide, not personal - usually stays at the default)",
+        "de": "VpMobil-Benutzername (schulweit gleich, nicht persönlich - bleibt meist auf dem Standardwert)"
+      },
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "hidden": "data.school === 'egl'"
+    },
+    "vpPassword": {
+      "type": "password",
+      "label": {
+        "en": "VpMobil password (school-wide, not personal)",
+        "de": "VpMobil-Passwort (schulweit gleich, nicht persönlich)"
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "hidden": "data.school === 'egl'"
+    },
+    "_haHeader": {
+      "type": "header",
+      "text": {
+        "en": "Homework / remarks / grades (Home.InfoPoint)",
+        "de": "Hausaufgaben / Bemerkungen / Zensuren (Home.InfoPoint)"
+      },
+      "size": 2,
+      "newLine": true
+    },
+    "pollHomeworkEtc": {
+      "type": "checkbox",
+      "label": {
+        "en": "Also fetch homework, remarks and grades",
+        "de": "Auch Hausaufgaben, Bemerkungen und Zensuren abrufen"
+      },
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 12
+    },
+    "haUsername": {
+      "type": "text",
+      "label": {
+        "en": "Home.InfoPoint username (personal login)",
+        "de": "Home.InfoPoint-Benutzername (persönlicher Zugang)"
+      },
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "hidden": "!data.pollHomeworkEtc"
+    },
+    "haPassword": {
+      "type": "password",
+      "label": {
+        "en": "Home.InfoPoint password (personal login)",
+        "de": "Home.InfoPoint-Passwort (persönlicher Zugang)"
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 6,
+      "hidden": "!data.pollHomeworkEtc"
+    },
+    "_pollHeader": {
+      "type": "header",
+      "text": {
+        "en": "Update interval",
+        "de": "Aktualisierungsintervall"
+      },
+      "size": 2,
+      "newLine": true
+    },
+    "pollIntervalMinutes": {
+      "type": "number",
+      "label": {
+        "en": "Poll interval (minutes, minimum 5)",
+        "de": "Abrufintervall (Minuten, mindestens 5)"
+      },
+      "min": 5,
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 6
+    },
+    "_pollHint": {
+      "type": "staticText",
+      "newLine": true,
+      "text": {
+        "en": "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.",
+        "de": "Dieser Adapter ist ausschließlich für die vier TEGW-Schulen gedacht (die Serveradressen sind je Schule fest hinterlegt). Er läuft dauerhaft im Hintergrund, ruft die Daten sofort nach jedem (Neu-)Start ab und danach in diesem Intervall erneut."
+      }
+    }
+  }
+}
