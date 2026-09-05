@@ -1,8 +1,0 @@
-test/
-.github/
-.vscode/
-.idea/
-*.iml
-node_modules/
-.gitignore
-.travis.yml

@@ -1,65 +1,60 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.4.5",
+    "version": "0.5.0",
     "news": {
-      "0.4.5": {
-        "en": "README trimmed down to end-user-relevant content only",
-        "de": "README auf endnutzerrelevante Inhalte reduziert"
-      },
-      "0.4.4": {
-        "en": "Fixed repository/homepage/bugs URLs in package.json and io-package.json: they used the lowercase npm-style path instead of the actual (mixed-case) GitHub repository name, which broke the ioBroker.repositories tooling's case-sensitive lookup",
-        "de": "repository-/homepage-/bugs-URLs in package.json und io-package.json korrigiert: sie nutzten den npm-typischen Kleinschreibungs-Pfad statt des tatsächlichen (gemischt geschriebenen) GitHub-Repository-Namens, was die case-sensitive Suche des ioBroker.repositories-Tools brach"
-      },
-      "0.4.3": {
-        "en": "Moved pure helper functions into lib/helpers.js so the test suite could finally run (requiring main.js directly pulled in @iobroker/adapter-core, which force-exits when not run inside a real ioBroker installation) - all 78 tests now pass",
-        "de": "Reine Hilfsfunktionen nach lib/helpers.js ausgelagert, damit die Testsuite endlich läuft (main.js direkt zu requiren zog @iobroker/adapter-core mit, das außerhalb einer echten ioBroker-Installation zwangsweise abbricht) - alle 78 Tests laufen jetzt grün"
-      },
-      "0.4.2": {
-        "en": "Fixed common.type: \"school\" is not a valid ioBroker adapter category - switched to the official \"date-and-time\" category (schedules/calendars)",
-        "de": "common.type korrigiert: \"school\" ist keine gültige ioBroker-Adapterkategorie - auf die offizielle Kategorie \"date-and-time\" (Zeitpläne/Kalender) umgestellt"
-      },
-      "0.4.1": {
-        "en": "Grade average calculation now ported 1:1 from the reference PHP project (+/- worth 0.3, only single-digit grades count, average shown as both a number and the nearest real grade notation like \"2+\")",
-        "de": "Notendurchschnitt jetzt 1:1 aus dem PHP-Referenzprojekt portiert (+/- zählt 0.3, nur einstellige Zensuren zählen, Durchschnitt als Zahl UND als nächstgelegene echte Zensur-Schreibweise wie \"2+\")"
+      "0.5.0": {
+        "en": "Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English.",
+        "de": "Metadaten und Abhängigkeits-Versionen des Adapters an die aktuellen Repository-Anforderungen angepasst; README ins Englische übersetzt.",
+        "ru": "Исправлены метаданные адаптера и версии зависимостей в соответствии с текущими требованиями репозитория; README переведён на английский.",
+        "pt": "Metadados do adaptador e versões de dependências corrigidos para cumprir os requisitos atuais do repositório; README traduzido para inglês.",
+        "nl": "Adaptermetadata en afhankelijkheidsversies aangepast aan de huidige repository-vereisten; README vertaald naar het Engels.",
+        "fr": "Métadonnées de l'adaptateur et versions des dépendances corrigées pour respecter les exigences actuelles du dépôt ; README traduit en anglais.",
+        "it": "Metadati dell'adattatore e versioni delle dipendenze corretti per soddisfare i requisiti attuali del repository; README tradotto in inglese.",
+        "es": "Metadatos del adaptador y versiones de dependencias corregidos para cumplir los requisitos actuales del repositorio; README traducido al inglés.",
+        "pl": "Poprawiono metadane adaptera i wersje zależności zgodnie z aktualnymi wymaganiami repozytorium; README przetłumaczono na angielski.",
+        "uk": "Виправлено метадані адаптера та версії залежностей відповідно до поточних вимог репозиторію; README перекладено англійською.",
+        "zh-cn": "修正了适配器元数据和依赖项版本，以符合当前仓库要求；README已翻译为英文。"
       },
       "0.4.0": {
-        "en": "Added grade averages per subject (grades.subjects.<code>.average) and overall (grades.overallAverage); README/CI prepared for npm publish and repository submission",
-        "de": "Notendurchschnitt je Fach (grades.subjects.<kürzel>.average) und gesamt (grades.overallAverage) ergänzt; README/CI für npm-Veröffentlichung und Repository-Aufnahme vorbereitet"
-      },
-      "0.3.0": {
-        "en": "New-item detection for homework/remarks/grades: newCount/newEntries per category plus info.newItemsCount and info.lastNewAt as a reliable trigger point for your own notification automation",
-        "de": "Neu-Erkennung für Hausaufgaben/Bemerkungen/Zensuren: newCount/newEntries je Kategorie sowie info.newItemsCount und info.lastNewAt als zuverlässiger Auslösepunkt für eigene Benachrichtigungs-Automatisierungen"
-      },
-      "0.2.2": {
-        "en": "Fixed grades.subjectCount (previously counted all listed subjects, including ones with zero grades); added a browsable per-subject channel grades.subjects.<code> for every subject that has at least one grade",
-        "de": "grades.subjectCount korrigiert (zählte vorher alle gelisteten Fächer mit, auch mit null Zensuren); neuer, browsbarer Kanal grades.subjects.<kürzel> je Fach mit mindestens einer Zensur"
-      },
-      "0.2.1": {
-        "en": "plan.day1-day5 now always represent Monday-Friday of the relevant calendar school week (instead of the next 5 available days), each tagged with its weekday name",
-        "de": "plan.day1-day5 entsprechen jetzt immer Montag bis Freitag der jeweils relevanten Kalender-Schulwoche (statt der nächsten 5 verfügbaren Tage), jeweils mit Wochentagsnamen"
-      },
-      "0.2.0": {
-        "en": "Adapter icon now matches the ESmobil app icon; timetable now covers the next 5 available school days (\"week plan\") plus a bundled plan.week.days JSON state",
-        "de": "Adapter-Icon entspricht jetzt dem App-Icon; Stundenplan deckt jetzt die nächsten 5 verfügbaren Schultage ab (\"Wochenplan\") inklusive gebündeltem plan.week.days-JSON-State"
-      },
-      "0.1.1": {
-        "en": "Fixed admin instance display name, switched from cron/schedule mode to a daemon that polls immediately on start, added school-name keywords",
-        "de": "Anzeigename in der Admin-Instanzübersicht korrigiert, von Cron/Schedule-Modus auf einen Daemon umgestellt, der sofort beim Start abruft, Schulnamen als Keywords ergänzt"
-      },
-      "0.1.0": {
-        "en": "initial release",
-        "de": "Erstveröffentlichung"
+        "en": "Initial release: school timetable, homework, remarks and grades for the four TEGW schools, including grade averages and detection of new entries for your own notifications.",
+        "de": "Erstveröffentlichung: Stundenplan, Hausaufgaben, Bemerkungen und Zensuren für die vier TEGW-Schulen, inklusive Notendurchschnitt und Erkennung neuer Einträge für eigene Benachrichtigungen.",
+        "ru": "Первый релиз: школьное расписание, домашние задания, замечания и оценки для четырёх школ TEGW, включая средний балл и обнаружение новых записей для собственных уведомлений.",
+        "pt": "Lançamento inicial: horário escolar, deveres de casa, observações e notas das quatro escolas TEGW, incluindo médias de notas e deteção de novas entradas para notificações próprias.",
+        "nl": "Eerste release: schoolrooster, huiswerk, opmerkingen en cijfers voor de vier TEGW-scholen, inclusief cijfergemiddelden en detectie van nieuwe items voor eigen meldingen.",
+        "fr": "Première version : emploi du temps scolaire, devoirs, remarques et notes pour les quatre écoles TEGW, y compris les moyennes de notes et la détection de nouvelles entrées pour vos propres notifications.",
+        "it": "Prima versione: orario scolastico, compiti, note e voti per le quattro scuole TEGW, incluse le medie dei voti e il rilevamento di nuove voci per notifiche personalizzate.",
+        "es": "Primera versión: horario escolar, tareas, observaciones y notas de las cuatro escuelas TEGW, incluyendo promedios de notas y detección de nuevas entradas para notificaciones propias.",
+        "pl": "Pierwsze wydanie: plan lekcji, zadania domowe, uwagi i oceny dla czterech szkół TEGW, w tym średnie ocen i wykrywanie nowych wpisów do własnych powiadomień.",
+        "uk": "Перший випуск: шкільний розклад, домашні завдання, зауваження та оцінки для чотирьох шкіл TEGW, включно із середнім балом і виявленням нових записів для власних сповіщень.",
+        "zh-cn": "首次发布：为四所TEGW学校提供课程表、作业、评语和成绩，包括平均成绩和用于自定义通知的新条目检测。"
       }
     },
-    "title": "ESmobil",
     "titleLang": {
       "en": "ESmobil",
-      "de": "ESmobil"
+      "de": "ESmobil",
+      "ru": "ESmobil",
+      "pt": "ESmobil",
+      "nl": "ESmobil",
+      "fr": "ESmobil",
+      "it": "ESmobil",
+      "es": "ESmobil",
+      "pl": "ESmobil",
+      "uk": "ESmobil",
+      "zh-cn": "ESmobil"
     },
     "desc": {
       "en": "Reads the school timetable (VpMobil/Indiware) and homework/remarks/grades (Home.InfoPoint) for one of the four TEGW schools (EOSW, EGW, EOSH, EGL). Not usable outside this school group - server addresses are built in per school, not user-configurable.",
-      "de": "Liest den Stundenplan (VpMobil/Indiware) sowie Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für eine der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL). Außerhalb dieses Schulverbunds nicht nutzbar - die Serveradressen sind je Schule fest hinterlegt, nicht frei konfigurierbar."
+      "de": "Liest den Stundenplan (VpMobil/Indiware) sowie Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für eine der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL). Außerhalb dieses Schulverbunds nicht nutzbar - die Serveradressen sind je Schule fest hinterlegt, nicht frei konfigurierbar.",
+      "ru": "Считывает школьное расписание (VpMobil/Indiware), а также домашние задания, замечания и оценки (Home.InfoPoint) для одной из четырёх школ TEGW (EOSW, EGW, EOSH, EGL). Не может использоваться за пределами этого школьного объединения - адреса серверов заданы для каждой школы и не настраиваются пользователем.",
+      "pt": "Lê o horário escolar (VpMobil/Indiware), bem como os deveres de casa, observações e notas (Home.InfoPoint) de uma das quatro escolas TEGW (EOSW, EGW, EOSH, EGL). Não utilizável fora deste grupo escolar - os endereços dos servidores são fixos por escola e não configuráveis pelo utilizador.",
+      "nl": "Leest het schoolrooster (VpMobil/Indiware) en huiswerk, opmerkingen en cijfers (Home.InfoPoint) voor een van de vier TEGW-scholen (EOSW, EGW, EOSH, EGL). Niet bruikbaar buiten deze schoolgroep - serveradressen zijn per school vastgelegd en niet door de gebruiker instelbaar.",
+      "fr": "Lit l'emploi du temps scolaire (VpMobil/Indiware) ainsi que les devoirs, remarques et notes (Home.InfoPoint) pour l'une des quatre écoles TEGW (EOSW, EGW, EOSH, EGL). Non utilisable en dehors de ce groupe scolaire - les adresses des serveurs sont fixées par école et ne sont pas configurables par l'utilisateur.",
+      "it": "Legge l'orario scolastico (VpMobil/Indiware) e i compiti, le note e i voti (Home.InfoPoint) per una delle quattro scuole TEGW (EOSW, EGW, EOSH, EGL). Non utilizzabile al di fuori di questo gruppo scolastico - gli indirizzi dei server sono fissi per ogni scuola e non configurabili dall'utente.",
+      "es": "Lee el horario escolar (VpMobil/Indiware) así como las tareas, observaciones y notas (Home.InfoPoint) de una de las cuatro escuelas TEGW (EOSW, EGW, EOSH, EGL). No se puede usar fuera de este grupo escolar - las direcciones del servidor están fijadas por escuela y no son configurables por el usuario.",
+      "pl": "Odczytuje plan lekcji (VpMobil/Indiware) oraz zadania domowe, uwagi i oceny (Home.InfoPoint) dla jednej z czterech szkół TEGW (EOSW, EGW, EOSH, EGL). Nieprzydatny poza tą grupą szkół - adresy serwerów są ustalone dla każdej szkoły i nie są konfigurowalne przez użytkownika.",
+      "uk": "Зчитує шкільний розклад (VpMobil/Indiware), а також домашні завдання, зауваження та оцінки (Home.InfoPoint) для однієї з чотирьох шкіл TEGW (EOSW, EGW, EOSH, EGL). Не може використовуватися поза межами цього шкільного об'єднання - адреси серверів визначені для кожної школи і не налаштовуються користувачем.",
+      "zh-cn": "读取四所TEGW学校（EOSW、EGW、EOSH、EGL）之一的课程表（VpMobil/Indiware）以及作业、评语和成绩（Home.InfoPoint）。不能在此学校联盟之外使用 - 服务器地址按学校固定设置，用户无法配置。"
     },
     "authors": [
       "Maik Ries <iobroker@ne-xt.de>",
@@ -86,51 +81,52 @@
       "hartmannsdorf",
       "lichtenstein"
     ],
-    "license": "MIT",
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "esmobil.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/beabel/ioBroker.ESmobil/main/admin/esmobil.png",
+    "extIcon": "https://raw.githubusercontent.com/beabel/ioBroker.esmobil/main/admin/esmobil.png",
     "type": "date-and-time",
     "mode": "daemon",
+    "tier": 3,
     "compact": true,
     "connectionType": "cloud",
     "dataSource": "poll",
     "adminUI": {
       "config": "json"
     },
-    "materialize": true,
     "dependencies": [
       {
-        "js-controller": ">=5.0.0"
+        "js-controller": ">=6.0.11"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=6.0.0"
+        "admin": ">=7.6.20"
       }
-    ],
-    "protectedNative": [
-      "vpPassword",
-      "haPassword"
-    ],
-    "encryptedNative": [
-      "vpPassword",
-      "haPassword"
-    ],
-    "native": {
-      "school": "eosw",
-      "klasse": "",
-      "vpUsername": "schueler",
-      "vpPassword": "",
-      "haUsername": "",
-      "haPassword": "",
-      "pollHomeworkEtc": true,
-      "pollIntervalMinutes": 30
-    }
+    ]
   },
-  "native": {},
+  "protectedNative": [
+    "vpPassword",
+    "haPassword"
+  ],
+  "encryptedNative": [
+    "vpPassword",
+    "haPassword"
+  ],
+  "native": {
+    "school": "eosw",
+    "klasse": "",
+    "vpUsername": "schueler",
+    "vpPassword": "",
+    "haUsername": "",
+    "haPassword": "",
+    "pollHomeworkEtc": true,
+    "pollIntervalMinutes": 30
+  },
   "objects": [],
   "instanceObjects": [
     {

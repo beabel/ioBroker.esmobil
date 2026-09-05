@@ -1,6 +1,6 @@
 {
   "type": "panel",
-  "i18n": true,
+  "i18n": false,
   "items": {
     "_schoolHeader": {
       "type": "header",
@@ -25,7 +25,9 @@
       "newLine": true,
       "xs": 12,
       "sm": 12,
-      "md": 6
+      "md": 6,
+      "lg": 6,
+      "xl": 6
     },
     "_egshHint": {
       "type": "staticText",
@@ -34,7 +36,12 @@
         "en": "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.",
         "de": "Hinweis: Die Stundenplan-Adresse für EOSH ist in der Referenz-App unbestätigt (nach dem Muster der anderen Schulen geraten, nie verifiziert) - bitte nach dem ersten Lauf genau prüfen, ob echte Daten ankommen."
       },
-      "hidden": "data.school !== 'eosh'"
+      "hidden": "data.school !== 'eosh'",
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_eglHint": {
       "type": "staticText",
@@ -43,7 +50,12 @@
         "en": "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.",
         "de": "Hinweis: Diese Schule hat keinen Stundenplan über VpMobil - nur Hausaufgaben/Bemerkungen/Zensuren weiter unten sind verfügbar."
       },
-      "hidden": "data.school !== 'egl'"
+      "hidden": "data.school !== 'egl'",
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "_vpHeader": {
       "type": "header",
@@ -65,6 +77,8 @@
       "xs": 12,
       "sm": 12,
       "md": 6,
+      "lg": 6,
+      "xl": 6,
       "hidden": "data.school === 'egl'"
     },
     "vpUsername": {
@@ -77,6 +91,8 @@
       "xs": 12,
       "sm": 12,
       "md": 6,
+      "lg": 6,
+      "xl": 6,
       "hidden": "data.school === 'egl'"
     },
     "vpPassword": {
@@ -88,6 +104,8 @@
       "xs": 12,
       "sm": 12,
       "md": 6,
+      "lg": 6,
+      "xl": 6,
       "hidden": "data.school === 'egl'"
     },
     "_haHeader": {
@@ -108,7 +126,9 @@
       "newLine": true,
       "xs": 12,
       "sm": 12,
-      "md": 12
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     },
     "haUsername": {
       "type": "text",
@@ -120,6 +140,8 @@
       "xs": 12,
       "sm": 12,
       "md": 6,
+      "lg": 6,
+      "xl": 6,
       "hidden": "!data.pollHomeworkEtc"
     },
     "haPassword": {
@@ -131,6 +153,8 @@
       "xs": 12,
       "sm": 12,
       "md": 6,
+      "lg": 6,
+      "xl": 6,
       "hidden": "!data.pollHomeworkEtc"
     },
     "_pollHeader": {
@@ -152,7 +176,9 @@
       "newLine": true,
       "xs": 12,
       "sm": 12,
-      "md": 6
+      "md": 6,
+      "lg": 6,
+      "xl": 6
     },
     "_pollHint": {
       "type": "staticText",
@@ -160,7 +186,12 @@
       "text": {
         "en": "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.",
         "de": "Dieser Adapter ist ausschließlich für die vier TEGW-Schulen gedacht (die Serveradressen sind je Schule fest hinterlegt). Er läuft dauerhaft im Hintergrund, ruft die Daten sofort nach jedem (Neu-)Start ab und danach in diesem Intervall erneut."
-      }
+      },
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
     }
   }
 }

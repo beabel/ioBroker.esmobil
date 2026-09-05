@@ -9,173 +9,169 @@
 
 ## ESmobil adapter for ioBroker
 
-ioBroker-Adapter für Stundenplan (**VpMobil/Indiware**) und Hausaufgaben/Bemerkungen/
-Zensuren (**Home.InfoPoint**) - **ausschließlich für die vier Schulen des
-TEGW-Schulverbunds**:
+ioBroker adapter for the school timetable (**VpMobil/Indiware**) and homework/
+remarks/grades (**Home.InfoPoint**) - **exclusively for the four schools of
+the TEGW school group**:
 
 - **EOSW** - Europäische Oberschule Waldenburg
 - **EGW** - Europäisches Gymnasium Waldenburg
 - **EOSH** - Europäische Oberschule Hartmannsdorf
 - **EGL** - Europäische Grundschule Lichtenstein
 
-Dies ist bewusst **kein** generischer VpMobil/Indiware-Adapter: die Server-Adressen
-sind je Schule fest im Code hinterlegt (sie sind kein Geheimnis, siehe unten), nicht
-frei konfigurierbar. In der Adapter-Konfiguration wird nur die eigene Schule aus einer
-festen Liste ausgewählt. Namensgeber und Datenquelle für dieses Wissen ist die
-Android-App **ESmobil** desselben Verbunds - dieser Adapter portiert deren
-VpMobil-/Home.InfoPoint-Anbindung 1:1 nach Node.js.
+This is deliberately **not** a generic VpMobil/Indiware adapter: the server
+addresses are hard-coded per school (see below), not freely configurable. The
+adapter configuration only lets you pick your own school from a fixed list.
+The name and the knowledge behind this adapter come from the Android app
+**ESmobil** used by the same school group - this adapter ports its VpMobil/
+Home.InfoPoint integration 1:1 to Node.js.
 
-Der Adapter läuft dauerhaft im Hintergrund (Daemon-Modus, wie die meisten
-ioBroker-Adapter - kein Cronjob): er ruft die konfigurierten Quellen sofort
-beim Start ab und danach in einem einstellbaren Intervall erneut (Standard:
-alle 30 Minuten, einstellbar in der Adapter-Konfiguration).
+The adapter runs continuously in the background (daemon mode, like most
+ioBroker adapters - no cron job): it fetches the configured sources
+immediately on start, and again on a configurable interval afterwards
+(default: every 30 minutes).
 
-Dieser Adapter ist ein unabhängiges Community-Projekt und steht in keiner
-Verbindung zu den Betreibern von VpMobil/Indiware oder Home.InfoPoint.
+This adapter is an independent community project and has no connection to
+the operators of VpMobil/Indiware or Home.InfoPoint.
 
-## Was funktioniert bei welcher Schule?
+## What works for which school?
 
-| Schule | Stundenplan (VpMobil) | Hausaufgaben/Bemerkungen/Zensuren (Home.InfoPoint) |
+| School | Timetable (VpMobil) | Homework/remarks/grades (Home.InfoPoint) |
 | --- | --- | --- |
 | EOSW | ✅ | ✅ |
-| EGW | ✅ (teilt sich die VpMobil-Instanz mit EOSW, eigener Home.InfoPoint-Bereich) | ✅ |
-| EOSH | ⚠️ **unbestätigt** - Adresse nach dem Muster der anderen Schulen geraten, nie verifiziert (siehe `lib/schools.js`) | ✅ |
-| EGL | ❌ kein VpMobil-Stundenplan vorhanden | ✅ |
+| EGW | ✅ (shares the VpMobil instance with EOSW, own Home.InfoPoint area) | ✅ |
+| EOSH | ⚠️ **unconfirmed** - address guessed from the pattern of the other schools, never verified (see `lib/schools.js`) | ✅ |
+| EGL | ❌ no VpMobil timetable available | ✅ |
 
-Der Adapter blendet den Stundenplan-Teil der Konfiguration für EGL automatisch aus
-und warnt beim Start zusätzlich im Log, wenn EOSH gewählt ist, damit die
-unbestätigte Adresse nicht unbemerkt bleibt.
+The adapter automatically hides the timetable part of the configuration for
+EGL, and additionally logs a warning on start if EOSH is selected, so the
+unconfirmed address doesn't go unnoticed.
 
-## Konfiguration
+## Configuration
 
-### Schule
+### School
 
-Auswahl aus den vier oben genannten Schulen. Alles Weitere (Server-Adressen) wird
-daraus automatisch abgeleitet.
+Choose one of the four schools listed above. Everything else (server
+addresses) is derived from that automatically.
 
-### Stundenplan (VpMobil / Indiware)
+### Timetable (VpMobil / Indiware)
 
-Nur sichtbar, wenn die gewählte Schule einen Stundenplan hat (nicht bei EGL).
+Only visible if the selected school has a timetable (not for EGL).
 
-| Feld | Beschreibung |
+| Field | Description |
 | --- | --- |
-| Klasse | Klassenname genau wie von VpMobil geliefert, z. B. `08m2` |
-| Benutzername | Schulweit gleicher Zugang, kein persönliches Login - ist mit `schueler` vorbelegt |
-| Passwort | Schulweit gleiches VpMobil-Passwort |
+| Class | Class name exactly as reported by VpMobil, e.g. `08m2` |
+| Username | School-wide login, not personal - defaults to `schueler` |
+| Password | School-wide VpMobil password |
 
-### Hausaufgaben / Bemerkungen / Zensuren (Home.InfoPoint)
+### Homework / remarks / grades (Home.InfoPoint)
 
-Optional, über die Checkbox "Auch Hausaufgaben, Bemerkungen und Zensuren
-abrufen" aktivierbar - für alle vier Schulen verfügbar.
+Optional, enabled via the "Also fetch homework, remarks and grades" checkbox
+- available for all four schools.
 
-| Feld | Beschreibung |
+| Field | Description |
 | --- | --- |
-| Benutzername / Passwort | Persönlicher Zugang der Schülerin/des Schülers |
+| Username / Password | Personal login of the student |
 
-## State-Baum
+## State tree
 
 ```
-esmobil.0.info.connection          boolean  - mindestens eine Quelle erfolgreich abgerufen
-esmobil.0.plan.day1.date           string   - Datum (yyyy-MM-dd) des Montags der Schulwoche
-esmobil.0.plan.day1.sourceTimestamp string  - Stand der Daten laut Server
-esmobil.0.plan.day1.lessonCount    number   - Anzahl Stunden
-esmobil.0.plan.day1.lessons        string   - Stunden als JSON-Array
-esmobil.0.plan.day2.* ... plan.day5.*       - dieselben States für Dienstag bis Freitag derselben Woche
-esmobil.0.plan.week.days           string   - kompletter Wochenplan (day1-day5) als ein JSON-Array, siehe unten
-esmobil.0.homework.count           number   - Anzahl Hausaufgaben-Einträge
-esmobil.0.homework.entries         string   - Hausaufgaben als JSON-Array
-esmobil.0.homework.newCount        number   - Anzahl NEUER Hausaufgaben seit dem letzten Abruf
-esmobil.0.homework.newEntries      string   - neue Hausaufgaben seit dem letzten Abruf, als JSON-Array
-esmobil.0.remarks.count            number   - Anzahl Bemerkungen
-esmobil.0.remarks.entries          string   - Bemerkungen als JSON-Array
-esmobil.0.remarks.newCount         number   - Anzahl NEUER Bemerkungen seit dem letzten Abruf
-esmobil.0.remarks.newEntries       string   - neue Bemerkungen seit dem letzten Abruf, als JSON-Array
-esmobil.0.grades.subjectCount      number   - Anzahl Fächer MIT mindestens einer Zensur
-esmobil.0.grades.bySubject         string   - alle Fächer als JSON-Objekt (auch Fächer ganz ohne Zensur)
-esmobil.0.grades.subjects.<fach>.label       string - Fachlabel, z. B. "DE - Deutsch (Schuster)"
-esmobil.0.grades.subjects.<fach>.count       number - Anzahl Zensuren in diesem Fach
-esmobil.0.grades.subjects.<fach>.average     number - Durchschnitt dieses Fachs als Zahl, z. B. 1.7
-esmobil.0.grades.subjects.<fach>.averageNote string - Durchschnitt dieses Fachs als Zensur, z. B. "2+"
-esmobil.0.grades.subjects.<fach>.entries     string - Zensuren dieses Fachs als JSON-Array
-esmobil.0.grades.overallAverage    number   - Durchschnitt über alle Fächer zusammen als Zahl (je Einzelnote, nicht je Fach gewichtet)
-esmobil.0.grades.overallAverageNote string  - derselbe Durchschnitt als Zensur
-esmobil.0.grades.newCount          number   - Anzahl NEUER Zensuren seit dem letzten Abruf
-esmobil.0.grades.newEntries        string   - neue Zensuren seit dem letzten Abruf, als JSON-Array (inkl. Fach)
-esmobil.0.info.newItemsCount       number   - neue Hausaufgaben+Bemerkungen+Zensuren in diesem Abruf zusammen
-esmobil.0.info.lastNewAt           string   - Zeitpunkt (ISO) des letzten Abrufs mit mindestens einem neuen Eintrag
+esmobil.0.info.connection          boolean  - at least one source was fetched successfully
+esmobil.0.plan.day1.date           string   - date (yyyy-MM-dd) of the Monday of the school week
+esmobil.0.plan.day1.sourceTimestamp string  - data timestamp reported by the server
+esmobil.0.plan.day1.lessonCount    number   - number of lessons
+esmobil.0.plan.day1.lessons        string   - lessons as a JSON array
+esmobil.0.plan.day2.* ... plan.day5.*       - the same states for Tuesday through Friday of the same week
+esmobil.0.plan.week.days           string   - the complete week plan (day1-day5) as one JSON array, see below
+esmobil.0.homework.count           number   - number of homework entries
+esmobil.0.homework.entries         string   - homework as a JSON array
+esmobil.0.homework.newCount        number   - number of NEW homework entries since the last poll
+esmobil.0.homework.newEntries      string   - new homework entries since the last poll, as a JSON array
+esmobil.0.remarks.count            number   - number of remarks
+esmobil.0.remarks.entries          string   - remarks as a JSON array
+esmobil.0.remarks.newCount         number   - number of NEW remarks since the last poll
+esmobil.0.remarks.newEntries       string   - new remarks since the last poll, as a JSON array
+esmobil.0.grades.subjectCount      number   - number of subjects WITH at least one grade
+esmobil.0.grades.bySubject         string   - all subjects as a JSON object (including subjects without any grade)
+esmobil.0.grades.subjects.<subject>.label       string - subject label, e.g. "DE - Deutsch (Schuster)"
+esmobil.0.grades.subjects.<subject>.count       number - number of grades for this subject
+esmobil.0.grades.subjects.<subject>.average     number - average of this subject as a number, e.g. 1.7
+esmobil.0.grades.subjects.<subject>.averageNote string - average of this subject as a grade, e.g. "2+"
+esmobil.0.grades.subjects.<subject>.entries     string - grades of this subject as a JSON array
+esmobil.0.grades.overallAverage    number   - average across all subjects as a number (weighted per grade, not per subject)
+esmobil.0.grades.overallAverageNote string  - the same average as a grade
+esmobil.0.grades.newCount          number   - number of NEW grades since the last poll
+esmobil.0.grades.newEntries        string   - new grades since the last poll, as a JSON array (including subject)
+esmobil.0.info.newItemsCount       number   - new homework+remarks+grades combined in this poll
+esmobil.0.info.lastNewAt           string   - timestamp (ISO) of the last poll that found at least one new entry
 ```
 
-### Benachrichtigt werden, wenn es etwas Neues gibt
+### Getting notified when something new arrives
 
-Der Adapter selbst verschickt keine Push-Nachrichten (er kennt eure
-Telegram/Pushover/etc.-Einrichtung nicht) - er liefert aber alles, was eine
-eigene Automatisierung (Skript, Blockly, Node-RED) dafür braucht:
+The adapter itself does not send push notifications (it doesn't know your
+Telegram/Pushover/etc. setup) - but it provides everything a custom
+automation (script, Blockly, Node-RED) needs for that:
 
-- `esmobil.0.info.lastNewAt` ändert sich **ausschließlich** dann, wenn ein
-  Abruf mindestens einen neuen Eintrag gefunden hat - der zuverlässigste
-  Auslösepunkt für "on state change", da er nicht durch zwei aufeinander-
-  folgende gleich große Neuzugänge "verschluckt" werden kann (anders als ein
-  simpler true/false- oder Zähler-State, der bei gleichem Wert u. U. keine
-  erneute Änderung auslöst).
-- `esmobil.0.info.newItemsCount` sowie `homework.newCount`/`remarks.newCount`/
-  `grades.newCount` sagen, wie viele es waren.
-- `homework.newEntries`/`remarks.newEntries`/`grades.newEntries` enthalten
-  die neuen Einträge selbst (Text für die Nachricht).
+- `esmobil.0.info.lastNewAt` changes **only** when a poll found at least one
+  new entry - the most reliable trigger point for "on state change", since it
+  can't be "swallowed" by two consecutive same-sized batches of new entries
+  (unlike a simple true/false or counter state, which might not trigger again
+  on an identical value).
+- `esmobil.0.info.newItemsCount` as well as `homework.newCount`/
+  `remarks.newCount`/`grades.newCount` say how many there were.
+- `homework.newEntries`/`remarks.newEntries`/`grades.newEntries` contain the
+  new entries themselves (text for the notification).
 
-Beispiel für ein einfaches JavaScript-Adapter-Skript:
+Example of a simple JavaScript adapter script:
 
 ```js
 on({ id: 'esmobil.0.info.lastNewAt', change: 'ne' }, () => {
     const homework = JSON.parse(getState('esmobil.0.homework.newEntries').val);
     const grades = JSON.parse(getState('esmobil.0.grades.newEntries').val);
-    // hier z. B. sendTo('telegram.0', 'send', { text: '...' });
+    // e.g. sendTo('telegram.0', 'send', { text: '...' });
 });
 ```
 
-Auf dem allerersten Lauf nach Installation/Update gilt nichts als "neu"
-(sonst würden alle bereits bestehenden Einträge einmalig als neu gemeldet) -
-erst ab dem zweiten Abruf werden echte Neuzugänge erkannt.
+On the very first poll after installation/update, nothing counts as "new"
+(otherwise all existing entries would be reported as new once) - genuine new
+entries are only detected starting with the second poll.
 
-`plan.day1` bis `plan.day5` entsprechen immer Montag bis Freitag einer
-echten Kalenderwoche - nicht "die nächsten 5 verfügbaren Tage". An einem
-Werktag ist das die laufende Woche (auch bereits vergangene Wochentage
-darin, damit die Wochenansicht immer vollständig ist), an einem Samstag/
-Sonntag bereits die kommende Woche. Tage ohne Daten vom Server (z. B. Ferien,
-oder ein bereits vergangener Wochentag, den VpMobil nicht mehr vorhält)
-liefern ein korrektes Datum mit `lessonCount: 0` und leerem `lessons`-Array,
-statt zu fehlen. Bei EGL bleiben alle diese States leer, da dort kein
-VpMobil-Stundenplan existiert.
+`plan.day1` through `plan.day5` always represent Monday through Friday of a
+real calendar week - not "the next 5 available days". On a weekday, that's
+the current week (including already-past weekdays, so the week view is
+always complete); on a Saturday/Sunday, it's already the upcoming week. Days
+without data from the server (e.g. holidays, or a past weekday VpMobil no
+longer keeps) still report the correct date with `lessonCount: 0` and an
+empty `lessons` array, instead of being missing. For EGL, all these states
+stay empty since there is no VpMobil timetable there.
 
-Für eine Wochenansicht (z. B. in einem eigenen Dashboard/vis-Widget) am
-einfachsten `plan.week.days` verwenden - ein einzelnes JSON-Array mit allen
-fünf Tagen in der Form:
+For a week view (e.g. in your own dashboard/vis widget), the simplest option
+is `plan.week.days` - a single JSON array with all five days in this form:
 
 ```json
 [
-  { "weekday": "Montag", "date": "2026-09-07", "sourceTimestamp": "04.09.2026, 10:36", "lessons": [ /* wie unten */ ] },
-  { "weekday": "Dienstag", "date": "2026-09-08", "sourceTimestamp": "...", "lessons": [] }
+  { "weekday": "Monday", "date": "2026-09-07", "sourceTimestamp": "04.09.2026, 10:36", "lessons": [ /* see below */ ] },
+  { "weekday": "Tuesday", "date": "2026-09-08", "sourceTimestamp": "...", "lessons": [] }
 ]
 ```
 
-Home.InfoPoint listet auf der Zensuren-Seite grundsätzlich **alle** Fächer der
-Klasse, auch solche ganz ohne eingetragene Note (dort steht dann nur eine
-leere Tabelle) - `grades.subjectCount`/`grades.bySubject` würden das sonst
-mitzählen. Für eine übersichtliche, browsbare Darstellung in Admin →
-Objekte gibt es deshalb zusätzlich pro Fach **mit mindestens einer Zensur**
-einen eigenen Kanal `grades.subjects.<fachkürzel>` (z. B.
-`grades.subjects.de`, `grades.subjects.bio`) mit `label`, `count`,
-`average`, `averageNote` und `entries`. Fächer ohne jede Zensur bekommen
-absichtlich keinen eigenen Kanal, um die Objektliste nicht mit leeren
-Einträgen zu überladen - sie tauchen nur (mit leerem Array) in
-`grades.bySubject` auf.
+Home.InfoPoint's grades page always lists **all** subjects of the class,
+including ones without any recorded grade (shown as an empty table there) -
+`grades.subjectCount`/`grades.bySubject` would otherwise count those too. For
+a clear, browsable view in Admin → Objects, every subject **with at least one
+grade** therefore also gets its own channel `grades.subjects.<subject-code>`
+(e.g. `grades.subjects.de`, `grades.subjects.bio`) with `label`, `count`,
+`average`, `averageNote` and `entries`. Subjects without any grade
+deliberately don't get their own channel, to avoid cluttering the object list
+with empty entries - they only appear (with an empty array) in
+`grades.bySubject`.
 
-`average` zeigt den Durchschnitt als Zahl (z. B. 1.7), `averageNote` denselben
-Durchschnitt als Zensur (z. B. "2+"). Zensuren, die sich nicht eindeutig als
-Note interpretieren lassen (z. B. Freitext), fließen nicht in den Durchschnitt
-ein, zählen aber weiterhin zu `count`. `grades.overallAverage`/
-`overallAverageNote` bilden denselben Durchschnitt über alle Fächer hinweg.
+`average` shows the average as a number (e.g. 1.7), `averageNote` the same
+average as a grade (e.g. "2+"). Grades that can't be clearly interpreted as a
+grade (e.g. free text) don't count towards the average, but still count
+towards `count`. `grades.overallAverage`/`overallAverageNote` form the same
+average across all subjects.
 
-Ein `lessons`-Eintrag hat die Form:
+A `lessons` entry has the form:
 
 ```json
 {
@@ -185,10 +181,23 @@ Ein `lessons`-Eintrag hat die Form:
   "subjects": ["MA"],
   "teacher": "Mül",
   "room": "101",
-  "info": "Vertretung",
+  "info": "substitution",
   "changed": true
 }
 ```
+
+## Changelog
+
+### 0.5.0 (2026-09-05)
+* Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English
+
+### 0.4.0 (2026-09-05)
+Initial release.
+* Timetable (VpMobil/Indiware) as a real calendar school week (Monday-Friday, `plan.day1`-`plan.day5`) for EOSW/EGW/EOSH/EGL, including a bundled `plan.week.days` JSON
+* Homework, remarks and grades (Home.InfoPoint) for all four schools, including grade averages per subject (`grades.subjects.<subject>.average`/`.averageNote`) and overall (`grades.overallAverage`/`.overallAverageNote`)
+* Detection of new entries (`info.lastNewAt`/`info.newItemsCount`, `*.newCount`/`*.newEntries`) as a basis for your own notification automations
+* Runs as a daemon (no cron job): immediate first poll, then a configurable interval
+* School selection instead of free-form URL configuration - server addresses are hard-coded per school; the EOSH timetable address is marked as unconfirmed and logged accordingly on start
 
 ## License
 
@@ -213,19 +222,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-## Changelog
-
-### 0.4.5 (2026-09-05)
-* Dokumentation überarbeitet
-
-### 0.4.4 (2026-09-05)
-* Kleinere interne Korrektur an den Paket-Metadaten (keine Funktionsänderung)
-
-### 0.4.3 (2026-09-05)
-Erstveröffentlichung.
-* Stundenplan (VpMobil/Indiware) als echte Kalender-Schulwoche (Montag-Freitag, `plan.day1`-`plan.day5`) für EOSW/EGW/EOSH/EGL, inkl. gebündeltem `plan.week.days`-JSON
-* Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für alle vier Schulen, inkl. Notendurchschnitt je Fach (`grades.subjects.<fach>.average`/`.averageNote`) und gesamt (`grades.overallAverage`/`.overallAverageNote`)
-* Erkennung neuer Einträge (`info.lastNewAt`/`info.newItemsCount`, `*.newCount`/`*.newEntries`) als Basis für eigene Benachrichtigungs-Automatisierungen
-* Läuft als Daemon (kein Cronjob): sofortiger erster Abruf, danach konfigurierbares Intervall
-* Schulauswahl statt freier URL-Konfiguration - Serveradressen sind je Schule fest hinterlegt; EOSH-Stundenplanadresse ist als unbestätigt markiert und wird beim Start entsprechend geloggt
