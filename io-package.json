@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "news": {
+      "0.4.3": {
+        "en": "Moved pure helper functions into lib/helpers.js so the test suite could finally run (requiring main.js directly pulled in @iobroker/adapter-core, which force-exits when not run inside a real ioBroker installation) - all 78 tests now pass",
+        "de": "Reine Hilfsfunktionen nach lib/helpers.js ausgelagert, damit die Testsuite endlich läuft (main.js direkt zu requiren zog @iobroker/adapter-core mit, das außerhalb einer echten ioBroker-Installation zwangsweise abbricht) - alle 78 Tests laufen jetzt grün"
+      },
       "0.4.2": {
         "en": "Fixed common.type: \"school\" is not a valid ioBroker adapter category - switched to the official \"date-and-time\" category (schedules/calendars)",
         "de": "common.type korrigiert: \"school\" ist keine gültige ioBroker-Adapterkategorie - auf die offizielle Kategorie \"date-and-time\" (Zeitpläne/Kalender) umgestellt"

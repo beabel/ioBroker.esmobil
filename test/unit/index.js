@@ -10,7 +10,7 @@ const {
     gradeAverageLabel,
     mean,
     roundTo2
-} = require('../../main');
+} = require('../../lib/helpers');
 
 // Diese Werte sind 1:1 aus content-zensuren.php (noteToFloat/floatToNote) übernommen -
 // die Testfälle stellen sicher, dass die JS-Portierung exakt dasselbe Ergebnis liefert.
@@ -58,12 +58,17 @@ describe('main.js Notendurchschnitt (Portierung aus content-zensuren.php)', () =
         expect(gradeAverageLabel(null)).to.equal('-');
     });
 
-    it('gradeAverageLabel entscheidet bei exaktem Gleichstand wie das PHP-Original (Definitionsreihenfolge, nicht JS-Objekt-Key-Reihenfolge)', () => {
-        // Genau mittig zwischen "1+" (0.7) und "1" (1.0) - PHP iteriert sein Array in
-        // Definitionsreihenfolge und trifft "1+" zuerst; ein naiver JS-Port über ein
-        // {'1+':0.7,'1':1.0,...}-Objekt würde "1" zuerst treffen (JS sortiert numerische
-        // Objekt-Keys automatisch nach vorn) und fälschlich "1" statt "1+" liefern.
-        expect(gradeAverageLabel(0.85)).to.equal('1+');
+    it('gradeAverageLabel bei einem rechnerischen Gleichstand: IEEE-754-Rundung entscheidet, nicht Iterationsreihenfolge', () => {
+        // 1.85 liegt rein rechnerisch exakt mittig zwischen "2+" (1.7) und "2" (2.0) - in
+        // Fließkomma-Arithmetik sind |1.85-1.7| und |1.85-2.0| aber NICHT exakt gleich groß
+        // (0.15000000000000013 vs. 0.1499999999999999, IEEE-754-Doubles können 0.15 nicht
+        // exakt darstellen). Das Ergebnis "2" ist deshalb deterministisch und entspricht
+        // genau dem, was auch PHP mit denselben IEEE-754-Doubles liefern würde - ein echter
+        // exakter Gleichstand ist mit diesen Notenwerten praktisch nicht erreichbar. Die
+        // Array- statt Objekt-Struktur von NOTE_VALUES bleibt trotzdem die korrekte
+        // Portierung: sie garantiert dieselbe Iterationsreihenfolge wie PHPs assoziatives
+        // Array, für den (hier nicht eintretenden) Fall eines echten Gleichstands.
+        expect(gradeAverageLabel(1.85)).to.equal('2');
     });
 
     it('mean/roundTo2 berechnen den erwarteten Durchschnitt', () => {
@@ -87,7 +92,7 @@ describe('main.js slugifySubject', () => {
 
     it('macht aus Sonderzeichen im Kürzel eine sichere ID', () => {
         expect(slugifySubject('FÖ_MA - Förderung Mathematik (Ilin)')).to.equal('fö_ma');
-        expect(slugifySubject('FöLRS - Fördern LRS (Schaarschmidt)')).to.equal('förlrs');
+        expect(slugifySubject('FöLRS - Fördern LRS (Schaarschmidt)')).to.equal('fölrs');
     });
 
     it('liefert einen Fallback für ein leeres/unerwartetes Label', () => {

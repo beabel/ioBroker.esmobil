@@ -246,11 +246,13 @@ npm install
 npm test
 ```
 
-Der Adapter wurde auf einer Maschine ohne lokale Node.js-Installation
-geschrieben und daher bislang nicht selbst per `npm install`/`npm test`
-ausgeführt - vor der Veröffentlichung unbedingt `npm test` (Paket- und
-Unit-Tests) sowie einen echten Testlauf gegen alle vier Schulen durchführen,
-insbesondere gegen EOSH (siehe Tabelle oben).
+`npm test` läuft (44 Paket-Checks + 34 Unit-Tests, alle grün) und wurde vor
+Version 0.4.3 auch tatsächlich ausgeführt. Die Unit-Tests decken die reine
+Berechnungslogik ab (Notendurchschnitt, Wochenlogik, Slug-Erzeugung, HTML-/
+XML-Parsing) - ein echter Testlauf gegen die vier Schulserver selbst (echte
+Zugangsdaten, echtes Netzwerk) ist damit nicht ersetzt und sollte vor der
+Veröffentlichung zusätzlich einmal gemacht werden, insbesondere gegen EOSH
+(siehe Tabelle oben).
 
 ### Veröffentlichung / Aufnahme in die ioBroker-Adapterliste
 
@@ -316,10 +318,11 @@ SOFTWARE.
 
 ## Changelog
 
-### 0.4.2 (2026-09-04)
+### 0.4.3 (2026-09-05)
 Erstveröffentlichung.
 * Stundenplan (VpMobil/Indiware) als echte Kalender-Schulwoche (Montag-Freitag, `plan.day1`-`plan.day5`) für EOSW/EGW/EOSH/EGL, inkl. gebündeltem `plan.week.days`-JSON
 * Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für alle vier Schulen, inkl. Notendurchschnitt je Fach (`grades.subjects.<fach>.average`/`.averageNote`) und gesamt (`grades.overallAverage`/`.overallAverageNote`) - 1:1 aus dem bestehenden PHP-Referenzprojekt (`content-zensuren.php`) portiert
 * Erkennung neuer Einträge (`info.lastNewAt`/`info.newItemsCount`, `*.newCount`/`*.newEntries`) als Basis für eigene Benachrichtigungs-Automatisierungen
 * Läuft als Daemon (kein Cronjob): sofortiger erster Abruf, danach konfigurierbares Intervall
+* Reine Hilfsfunktionen in `lib/helpers.js` ausgelagert, damit die Testsuite unabhängig von einer echten ioBroker-Installation läuft - alle 78 Tests (`npm test`) jetzt erstmals ausgeführt und grün
 * Schulauswahl statt freier URL-Konfiguration - Serveradressen sind je Schule fest hinterlegt; EOSH-Stundenplanadresse ist als unbestätigt markiert und wird beim Start entsprechend geloggt
