@@ -33,13 +33,19 @@ class ESmobil extends utils.Adapter {
         // kurz je Cron-Tick und steht dazwischen auf "nicht aktiv" (kein dauerhaftes Grün in
         // der Instanzübersicht), und der erste Abruf käme erst zum nächsten Cron-Tick (bis zu
         // Intervalllänge Wartezeit). Als Daemon läuft der Adapter dauerhaft, ruft sofort beim
-        // Start einmal ab und danach im konfigurierten Intervall per Timer selbst weiter.
+        // Start einmal ab und plant den jeweils nächsten Abruf erst NACH Abschluss des
+        // aktuellen ein (selbst-nachplanender setTimeout statt setInterval) - so können sich
+        // bei einem langsamen/hängenden Abruf keine Aufrufe stapeln.
+        await this.pollAndReschedule();
+    }
+
+    async pollAndReschedule() {
         await this.poll();
         const minutes = Math.max(
             MIN_POLL_INTERVAL_MINUTES,
             Number(this.config.pollIntervalMinutes) || DEFAULT_POLL_INTERVAL_MINUTES
         );
-        this.pollTimer = this.setInterval(() => this.poll(), minutes * 60 * 1000);
+        this.pollTimer = this.setTimeout(() => this.pollAndReschedule(), minutes * 60 * 1000);
     }
 
     async poll() {
@@ -311,7 +317,7 @@ class ESmobil extends utils.Adapter {
     onUnload(callback) {
         try {
             if (this.pollTimer) {
-                this.clearInterval(this.pollTimer);
+                this.clearTimeout(this.pollTimer);
                 this.pollTimer = null;
             }
             callback();

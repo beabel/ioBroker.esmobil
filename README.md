@@ -188,8 +188,9 @@ A `lessons` entry has the form:
 
 ## Changelog
 
-### 0.5.0 (2026-09-05)
+### 0.5.1 (2026-09-05)
 * Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English
+* Polling now reschedules itself only after the previous poll finishes (instead of a fixed interval), avoiding overlapping requests if a poll runs long
 
 ### 0.4.0 (2026-09-05)
 Initial release.

@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "news": {
-      "0.5.0": {
+      "0.5.1": {
         "en": "Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English.",
         "de": "Metadaten und Abhängigkeits-Versionen des Adapters an die aktuellen Repository-Anforderungen angepasst; README ins Englische übersetzt.",
         "ru": "Исправлены метаданные адаптера и версии зависимостей в соответствии с текущими требованиями репозитория; README переведён на английский.",
