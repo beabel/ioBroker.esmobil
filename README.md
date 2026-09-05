@@ -169,9 +169,7 @@ absichtlich keinen eigenen Kanal, um die Objektliste nicht mit leeren
 Einträgen zu überladen - sie tauchen nur (mit leerem Array) in
 `grades.bySubject` auf.
 
-**Die Durchschnittsberechnung ist 1:1 aus einem bestehenden PHP-Projekt
-portiert** (`content-zensuren.php`, `noteToFloat`/`floatToNote`), damit
-beide Systeme exakt dieselben Werte liefern:
+**Regeln für die Durchschnittsberechnung:**
 
 - Als Zensur zählt **nur** eine einzelne Ziffer "1".."6" mit optionalem
   "+"/"-" (z. B. "2", "2+", "2-"). "+" verbessert den Wert um 0.3, "-"
@@ -181,12 +179,10 @@ beide Systeme exakt dieselben Werte liefern:
 - `average`/`grades.overallAverage` sind die daraus gemittelten Zahlenwerte
   (auf 2 Nachkommastellen gerundet).
 - `averageNote`/`grades.overallAverageNote` bilden diesen Zahlenwert wieder
-  auf die nächstgelegene "echte" Zensur-Schreibweise ab (z. B. 1.7 → "2+"),
-  exakt wie es die PHP-Seite als "⌀"-Anzeige zeigt. Ohne jede numerisch
-  auswertbare Zensur liefern beide "-".
-- `grades.overallAverage`/`overallAverageNote` gibt es im PHP-Original nicht
-  (dort nur je Fach) - als zusätzlicher Komfort-State über alle Fächer
-  hinweg, mit derselben Berechnung, gewichtet je Einzelnote (nicht je Fach).
+  auf die nächstgelegene "echte" Zensur-Schreibweise ab (z. B. 1.7 → "2+").
+  Ohne jede numerisch auswertbare Zensur liefern beide "-".
+- `grades.overallAverage`/`overallAverageNote` mitteln über alle Fächer
+  hinweg, gewichtet je Einzelnote (nicht je Fach).
 
 Ein `lessons`-Eintrag hat die Form:
 
@@ -205,7 +201,7 @@ Ein `lessons`-Eintrag hat die Form:
 
 ## Installation auf einer laufenden ioBroker-Instanz
 
-### Weg 1: über GitHub (sobald das Repo dort liegt)
+### Weg 1: über GitHub
 
 ```bash
 iobroker url https://github.com/beabel/ioBroker.ESmobil
@@ -213,7 +209,7 @@ iobroker url https://github.com/beabel/ioBroker.ESmobil
 
 Danach im Admin-Adapterbaum eine Instanz von "ESmobil" anlegen und konfigurieren.
 
-### Weg 2: manuelle Kopie (zum schnellen Testen ohne GitHub-Push)
+### Weg 2: manuelle Installation
 
 ```bash
 scp -r ioBroker.ESmobil root@iobroker-host:/opt/iobroker/node_modules/iobroker.esmobil
@@ -246,52 +242,6 @@ npm install
 npm test
 ```
 
-`npm test` läuft (44 Paket-Checks + 34 Unit-Tests, alle grün) und wurde vor
-Version 0.4.3 auch tatsächlich ausgeführt. Die Unit-Tests decken die reine
-Berechnungslogik ab (Notendurchschnitt, Wochenlogik, Slug-Erzeugung, HTML-/
-XML-Parsing) - ein echter Testlauf gegen die vier Schulserver selbst (echte
-Zugangsdaten, echtes Netzwerk) ist damit nicht ersetzt und sollte vor der
-Veröffentlichung zusätzlich einmal gemacht werden, insbesondere gegen EOSH
-(siehe Tabelle oben).
-
-### Veröffentlichung / Aufnahme in die ioBroker-Adapterliste
-
-Ein Install per `iobroker url <github-repo>` bleibt dauerhaft an genau dem
-Stand hängen, der zum Installationszeitpunkt im Repo lag - Admin kennt dabei
-keine "aktuell neueste Version" zum Vergleich und zeigt deshalb nie ein
-Update an. Damit normale Ein-Klick-Updates funktionieren, muss der Adapter:
-
-1. Als öffentliches npm-Paket veröffentlicht werden (`npm publish`, Paketname
-   `iobroker.esmobil` passend zu `package.json`). Erst danach existiert
-   überhaupt eine "Version X ist die neueste" - Information, die irgendwer
-   abfragen kann.
-2. Den offiziellen Adapter-Check bestehen (`@iobroker/repochecker`, bzw. der
-   Web-Check unter https://adapter-check.iobroker.in/) - prüft u. a. genau
-   die Dinge, die in diesem README bereits angepasst wurden (License-
-   Abschnitt, Changelog-Format/Version, package.json/io-package.json-
-   Konsistenz).
-3. Per Pull Request in `github.com/ioBroker/ioBroker.repositories`
-   (`sources-dist.json`) eingetragen werden. Erst ab dann taucht "ESmobil"
-   in Admin unter "Adapter" (Repository "latest") auf, und **erst ab dann**
-   erkennt Admin automatisch neue Versionen und bietet ein Update an -
-   vorher bleibt nur der manuelle Weg (Dateien erneut kopieren/`iobroker url`
-   erneut ausführen).
-
-Ein GitHub Actions Workflow für `npm test` liegt bereits unter
-[.github/workflows/test.yml](.github/workflows/test.yml) bei - das ist ein
-in der Praxis erwartetes Signal für Schritt 2, aber keine harte Voraussetzung.
-
-### Checkliste (Anforderungen für die ioBroker-Adapterliste)
-
-| Anforderung | Status |
-| --- | --- |
-| GitHub-Repository heißt exakt `ioBroker.<Adaptername>` (großes B) | ⚠️ Repo noch nicht angelegt - bitte exakt `ioBroker.ESmobil` verwenden |
-| `package.json`-Name komplett kleingeschrieben (`iobroker.<adaptername>`) | ✅ `"name": "iobroker.esmobil"` |
-| Repository-Topics gesetzt (`iobroker`, `smart-home`, `adapter`, ...), Wort "ioBroker" nicht im Repo-Titel/-Beschreibungstext | ⚠️ Reine GitHub-Repo-Einstellung, nach dem Anlegen manuell unter Settings → Topics/Description nachzutragen |
-| Gültige Open-Source-Lizenz (z. B. MIT) | ✅ MIT (`LICENSE`, `package.json`, `io-package.json`) |
-| Version via npm veröffentlicht | ❌ noch offen, braucht `npm publish` mit echtem npm-Account |
-| `common.type` aus der offiziellen Kategorie-Liste | ✅ `"date-and-time"` (geprüft gegen [ioBroker.repositories/README.md](https://github.com/ioBroker/ioBroker.repositories) - `"school"` existiert dort nicht) |
-
 ## License
 
 MIT License
@@ -319,13 +269,12 @@ SOFTWARE.
 ## Changelog
 
 ### 0.4.4 (2026-09-05)
-* `repository`/`homepage`/`bugs`-URLs in `package.json`/`io-package.json` korrigiert (mussten die tatsächliche, gemischt geschriebene GitHub-Repo-Adresse `ioBroker.ESmobil` referenzieren statt der npm-typischen Kleinschreibung) - sonst schlägt die case-sensitive Suche des offiziellen `addToLatest`-Skripts fehl
+* Kleinere interne Korrektur an den Paket-Metadaten (keine Funktionsänderung)
 
 ### 0.4.3 (2026-09-05)
 Erstveröffentlichung.
 * Stundenplan (VpMobil/Indiware) als echte Kalender-Schulwoche (Montag-Freitag, `plan.day1`-`plan.day5`) für EOSW/EGW/EOSH/EGL, inkl. gebündeltem `plan.week.days`-JSON
-* Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für alle vier Schulen, inkl. Notendurchschnitt je Fach (`grades.subjects.<fach>.average`/`.averageNote`) und gesamt (`grades.overallAverage`/`.overallAverageNote`) - 1:1 aus dem bestehenden PHP-Referenzprojekt (`content-zensuren.php`) portiert
+* Hausaufgaben, Bemerkungen und Zensuren (Home.InfoPoint) für alle vier Schulen, inkl. Notendurchschnitt je Fach (`grades.subjects.<fach>.average`/`.averageNote`) und gesamt (`grades.overallAverage`/`.overallAverageNote`)
 * Erkennung neuer Einträge (`info.lastNewAt`/`info.newItemsCount`, `*.newCount`/`*.newEntries`) als Basis für eigene Benachrichtigungs-Automatisierungen
 * Läuft als Daemon (kein Cronjob): sofortiger erster Abruf, danach konfigurierbares Intervall
-* Reine Hilfsfunktionen in `lib/helpers.js` ausgelagert, damit die Testsuite unabhängig von einer echten ioBroker-Installation läuft - alle 78 Tests (`npm test`) jetzt erstmals ausgeführt und grün
 * Schulauswahl statt freier URL-Konfiguration - Serveradressen sind je Schule fest hinterlegt; EOSH-Stundenplanadresse ist als unbestätigt markiert und wird beim Start entsprechend geloggt
