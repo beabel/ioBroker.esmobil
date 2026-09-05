@@ -47,7 +47,7 @@
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
     "fast-xml-parser": "^5.11.1",
-    "tough-cookie": "^5.0.0"
+    "tough-cookie": "^6.0.2"
   },
   "devDependencies": {
     "@iobroker/eslint-config": "^2.3.4",
