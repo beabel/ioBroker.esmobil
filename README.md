@@ -199,6 +199,8 @@ Initial release.
 * Runs as a daemon (no cron job): immediate first poll, then a configurable interval
 * School selection instead of free-form URL configuration - server addresses are hard-coded per school; the EOSH timetable address is marked as unconfirmed and logged accordingly on start
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 MIT License
