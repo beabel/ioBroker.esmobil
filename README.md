@@ -199,49 +199,6 @@ Ein `lessons`-Eintrag hat die Form:
 }
 ```
 
-## Installation auf einer laufenden ioBroker-Instanz
-
-### Weg 1: über GitHub
-
-```bash
-iobroker url https://github.com/beabel/ioBroker.ESmobil
-```
-
-Danach im Admin-Adapterbaum eine Instanz von "ESmobil" anlegen und konfigurieren.
-
-### Weg 2: manuelle Installation
-
-```bash
-scp -r ioBroker.ESmobil root@iobroker-host:/opt/iobroker/node_modules/iobroker.esmobil
-ssh root@iobroker-host "cd /opt/iobroker/node_modules/iobroker.esmobil && npm install --production"
-ssh root@iobroker-host "cd /opt/iobroker && iobroker upload esmobil && iobroker add esmobil"
-```
-
-Danach im Admin die neue Instanz konfigurieren (Schule auswählen,
-Zugangsdaten eintragen) und speichern - der Adapter läuft dauerhaft im
-Hintergrund und ruft direkt nach dem Speichern/Neustart der Instanz einmal
-sofort ab (siehe "Testen nach der Installation" unten).
-
-### Testen nach der Installation
-
-1. Instanz aktivieren/starten (Schalter in Admin → Instanzen bei "esmobil.0").
-   Es gibt keinen Cronjob und keine Wartezeit - der erste Abruf passiert
-   sofort beim Start, danach im eingestellten Intervall erneut.
-2. Log prüfen: `iobroker logs esmobil.0` (oder Admin → Log, Filter auf
-   "esmobil") - insbesondere auf die Warnung bei EOSH sowie auf
-   `VpMobil-Abruf fehlgeschlagen`/`Home.InfoPoint-Abruf fehlgeschlagen` achten.
-3. Werte prüfen: Admin → Objekte → `esmobil.0.*`, oder per CLI z. B.
-   `iobroker state get esmobil.0.plan.day1.lessons`.
-4. `esmobil.0.info.connection` sollte nach einem erfolgreichen Lauf `true`
-   sein.
-
-## Entwicklung
-
-```bash
-npm install
-npm test
-```
-
 ## License
 
 MIT License
