@@ -1,0 +1,16 @@
+{
+  "School": "Scuola",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Nota: l'indirizzo dell'orario per EOSH non è confermato nell'app di riferimento (ipotizzato sul modello delle altre scuole, mai verificato) - dopo la prima esecuzione, controllare attentamente se arrivano dati reali.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Nota: questa scuola non ha un orario tramite VpMobil - sono disponibili solo i compiti/note/voti qui sotto.",
+  "Timetable (VpMobil / Indiware)": "Orario (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Classe (come indicato da VpMobil, ad es. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Nome utente VpMobil (comune a tutta la scuola, non personale - solitamente resta il valore predefinito)",
+  "VpMobil password (school-wide, not personal)": "Password VpMobil (comune a tutta la scuola, non personale)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Compiti / note / voti (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Recupera anche compiti, note e voti",
+  "Home.InfoPoint username (personal login)": "Nome utente Home.InfoPoint (accesso personale)",
+  "Home.InfoPoint password (personal login)": "Password Home.InfoPoint (accesso personale)",
+  "Update interval": "Intervallo di aggiornamento",
+  "Poll interval (minutes, minimum 5)": "Intervallo di polling (minuti, minimo 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Questo adattatore è destinato solo alle quattro scuole TEGW (gli indirizzi dei server sono fissi per ogni scuola). Funziona continuamente in background, recupera i dati subito dopo ogni (ri)avvio e poi di nuovo con questo intervallo."
+}

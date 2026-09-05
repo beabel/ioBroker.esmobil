@@ -1,0 +1,16 @@
+{
+  "School": "Школа",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Примечание: адрес расписания для EOSH не подтверждён в эталонном приложении (предположен по образцу других школ, никогда не проверялся) - после первого запуска, пожалуйста, внимательно проверьте, поступают ли реальные данные.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Примечание: у этой школы нет расписания через VpMobil - доступны только домашние задания/замечания/оценки ниже.",
+  "Timetable (VpMobil / Indiware)": "Расписание (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Класс (как указано в VpMobil, например 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Имя пользователя VpMobil (общее для всей школы, не личное - обычно остаётся значением по умолчанию)",
+  "VpMobil password (school-wide, not personal)": "Пароль VpMobil (общий для всей школы, не личный)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Домашние задания / замечания / оценки (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Также загружать домашние задания, замечания и оценки",
+  "Home.InfoPoint username (personal login)": "Имя пользователя Home.InfoPoint (личный логин)",
+  "Home.InfoPoint password (personal login)": "Пароль Home.InfoPoint (личный логин)",
+  "Update interval": "Интервал обновления",
+  "Poll interval (minutes, minimum 5)": "Интервал опроса (минуты, минимум 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Этот адаптер предназначен только для четырёх школ TEGW (адреса серверов заданы для каждой школы). Он работает постоянно в фоновом режиме, получает данные сразу после каждого (пере)запуска, а затем повторно с этим интервалом."
+}

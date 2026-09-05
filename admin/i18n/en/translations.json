@@ -1,0 +1,16 @@
+{
+  "School": "School",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.",
+  "Timetable (VpMobil / Indiware)": "Timetable (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Class (as shown by VpMobil, e.g. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "VpMobil username (school-wide, not personal - usually stays at the default)",
+  "VpMobil password (school-wide, not personal)": "VpMobil password (school-wide, not personal)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Homework / remarks / grades (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Also fetch homework, remarks and grades",
+  "Home.InfoPoint username (personal login)": "Home.InfoPoint username (personal login)",
+  "Home.InfoPoint password (personal login)": "Home.InfoPoint password (personal login)",
+  "Update interval": "Update interval",
+  "Poll interval (minutes, minimum 5)": "Poll interval (minutes, minimum 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval."
+}

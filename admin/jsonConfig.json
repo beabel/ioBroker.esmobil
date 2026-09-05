@@ -1,12 +1,21 @@
 {
   "type": "panel",
-  "i18n": false,
+  "i18n": true,
   "items": {
     "_schoolHeader": {
       "type": "header",
       "text": {
         "en": "School",
-        "de": "Schule"
+        "de": "Schule",
+        "ru": "Школа",
+        "pt": "Escola",
+        "nl": "School",
+        "fr": "École",
+        "it": "Scuola",
+        "es": "Escuela",
+        "pl": "Szkoła",
+        "uk": "Школа",
+        "zh-cn": "学校"
       },
       "size": 2
     },
@@ -14,7 +23,16 @@
       "type": "select",
       "label": {
         "en": "School",
-        "de": "Schule"
+        "de": "Schule",
+        "ru": "Школа",
+        "pt": "Escola",
+        "nl": "School",
+        "fr": "École",
+        "it": "Scuola",
+        "es": "Escuela",
+        "pl": "Szkoła",
+        "uk": "Школа",
+        "zh-cn": "学校"
       },
       "options": [
         { "value": "eosw", "label": "Europäische Oberschule Waldenburg (EOSW)" },
@@ -34,7 +52,16 @@
       "newLine": true,
       "text": {
         "en": "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.",
-        "de": "Hinweis: Die Stundenplan-Adresse für EOSH ist in der Referenz-App unbestätigt (nach dem Muster der anderen Schulen geraten, nie verifiziert) - bitte nach dem ersten Lauf genau prüfen, ob echte Daten ankommen."
+        "de": "Hinweis: Die Stundenplan-Adresse für EOSH ist in der Referenz-App unbestätigt (nach dem Muster der anderen Schulen geraten, nie verifiziert) - bitte nach dem ersten Lauf genau prüfen, ob echte Daten ankommen.",
+        "ru": "Примечание: адрес расписания для EOSH не подтверждён в эталонном приложении (предположен по образцу других школ, никогда не проверялся) - после первого запуска, пожалуйста, внимательно проверьте, поступают ли реальные данные.",
+        "pt": "Nota: o endereço do horário para a EOSH não está confirmado na aplicação de referência (deduzido a partir do padrão das outras escolas, nunca verificado) - após a primeira execução, verifique cuidadosamente se chegam dados reais.",
+        "nl": "Let op: het roosteradres voor EOSH is niet bevestigd in de referentie-app (geraden naar het patroon van de andere scholen, nooit geverifieerd) - controleer na de eerste uitvoering zorgvuldig of er echte gegevens binnenkomen.",
+        "fr": "Remarque : l'adresse de l'emploi du temps pour EOSH n'est pas confirmée dans l'application de référence (devinée d'après le modèle des autres écoles, jamais vérifiée) - après le premier lancement, veuillez vérifier attentivement si des données réelles arrivent.",
+        "it": "Nota: l'indirizzo dell'orario per EOSH non è confermato nell'app di riferimento (ipotizzato sul modello delle altre scuole, mai verificato) - dopo la prima esecuzione, controllare attentamente se arrivano dati reali.",
+        "es": "Nota: la dirección del horario para EOSH no está confirmada en la aplicación de referencia (deducida según el patrón de las otras escuelas, nunca verificada) - después de la primera ejecución, compruebe cuidadosamente si llegan datos reales.",
+        "pl": "Uwaga: adres planu lekcji dla EOSH nie jest potwierdzony w aplikacji referencyjnej (odgadnięty na podstawie wzoru innych szkół, nigdy nie zweryfikowany) - po pierwszym uruchomieniu proszę dokładnie sprawdzić, czy napływają prawdziwe dane.",
+        "uk": "Примітка: адреса розкладу для EOSH не підтверджена в еталонному застосунку (визначена за зразком інших шкіл, ніколи не перевірялася) - після першого запуску, будь ласка, уважно перевірте, чи надходять реальні дані.",
+        "zh-cn": "注意：EOSH的课程表地址在参考应用中未经确认（根据其他学校的模式推测，从未验证过）- 首次运行后，请仔细检查是否收到真实数据。"
       },
       "hidden": "data.school !== 'eosh'",
       "xs": 12,
@@ -48,7 +75,16 @@
       "newLine": true,
       "text": {
         "en": "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.",
-        "de": "Hinweis: Diese Schule hat keinen Stundenplan über VpMobil - nur Hausaufgaben/Bemerkungen/Zensuren weiter unten sind verfügbar."
+        "de": "Hinweis: Diese Schule hat keinen Stundenplan über VpMobil - nur Hausaufgaben/Bemerkungen/Zensuren weiter unten sind verfügbar.",
+        "ru": "Примечание: у этой школы нет расписания через VpMobil - доступны только домашние задания/замечания/оценки ниже.",
+        "pt": "Nota: esta escola não tem horário através do VpMobil - apenas os deveres de casa/observações/notas abaixo estão disponíveis.",
+        "nl": "Let op: deze school heeft geen rooster via VpMobil - alleen huiswerk/opmerkingen/cijfers hieronder zijn beschikbaar.",
+        "fr": "Remarque : cette école n'a pas d'emploi du temps via VpMobil - seuls les devoirs/remarques/notes ci-dessous sont disponibles.",
+        "it": "Nota: questa scuola non ha un orario tramite VpMobil - sono disponibili solo i compiti/note/voti qui sotto.",
+        "es": "Nota: esta escuela no tiene horario a través de VpMobil - solo están disponibles las tareas/observaciones/notas de abajo.",
+        "pl": "Uwaga: ta szkoła nie ma planu lekcji przez VpMobil - dostępne są tylko zadania domowe/uwagi/oceny poniżej.",
+        "uk": "Примітка: ця школа не має розкладу через VpMobil - доступні лише домашні завдання/зауваження/оцінки нижче.",
+        "zh-cn": "注意：该学校没有通过VpMobil提供的课程表 - 仅以下的作业/评语/成绩可用。"
       },
       "hidden": "data.school !== 'egl'",
       "xs": 12,
@@ -61,7 +97,16 @@
       "type": "header",
       "text": {
         "en": "Timetable (VpMobil / Indiware)",
-        "de": "Stundenplan (VpMobil / Indiware)"
+        "de": "Stundenplan (VpMobil / Indiware)",
+        "ru": "Расписание (VpMobil / Indiware)",
+        "pt": "Horário (VpMobil / Indiware)",
+        "nl": "Rooster (VpMobil / Indiware)",
+        "fr": "Emploi du temps (VpMobil / Indiware)",
+        "it": "Orario (VpMobil / Indiware)",
+        "es": "Horario (VpMobil / Indiware)",
+        "pl": "Plan lekcji (VpMobil / Indiware)",
+        "uk": "Розклад (VpMobil / Indiware)",
+        "zh-cn": "课程表（VpMobil / Indiware）"
       },
       "size": 2,
       "newLine": true,
@@ -71,7 +116,16 @@
       "type": "text",
       "label": {
         "en": "Class (as shown by VpMobil, e.g. 08m2)",
-        "de": "Klasse (wie von VpMobil geliefert, z. B. 08m2)"
+        "de": "Klasse (wie von VpMobil geliefert, z. B. 08m2)",
+        "ru": "Класс (как указано в VpMobil, например 08m2)",
+        "pt": "Turma (conforme indicado pelo VpMobil, por exemplo 08m2)",
+        "nl": "Klas (zoals gerapporteerd door VpMobil, bijv. 08m2)",
+        "fr": "Classe (telle qu'indiquée par VpMobil, par ex. 08m2)",
+        "it": "Classe (come indicato da VpMobil, ad es. 08m2)",
+        "es": "Clase (como la indica VpMobil, p. ej. 08m2)",
+        "pl": "Klasa (zgodnie z danymi z VpMobil, np. 08m2)",
+        "uk": "Клас (як зазначено у VpMobil, напр. 08m2)",
+        "zh-cn": "班级（VpMobil提供的名称，例如08m2）"
       },
       "newLine": true,
       "xs": 12,
@@ -85,7 +139,16 @@
       "type": "text",
       "label": {
         "en": "VpMobil username (school-wide, not personal - usually stays at the default)",
-        "de": "VpMobil-Benutzername (schulweit gleich, nicht persönlich - bleibt meist auf dem Standardwert)"
+        "de": "VpMobil-Benutzername (schulweit gleich, nicht persönlich - bleibt meist auf dem Standardwert)",
+        "ru": "Имя пользователя VpMobil (общее для всей школы, не личное - обычно остаётся значением по умолчанию)",
+        "pt": "Nome de utilizador do VpMobil (comum a toda a escola, não pessoal - normalmente mantém o valor predefinido)",
+        "nl": "VpMobil-gebruikersnaam (schoolbreed, niet persoonlijk - blijft meestal op de standaardwaarde)",
+        "fr": "Nom d'utilisateur VpMobil (commun à toute l'école, non personnel - reste généralement à la valeur par défaut)",
+        "it": "Nome utente VpMobil (comune a tutta la scuola, non personale - solitamente resta il valore predefinito)",
+        "es": "Nombre de usuario de VpMobil (común para toda la escuela, no personal - normalmente permanece con el valor predeterminado)",
+        "pl": "Nazwa użytkownika VpMobil (wspólna dla całej szkoły, nie osobista - zwykle pozostaje wartość domyślna)",
+        "uk": "Ім'я користувача VpMobil (спільне для всієї школи, не особисте - зазвичай залишається значення за замовчуванням)",
+        "zh-cn": "VpMobil用户名（全校通用，非个人 - 通常保持默认值）"
       },
       "newLine": true,
       "xs": 12,
@@ -99,7 +162,16 @@
       "type": "password",
       "label": {
         "en": "VpMobil password (school-wide, not personal)",
-        "de": "VpMobil-Passwort (schulweit gleich, nicht persönlich)"
+        "de": "VpMobil-Passwort (schulweit gleich, nicht persönlich)",
+        "ru": "Пароль VpMobil (общий для всей школы, не личный)",
+        "pt": "Palavra-passe do VpMobil (comum a toda a escola, não pessoal)",
+        "nl": "VpMobil-wachtwoord (schoolbreed, niet persoonlijk)",
+        "fr": "Mot de passe VpMobil (commun à toute l'école, non personnel)",
+        "it": "Password VpMobil (comune a tutta la scuola, non personale)",
+        "es": "Contraseña de VpMobil (común para toda la escuela, no personal)",
+        "pl": "Hasło VpMobil (wspólne dla całej szkoły, nie osobiste)",
+        "uk": "Пароль VpMobil (спільний для всієї школи, не особистий)",
+        "zh-cn": "VpMobil密码（全校通用，非个人）"
       },
       "xs": 12,
       "sm": 12,
@@ -112,7 +184,16 @@
       "type": "header",
       "text": {
         "en": "Homework / remarks / grades (Home.InfoPoint)",
-        "de": "Hausaufgaben / Bemerkungen / Zensuren (Home.InfoPoint)"
+        "de": "Hausaufgaben / Bemerkungen / Zensuren (Home.InfoPoint)",
+        "ru": "Домашние задания / замечания / оценки (Home.InfoPoint)",
+        "pt": "Deveres de casa / observações / notas (Home.InfoPoint)",
+        "nl": "Huiswerk / opmerkingen / cijfers (Home.InfoPoint)",
+        "fr": "Devoirs / remarques / notes (Home.InfoPoint)",
+        "it": "Compiti / note / voti (Home.InfoPoint)",
+        "es": "Tareas / observaciones / notas (Home.InfoPoint)",
+        "pl": "Zadania domowe / uwagi / oceny (Home.InfoPoint)",
+        "uk": "Домашні завдання / зауваження / оцінки (Home.InfoPoint)",
+        "zh-cn": "作业 / 评语 / 成绩（Home.InfoPoint）"
       },
       "size": 2,
       "newLine": true
@@ -121,7 +202,16 @@
       "type": "checkbox",
       "label": {
         "en": "Also fetch homework, remarks and grades",
-        "de": "Auch Hausaufgaben, Bemerkungen und Zensuren abrufen"
+        "de": "Auch Hausaufgaben, Bemerkungen und Zensuren abrufen",
+        "ru": "Также загружать домашние задания, замечания и оценки",
+        "pt": "Também obter deveres de casa, observações e notas",
+        "nl": "Ook huiswerk, opmerkingen en cijfers ophalen",
+        "fr": "Récupérer aussi les devoirs, remarques et notes",
+        "it": "Recupera anche compiti, note e voti",
+        "es": "Obtener también tareas, observaciones y notas",
+        "pl": "Pobieraj też zadania domowe, uwagi i oceny",
+        "uk": "Також отримувати домашні завдання, зауваження та оцінки",
+        "zh-cn": "同时获取作业、评语和成绩"
       },
       "newLine": true,
       "xs": 12,
@@ -134,7 +224,16 @@
       "type": "text",
       "label": {
         "en": "Home.InfoPoint username (personal login)",
-        "de": "Home.InfoPoint-Benutzername (persönlicher Zugang)"
+        "de": "Home.InfoPoint-Benutzername (persönlicher Zugang)",
+        "ru": "Имя пользователя Home.InfoPoint (личный логин)",
+        "pt": "Nome de utilizador do Home.InfoPoint (acesso pessoal)",
+        "nl": "Home.InfoPoint-gebruikersnaam (persoonlijke login)",
+        "fr": "Nom d'utilisateur Home.InfoPoint (accès personnel)",
+        "it": "Nome utente Home.InfoPoint (accesso personale)",
+        "es": "Nombre de usuario de Home.InfoPoint (acceso personal)",
+        "pl": "Nazwa użytkownika Home.InfoPoint (osobiste logowanie)",
+        "uk": "Ім'я користувача Home.InfoPoint (особистий логін)",
+        "zh-cn": "Home.InfoPoint用户名（个人登录）"
       },
       "newLine": true,
       "xs": 12,
@@ -148,7 +247,16 @@
       "type": "password",
       "label": {
         "en": "Home.InfoPoint password (personal login)",
-        "de": "Home.InfoPoint-Passwort (persönlicher Zugang)"
+        "de": "Home.InfoPoint-Passwort (persönlicher Zugang)",
+        "ru": "Пароль Home.InfoPoint (личный логин)",
+        "pt": "Palavra-passe do Home.InfoPoint (acesso pessoal)",
+        "nl": "Home.InfoPoint-wachtwoord (persoonlijke login)",
+        "fr": "Mot de passe Home.InfoPoint (accès personnel)",
+        "it": "Password Home.InfoPoint (accesso personale)",
+        "es": "Contraseña de Home.InfoPoint (acceso personal)",
+        "pl": "Hasło Home.InfoPoint (osobiste logowanie)",
+        "uk": "Пароль Home.InfoPoint (особистий логін)",
+        "zh-cn": "Home.InfoPoint密码（个人登录）"
       },
       "xs": 12,
       "sm": 12,
@@ -161,7 +269,16 @@
       "type": "header",
       "text": {
         "en": "Update interval",
-        "de": "Aktualisierungsintervall"
+        "de": "Aktualisierungsintervall",
+        "ru": "Интервал обновления",
+        "pt": "Intervalo de atualização",
+        "nl": "Bijwerkinterval",
+        "fr": "Intervalle de mise à jour",
+        "it": "Intervallo di aggiornamento",
+        "es": "Intervalo de actualización",
+        "pl": "Interwał aktualizacji",
+        "uk": "Інтервал оновлення",
+        "zh-cn": "更新间隔"
       },
       "size": 2,
       "newLine": true
@@ -170,7 +287,16 @@
       "type": "number",
       "label": {
         "en": "Poll interval (minutes, minimum 5)",
-        "de": "Abrufintervall (Minuten, mindestens 5)"
+        "de": "Abrufintervall (Minuten, mindestens 5)",
+        "ru": "Интервал опроса (минуты, минимум 5)",
+        "pt": "Intervalo de consulta (minutos, mínimo 5)",
+        "nl": "Ophaalinterval (minuten, minimaal 5)",
+        "fr": "Intervalle d'interrogation (minutes, minimum 5)",
+        "it": "Intervallo di polling (minuti, minimo 5)",
+        "es": "Intervalo de consulta (minutos, mínimo 5)",
+        "pl": "Interwał odpytywania (minuty, minimum 5)",
+        "uk": "Інтервал опитування (хвилини, мінімум 5)",
+        "zh-cn": "轮询间隔（分钟，最少5分钟）"
       },
       "min": 5,
       "newLine": true,
@@ -185,7 +311,16 @@
       "newLine": true,
       "text": {
         "en": "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.",
-        "de": "Dieser Adapter ist ausschließlich für die vier TEGW-Schulen gedacht (die Serveradressen sind je Schule fest hinterlegt). Er läuft dauerhaft im Hintergrund, ruft die Daten sofort nach jedem (Neu-)Start ab und danach in diesem Intervall erneut."
+        "de": "Dieser Adapter ist ausschließlich für die vier TEGW-Schulen gedacht (die Serveradressen sind je Schule fest hinterlegt). Er läuft dauerhaft im Hintergrund, ruft die Daten sofort nach jedem (Neu-)Start ab und danach in diesem Intervall erneut.",
+        "ru": "Этот адаптер предназначен только для четырёх школ TEGW (адреса серверов заданы для каждой школы). Он работает постоянно в фоновом режиме, получает данные сразу после каждого (пере)запуска, а затем повторно с этим интервалом.",
+        "pt": "Este adaptador destina-se apenas às quatro escolas TEGW (os endereços dos servidores estão definidos por escola). Funciona continuamente em segundo plano, obtém os dados imediatamente após cada (re)início e depois novamente com este intervalo.",
+        "nl": "Deze adapter is uitsluitend bedoeld voor de vier TEGW-scholen (serveradressen zijn per school vastgelegd). Hij draait continu op de achtergrond, haalt gegevens direct na elke (her)start op en daarna opnieuw met dit interval.",
+        "fr": "Cet adaptateur est destiné uniquement aux quatre écoles TEGW (les adresses des serveurs sont fixées par école). Il fonctionne en continu en arrière-plan, récupère les données immédiatement après chaque (re)démarrage puis à nouveau selon cet intervalle.",
+        "it": "Questo adattatore è destinato solo alle quattro scuole TEGW (gli indirizzi dei server sono fissi per ogni scuola). Funziona continuamente in background, recupera i dati subito dopo ogni (ri)avvio e poi di nuovo con questo intervallo.",
+        "es": "Este adaptador es solo para las cuatro escuelas TEGW (las direcciones de los servidores están fijadas por escuela). Se ejecuta continuamente en segundo plano, obtiene los datos inmediatamente después de cada (re)inicio y luego de nuevo con este intervalo.",
+        "pl": "Ten adapter jest przeznaczony wyłącznie dla czterech szkół TEGW (adresy serwerów są ustalone dla każdej szkoły). Działa w tle w sposób ciągły, pobiera dane natychmiast po każdym (ponownym) uruchomieniu, a następnie ponownie w tym interwale.",
+        "uk": "Цей адаптер призначений лише для чотирьох шкіл TEGW (адреси серверів визначені для кожної школи). Він працює постійно у фоновому режимі, отримує дані одразу після кожного (пере)запуску, а потім знову з цим інтервалом.",
+        "zh-cn": "此适配器仅适用于四所TEGW学校（服务器地址按学校固定设置）。它在后台持续运行，每次（重新）启动后立即获取数据，之后按此间隔再次获取。"
       },
       "xs": 12,
       "sm": 12,

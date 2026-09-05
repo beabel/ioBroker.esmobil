@@ -1,0 +1,16 @@
+{
+  "School": "School",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Let op: het roosteradres voor EOSH is niet bevestigd in de referentie-app (geraden naar het patroon van de andere scholen, nooit geverifieerd) - controleer na de eerste uitvoering zorgvuldig of er echte gegevens binnenkomen.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Let op: deze school heeft geen rooster via VpMobil - alleen huiswerk/opmerkingen/cijfers hieronder zijn beschikbaar.",
+  "Timetable (VpMobil / Indiware)": "Rooster (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Klas (zoals gerapporteerd door VpMobil, bijv. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "VpMobil-gebruikersnaam (schoolbreed, niet persoonlijk - blijft meestal op de standaardwaarde)",
+  "VpMobil password (school-wide, not personal)": "VpMobil-wachtwoord (schoolbreed, niet persoonlijk)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Huiswerk / opmerkingen / cijfers (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Ook huiswerk, opmerkingen en cijfers ophalen",
+  "Home.InfoPoint username (personal login)": "Home.InfoPoint-gebruikersnaam (persoonlijke login)",
+  "Home.InfoPoint password (personal login)": "Home.InfoPoint-wachtwoord (persoonlijke login)",
+  "Update interval": "Bijwerkinterval",
+  "Poll interval (minutes, minimum 5)": "Ophaalinterval (minuten, minimaal 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Deze adapter is uitsluitend bedoeld voor de vier TEGW-scholen (serveradressen zijn per school vastgelegd). Hij draait continu op de achtergrond, haalt gegevens direct na elke (her)start op en daarna opnieuw met dit interval."
+}

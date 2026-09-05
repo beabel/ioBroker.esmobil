@@ -1,0 +1,16 @@
+{
+  "School": "Escola",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Nota: o endereço do horário para a EOSH não está confirmado na aplicação de referência (deduzido a partir do padrão das outras escolas, nunca verificado) - após a primeira execução, verifique cuidadosamente se chegam dados reais.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Nota: esta escola não tem horário através do VpMobil - apenas os deveres de casa/observações/notas abaixo estão disponíveis.",
+  "Timetable (VpMobil / Indiware)": "Horário (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Turma (conforme indicado pelo VpMobil, por exemplo 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Nome de utilizador do VpMobil (comum a toda a escola, não pessoal - normalmente mantém o valor predefinido)",
+  "VpMobil password (school-wide, not personal)": "Palavra-passe do VpMobil (comum a toda a escola, não pessoal)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Deveres de casa / observações / notas (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Também obter deveres de casa, observações e notas",
+  "Home.InfoPoint username (personal login)": "Nome de utilizador do Home.InfoPoint (acesso pessoal)",
+  "Home.InfoPoint password (personal login)": "Palavra-passe do Home.InfoPoint (acesso pessoal)",
+  "Update interval": "Intervalo de atualização",
+  "Poll interval (minutes, minimum 5)": "Intervalo de consulta (minutos, mínimo 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Este adaptador destina-se apenas às quatro escolas TEGW (os endereços dos servidores estão definidos por escola). Funciona continuamente em segundo plano, obtém os dados imediatamente após cada (re)início e depois novamente com este intervalo."
+}

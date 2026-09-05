@@ -1,6 +1,6 @@
 {
   "name": "iobroker.esmobil",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "ioBroker-Adapter für Stundenplan (VpMobil/Indiware) und Hausaufgaben/Bemerkungen/Zensuren (Home.InfoPoint) der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL)",
   "author": {
     "name": "Maik Ries",
@@ -40,7 +40,7 @@
     "url": "git+https://github.com/beabel/ioBroker.esmobil.git"
   },
   "engines": {
-    "node": ">=20.18.1"
+    "node": ">=22"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.4.1",
@@ -51,9 +51,9 @@
   },
   "devDependencies": {
     "@iobroker/testing": "^5.2.2",
-    "@types/node": ">=20",
+    "@types/node": "^20",
     "chai": "^4.5.0",
-    "mocha": "^10.8.2"
+    "mocha": "^11.7.6"
   },
   "main": "main.js",
   "files": [
@@ -66,6 +66,7 @@
   "scripts": {
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit --timeout 60000",
     "test": "npm run test:package && npm run test:unit"
   },
   "bugs": {
