@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "news": {
+      "0.4.4": {
+        "en": "Fixed repository/homepage/bugs URLs in package.json and io-package.json: they used the lowercase npm-style path instead of the actual (mixed-case) GitHub repository name, which broke the ioBroker.repositories tooling's case-sensitive lookup",
+        "de": "repository-/homepage-/bugs-URLs in package.json und io-package.json korrigiert: sie nutzten den npm-typischen Kleinschreibungs-Pfad statt des tatsächlichen (gemischt geschriebenen) GitHub-Repository-Namens, was die case-sensitive Suche des ioBroker.repositories-Tools brach"
+      },
       "0.4.3": {
         "en": "Moved pure helper functions into lib/helpers.js so the test suite could finally run (requiring main.js directly pulled in @iobroker/adapter-core, which force-exits when not run inside a real ioBroker installation) - all 78 tests now pass",
         "de": "Reine Hilfsfunktionen nach lib/helpers.js ausgelagert, damit die Testsuite endlich läuft (main.js direkt zu requiren zog @iobroker/adapter-core mit, das außerhalb einer echten ioBroker-Installation zwangsweise abbricht) - alle 78 Tests laufen jetzt grün"
@@ -83,7 +87,7 @@
     "main": "main.js",
     "icon": "esmobil.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/beabel/iobroker.esmobil/main/admin/esmobil.png",
+    "extIcon": "https://raw.githubusercontent.com/beabel/ioBroker.ESmobil/main/admin/esmobil.png",
     "type": "date-and-time",
     "mode": "daemon",
     "compact": true,

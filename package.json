@@ -1,6 +1,6 @@
 {
   "name": "iobroker.esmobil",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "ioBroker-Adapter für Stundenplan (VpMobil/Indiware) und Hausaufgaben/Bemerkungen/Zensuren (Home.InfoPoint) der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL)",
   "author": {
     "name": "Maik Ries",
@@ -12,7 +12,7 @@
       "email": "iobroker@ne-xt.de"
     }
   ],
-  "homepage": "https://github.com/beabel/iobroker.esmobil",
+  "homepage": "https://github.com/beabel/ioBroker.ESmobil",
   "license": "MIT",
   "keywords": [
     "ioBroker",
@@ -37,7 +37,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beabel/iobroker.esmobil.git"
+    "url": "git+https://github.com/beabel/ioBroker.ESmobil.git"
   },
   "engines": {
     "node": ">=18"
@@ -68,7 +68,7 @@
     "test": "npm run test:package && npm run test:unit"
   },
   "bugs": {
-    "url": "https://github.com/beabel/iobroker.esmobil/issues"
+    "url": "https://github.com/beabel/ioBroker.ESmobil/issues"
   },
   "readmeFilename": "README.md"
 }

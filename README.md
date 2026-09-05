@@ -208,7 +208,7 @@ Ein `lessons`-Eintrag hat die Form:
 ### Weg 1: über GitHub (sobald das Repo dort liegt)
 
 ```bash
-iobroker url https://github.com/beabel/iobroker.esmobil
+iobroker url https://github.com/beabel/ioBroker.ESmobil
 ```
 
 Danach im Admin-Adapterbaum eine Instanz von "ESmobil" anlegen und konfigurieren.
@@ -317,6 +317,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 ## Changelog
+
+### 0.4.4 (2026-09-05)
+* `repository`/`homepage`/`bugs`-URLs in `package.json`/`io-package.json` korrigiert (mussten die tatsächliche, gemischt geschriebene GitHub-Repo-Adresse `ioBroker.ESmobil` referenzieren statt der npm-typischen Kleinschreibung) - sonst schlägt die case-sensitive Suche des offiziellen `addToLatest`-Skripts fehl
 
 ### 0.4.3 (2026-09-05)
 Erstveröffentlichung.
