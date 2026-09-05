@@ -188,6 +188,9 @@ A `lessons` entry has the form:
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
+
 ### 0.5.1 (2026-09-05)
 * Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English
 * Polling now reschedules itself only after the previous poll finishes (instead of a fixed interval), avoiding overlapping requests if a poll runs long
