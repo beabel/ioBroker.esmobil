@@ -71,6 +71,20 @@ Optional, enabled via the "Also fetch homework, remarks and grades" checkbox
 | Field | Description |
 | --- | --- |
 | Username / Password | Personal login of the student |
+| Moodle calendar URL | Optional, independent of the fields above - see below |
+
+Home.InfoPoint username/password and the Moodle calendar URL are independent
+of each other - either (or both) can be filled in. Remarks and grades only
+come from Home.InfoPoint; the homework list combines both sources.
+
+#### Moodle calendar (optional)
+
+If you also want Moodle deadlines (e.g. assignment due dates) to show up in
+`homework.entries`, paste your personal Moodle calendar export URL here. Find
+it in Moodle under **Calendar → Export calendar → "Events of this
+course"/"All courses" → "Get calendar URL"**. This URL already contains a
+private access token, so it is stored the same way as a password
+(encrypted, hidden in the UI).
 
 ## State tree
 
@@ -82,8 +96,8 @@ esmobil.0.plan.day1.lessonCount    number   - number of lessons
 esmobil.0.plan.day1.lessons        string   - lessons as a JSON array
 esmobil.0.plan.day2.* ... plan.day5.*       - the same states for Tuesday through Friday of the same week
 esmobil.0.plan.week.days           string   - the complete week plan (day1-day5) as one JSON array, see below
-esmobil.0.homework.count           number   - number of homework entries
-esmobil.0.homework.entries         string   - homework as a JSON array
+esmobil.0.homework.count           number   - number of homework entries (Home.InfoPoint + Moodle combined)
+esmobil.0.homework.entries         string   - homework as a JSON array, each entry tagged with "source": "homeinfopoint" or "moodle"
 esmobil.0.homework.newCount        number   - number of NEW homework entries since the last poll
 esmobil.0.homework.newEntries      string   - new homework entries since the last poll, as a JSON array
 esmobil.0.remarks.count            number   - number of remarks
@@ -187,6 +201,10 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
+
+### 0.5.4 (2026-09-05)
+* Homework list can now also include Moodle calendar entries (e.g. assignment due dates), in addition to Home.InfoPoint - see the new optional "Moodle calendar URL" setting
+* Each `homework.entries` item is now tagged with `source: "homeinfopoint"` or `"moodle"`
 
 ### 0.5.3 (2026-09-05)
 * Automated npm releases via trusted publishing (OIDC)

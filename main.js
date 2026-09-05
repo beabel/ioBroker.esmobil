@@ -3,6 +3,7 @@
 const utils = require('@iobroker/adapter-core');
 const { VpMobilClient, parseDayPlan, parseAvailableDateKeys } = require('./lib/vpmobil');
 const { loginAndFetch, parseHomework, parseRemarks, parseGrades } = require('./lib/homeinfopoint');
+const { fetchMoodleCalendar, parseMoodleIcs } = require('./lib/moodle');
 const { getSchool, vpMobilBaseUrl, homeworkLoginUrl, homeworkDataUrl } = require('./lib/schools');
 const {
     WEEK_DAY_COUNT,
@@ -99,7 +100,7 @@ class ESmobil extends utils.Adapter {
         }
 
         if (config.pollHomeworkEtc) {
-            if (config.haUsername) {
+            if (config.haUsername || config.moodleCalendarUrl) {
                 try {
                     await this.updateHomeInfoPoint(school, config);
                     anySuccess = true;
@@ -108,7 +109,7 @@ class ESmobil extends utils.Adapter {
                 }
             } else {
                 this.log.warn(
-                    'Kein Home.InfoPoint-Benutzername eingetragen - überspringe Hausaufgaben/Bemerkungen/Zensuren.',
+                    'Weder Home.InfoPoint-Benutzername noch Moodle-Kalender-URL eingetragen - überspringe Hausaufgaben/Bemerkungen/Zensuren.',
                 );
             }
         }
@@ -229,11 +230,38 @@ class ESmobil extends utils.Adapter {
         await this.ensureChannel('grades', 'Zensuren');
         await this.ensureChannel('grades.subjects', 'Zensuren je Fach');
 
-        const loginUrl = homeworkLoginUrl(school);
-        const dataUrl = homeworkDataUrl(school);
-        const html = await loginAndFetch(loginUrl, dataUrl, config.haUsername, config.haPassword);
+        // Home.InfoPoint und Moodle sind unabhängig voneinander optional konfigurierbar (wie in
+        // der Referenz-App) - ein Fehler bei der einen Quelle darf den Abruf der anderen nicht
+        // verhindern, deshalb hier je Quelle einzeln try/catch statt eines gemeinsamen Aufrufs.
+        let html = null;
+        if (config.haUsername) {
+            try {
+                const loginUrl = homeworkLoginUrl(school);
+                const dataUrl = homeworkDataUrl(school);
+                html = await loginAndFetch(loginUrl, dataUrl, config.haUsername, config.haPassword);
+            } catch (err) {
+                this.log.error(`Home.InfoPoint-Abruf fehlgeschlagen: ${err.message}`);
+            }
+        }
 
-        const homework = parseHomework(html);
+        let moodleHomework = [];
+        if (config.moodleCalendarUrl) {
+            try {
+                const ics = await fetchMoodleCalendar(config.moodleCalendarUrl);
+                moodleHomework = parseMoodleIcs(ics);
+            } catch (err) {
+                this.log.error(`Moodle-Kalender-Abruf fehlgeschlagen: ${err.message}`);
+            }
+        }
+
+        // Bemerkungen und Zensuren kommen ausschließlich von Home.InfoPoint, die
+        // Hausaufgaben-Liste kombiniert das zusätzlich mit den Moodle-Kalender-Terminen (wie
+        // in der Referenz-App, HomeworkViewModel.mergedHomework()) - beide Quellen bekommen
+        // dabei ein "source"-Feld, um sie im zusammengeführten Array unterscheiden zu können.
+        const homeInfoPointHomework = html
+            ? parseHomework(html).map(entry => ({ ...entry, source: 'homeinfopoint' }))
+            : [];
+        const homework = [...homeInfoPointHomework, ...moodleHomework];
         const newHomework = await this.detectNew('homework', homework, h => `${h.date}|${h.subject}|${h.task}`);
         await this.ensureState(
             'homework.count',
@@ -284,235 +312,242 @@ class ESmobil extends utils.Adapter {
             JSON.stringify(newHomework),
         );
 
-        const remarks = parseRemarks(html);
-        const newRemarks = await this.detectNew('remarks', remarks, r => `${r.date}|${r.type}|${r.subject}|${r.text}`);
-        await this.ensureState(
-            'remarks.count',
-            {
-                name: 'Anzahl Bemerkungen',
-                type: 'number',
-                role: 'value',
-                read: true,
-                write: false,
-                def: 0,
-            },
-            remarks.length,
-        );
-        await this.ensureState(
-            'remarks.entries',
-            {
-                name: 'Bemerkungen (JSON)',
-                type: 'string',
-                role: 'json',
-                read: true,
-                write: false,
-                def: '[]',
-            },
-            JSON.stringify(remarks),
-        );
-        await this.ensureState(
-            'remarks.newCount',
-            {
-                name: 'Neue Bemerkungen seit dem letzten Abruf',
-                type: 'number',
-                role: 'value',
-                read: true,
-                write: false,
-                def: 0,
-            },
-            newRemarks.length,
-        );
-        await this.ensureState(
-            'remarks.newEntries',
-            {
-                name: 'Neue Bemerkungen seit dem letzten Abruf (JSON)',
-                type: 'string',
-                role: 'json',
-                read: true,
-                write: false,
-                def: '[]',
-            },
-            JSON.stringify(newRemarks),
-        );
-
-        // parseGrades() liefert JEDES auf der Home.InfoPoint-Seite gelistete Fach, auch
-        // solche ganz ohne einzelne Zensur (Home.InfoPoint zeigt dort einfach eine leere
-        // Tabelle). "Anzahl Fächer mit Zensuren" darf deshalb nur die Fächer zählen, die
-        // wirklich mindestens einen Eintrag haben - vorher zählte es alle 24 gelisteten
-        // Fächer, auch die 21 ohne jede Note.
-        const gradesBySubject = parseGrades(html);
-        const gradesObj = Object.fromEntries(gradesBySubject);
-        const subjectsWithGrades = [...gradesBySubject.entries()].filter(([, entries]) => entries.length > 0);
-
-        await this.ensureState(
-            'grades.subjectCount',
-            {
-                name: 'Anzahl Fächer mit mindestens einer Zensur',
-                type: 'number',
-                role: 'value',
-                read: true,
-                write: false,
-                def: 0,
-            },
-            subjectsWithGrades.length,
-        );
-        await this.ensureState(
-            'grades.bySubject',
-            {
-                name: 'Alle Fächer als JSON (auch ohne Zensuren)',
-                type: 'string',
-                role: 'json',
-                read: true,
-                write: false,
-                def: '{}',
-            },
-            JSON.stringify(gradesObj),
-        );
-
-        // Zusätzlich pro Fach ein eigener, browsbarer Kanal statt nur des einen großen
-        // JSON-Blobs - dafür in Admin/Objekte deutlich besser lesbar. Nur Fächer mit
-        // mindestens einer Zensur bekommen einen Kanal, um den Baum nicht mit 21 leeren
-        // Fächern zuzumüllen. Die Durchschnittsberechnung (parseGradeValue/gradeAverageLabel)
-        // ist 1:1 aus content-zensuren.php (noteToFloat/floatToNote) portiert - NUR "1".."6"
-        // mit optionalem "+"/"-" zählt als Zensur (z. B. "2+" -> 1.7, "2-" -> 2.3), alles
-        // andere (auch "1,5" oder Freitext) fließt NICHT in den Durchschnitt ein, zählt aber
-        // weiterhin zu `count`.
-        const allNumericGrades = [];
-        for (const [label, entries] of subjectsWithGrades) {
-            const prefix = `grades.subjects.${slugifySubject(label)}`;
-            const numericGrades = entries.map(e => parseGradeValue(e.grade)).filter(v => v !== null);
-            allNumericGrades.push(...numericGrades);
-            const rawAverage = numericGrades.length > 0 ? mean(numericGrades) : null;
-
-            await this.ensureChannel(prefix, label);
+        // Bemerkungen und Zensuren gibt es ausschließlich über Home.InfoPoint - ohne HTML
+        // (z. B. nur Moodle konfiguriert) bleiben diese States unangetastet statt sie mit
+        // leeren Werten zu überschreiben.
+        let newRemarks = [];
+        let newGrades = [];
+        if (html) {
+            const remarks = parseRemarks(html);
+            newRemarks = await this.detectNew('remarks', remarks, r => `${r.date}|${r.type}|${r.subject}|${r.text}`);
             await this.ensureState(
-                `${prefix}.label`,
+                'remarks.count',
                 {
-                    name: 'Fach',
-                    type: 'string',
-                    role: 'text',
-                    read: true,
-                    write: false,
-                    def: '',
-                },
-                label,
-            );
-            await this.ensureState(
-                `${prefix}.count`,
-                {
-                    name: 'Anzahl Zensuren',
+                    name: 'Anzahl Bemerkungen',
                     type: 'number',
                     role: 'value',
                     read: true,
                     write: false,
                     def: 0,
                 },
-                entries.length,
+                remarks.length,
             );
             await this.ensureState(
-                `${prefix}.average`,
+                'remarks.entries',
                 {
-                    name: 'Durchschnitt als Zahl (nur numerisch auswertbare Zensuren)',
-                    type: 'number',
-                    role: 'value',
-                    read: true,
-                    write: false,
-                    def: 0,
-                },
-                rawAverage !== null ? roundTo2(rawAverage) : null,
-            );
-            await this.ensureState(
-                `${prefix}.averageNote`,
-                {
-                    name: 'Durchschnitt als Zensur (wie im PHP-Original, z. B. "1+")',
-                    type: 'string',
-                    role: 'text',
-                    read: true,
-                    write: false,
-                    def: '-',
-                },
-                gradeAverageLabel(rawAverage),
-            );
-            await this.ensureState(
-                `${prefix}.entries`,
-                {
-                    name: 'Zensuren (JSON)',
+                    name: 'Bemerkungen (JSON)',
                     type: 'string',
                     role: 'json',
                     read: true,
                     write: false,
                     def: '[]',
                 },
-                JSON.stringify(entries),
+                JSON.stringify(remarks),
+            );
+            await this.ensureState(
+                'remarks.newCount',
+                {
+                    name: 'Neue Bemerkungen seit dem letzten Abruf',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    def: 0,
+                },
+                newRemarks.length,
+            );
+            await this.ensureState(
+                'remarks.newEntries',
+                {
+                    name: 'Neue Bemerkungen seit dem letzten Abruf (JSON)',
+                    type: 'string',
+                    role: 'json',
+                    read: true,
+                    write: false,
+                    def: '[]',
+                },
+                JSON.stringify(newRemarks),
+            );
+
+            // parseGrades() liefert JEDES auf der Home.InfoPoint-Seite gelistete Fach, auch
+            // solche ganz ohne einzelne Zensur (Home.InfoPoint zeigt dort einfach eine leere
+            // Tabelle). "Anzahl Fächer mit Zensuren" darf deshalb nur die Fächer zählen, die
+            // wirklich mindestens einen Eintrag haben - vorher zählte es alle 24 gelisteten
+            // Fächer, auch die 21 ohne jede Note.
+            const gradesBySubject = parseGrades(html);
+            const gradesObj = Object.fromEntries(gradesBySubject);
+            const subjectsWithGrades = [...gradesBySubject.entries()].filter(([, entries]) => entries.length > 0);
+
+            await this.ensureState(
+                'grades.subjectCount',
+                {
+                    name: 'Anzahl Fächer mit mindestens einer Zensur',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    def: 0,
+                },
+                subjectsWithGrades.length,
+            );
+            await this.ensureState(
+                'grades.bySubject',
+                {
+                    name: 'Alle Fächer als JSON (auch ohne Zensuren)',
+                    type: 'string',
+                    role: 'json',
+                    read: true,
+                    write: false,
+                    def: '{}',
+                },
+                JSON.stringify(gradesObj),
+            );
+
+            // Zusätzlich pro Fach ein eigener, browsbarer Kanal statt nur des einen großen
+            // JSON-Blobs - dafür in Admin/Objekte deutlich besser lesbar. Nur Fächer mit
+            // mindestens einer Zensur bekommen einen Kanal, um den Baum nicht mit 21 leeren
+            // Fächern zuzumüllen. Die Durchschnittsberechnung (parseGradeValue/gradeAverageLabel)
+            // ist 1:1 aus content-zensuren.php (noteToFloat/floatToNote) portiert - NUR "1".."6"
+            // mit optionalem "+"/"-" zählt als Zensur (z. B. "2+" -> 1.7, "2-" -> 2.3), alles
+            // andere (auch "1,5" oder Freitext) fließt NICHT in den Durchschnitt ein, zählt aber
+            // weiterhin zu `count`.
+            const allNumericGrades = [];
+            for (const [label, entries] of subjectsWithGrades) {
+                const prefix = `grades.subjects.${slugifySubject(label)}`;
+                const numericGrades = entries.map(e => parseGradeValue(e.grade)).filter(v => v !== null);
+                allNumericGrades.push(...numericGrades);
+                const rawAverage = numericGrades.length > 0 ? mean(numericGrades) : null;
+
+                await this.ensureChannel(prefix, label);
+                await this.ensureState(
+                    `${prefix}.label`,
+                    {
+                        name: 'Fach',
+                        type: 'string',
+                        role: 'text',
+                        read: true,
+                        write: false,
+                        def: '',
+                    },
+                    label,
+                );
+                await this.ensureState(
+                    `${prefix}.count`,
+                    {
+                        name: 'Anzahl Zensuren',
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: false,
+                        def: 0,
+                    },
+                    entries.length,
+                );
+                await this.ensureState(
+                    `${prefix}.average`,
+                    {
+                        name: 'Durchschnitt als Zahl (nur numerisch auswertbare Zensuren)',
+                        type: 'number',
+                        role: 'value',
+                        read: true,
+                        write: false,
+                        def: 0,
+                    },
+                    rawAverage !== null ? roundTo2(rawAverage) : null,
+                );
+                await this.ensureState(
+                    `${prefix}.averageNote`,
+                    {
+                        name: 'Durchschnitt als Zensur (wie im PHP-Original, z. B. "1+")',
+                        type: 'string',
+                        role: 'text',
+                        read: true,
+                        write: false,
+                        def: '-',
+                    },
+                    gradeAverageLabel(rawAverage),
+                );
+                await this.ensureState(
+                    `${prefix}.entries`,
+                    {
+                        name: 'Zensuren (JSON)',
+                        type: 'string',
+                        role: 'json',
+                        read: true,
+                        write: false,
+                        def: '[]',
+                    },
+                    JSON.stringify(entries),
+                );
+            }
+
+            // grades.overallAverage/-Note gibt es im PHP-Original nicht (das kennt nur den
+            // Durchschnitt je Fach) - als zusätzlicher Komfort-State über alle Fächer hinweg,
+            // mit derselben Berechnungslogik.
+            const rawOverallAverage = allNumericGrades.length > 0 ? mean(allNumericGrades) : null;
+            await this.ensureState(
+                'grades.overallAverage',
+                {
+                    name: 'Durchschnitt über alle Fächer als Zahl (unwertet je Einzelnote, nicht je Fach)',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    def: 0,
+                },
+                rawOverallAverage !== null ? roundTo2(rawOverallAverage) : null,
+            );
+            await this.ensureState(
+                'grades.overallAverageNote',
+                {
+                    name: 'Durchschnitt über alle Fächer als Zensur',
+                    type: 'string',
+                    role: 'text',
+                    read: true,
+                    write: false,
+                    def: '-',
+                },
+                gradeAverageLabel(rawOverallAverage),
+            );
+
+            // Für den Neu-Abgleich flach über alle Fächer (Zensuren tragen anders als Hausaufgaben/
+            // Bemerkungen kein direktes Datenfeld für "welches Fach", das steckt nur im Gruppierungs-Key).
+            const flatGrades = [];
+            for (const [subject, entries] of subjectsWithGrades) {
+                for (const entry of entries) {
+                    flatGrades.push({ subject, ...entry });
+                }
+            }
+            newGrades = await this.detectNew(
+                'grades',
+                flatGrades,
+                g => `${g.subject}|${g.date}|${g.grade}|${g.remark}`,
+            );
+            await this.ensureState(
+                'grades.newCount',
+                {
+                    name: 'Neue Zensuren seit dem letzten Abruf',
+                    type: 'number',
+                    role: 'value',
+                    read: true,
+                    write: false,
+                    def: 0,
+                },
+                newGrades.length,
+            );
+            await this.ensureState(
+                'grades.newEntries',
+                {
+                    name: 'Neue Zensuren seit dem letzten Abruf (JSON)',
+                    type: 'string',
+                    role: 'json',
+                    read: true,
+                    write: false,
+                    def: '[]',
+                },
+                JSON.stringify(newGrades),
             );
         }
-
-        // grades.overallAverage/-Note gibt es im PHP-Original nicht (das kennt nur den
-        // Durchschnitt je Fach) - als zusätzlicher Komfort-State über alle Fächer hinweg,
-        // mit derselben Berechnungslogik.
-        const rawOverallAverage = allNumericGrades.length > 0 ? mean(allNumericGrades) : null;
-        await this.ensureState(
-            'grades.overallAverage',
-            {
-                name: 'Durchschnitt über alle Fächer als Zahl (unwertet je Einzelnote, nicht je Fach)',
-                type: 'number',
-                role: 'value',
-                read: true,
-                write: false,
-                def: 0,
-            },
-            rawOverallAverage !== null ? roundTo2(rawOverallAverage) : null,
-        );
-        await this.ensureState(
-            'grades.overallAverageNote',
-            {
-                name: 'Durchschnitt über alle Fächer als Zensur',
-                type: 'string',
-                role: 'text',
-                read: true,
-                write: false,
-                def: '-',
-            },
-            gradeAverageLabel(rawOverallAverage),
-        );
-
-        // Für den Neu-Abgleich flach über alle Fächer (Zensuren tragen anders als Hausaufgaben/
-        // Bemerkungen kein direktes Datenfeld für "welches Fach", das steckt nur im Gruppierungs-Key).
-        const flatGrades = [];
-        for (const [subject, entries] of subjectsWithGrades) {
-            for (const entry of entries) {
-                flatGrades.push({ subject, ...entry });
-            }
-        }
-        const newGrades = await this.detectNew(
-            'grades',
-            flatGrades,
-            g => `${g.subject}|${g.date}|${g.grade}|${g.remark}`,
-        );
-        await this.ensureState(
-            'grades.newCount',
-            {
-                name: 'Neue Zensuren seit dem letzten Abruf',
-                type: 'number',
-                role: 'value',
-                read: true,
-                write: false,
-                def: 0,
-            },
-            newGrades.length,
-        );
-        await this.ensureState(
-            'grades.newEntries',
-            {
-                name: 'Neue Zensuren seit dem letzten Abruf (JSON)',
-                type: 'string',
-                role: 'json',
-                read: true,
-                write: false,
-                def: '[]',
-            },
-            JSON.stringify(newGrades),
-        );
 
         const totalNew = newHomework.length + newRemarks.length + newGrades.length;
         await this.ensureState(

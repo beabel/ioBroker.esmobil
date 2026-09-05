@@ -265,6 +265,52 @@
       "xl": 6,
       "hidden": "!data.pollHomeworkEtc"
     },
+    "moodleCalendarUrl": {
+      "type": "password",
+      "label": {
+        "en": "Personal Moodle calendar export URL (optional, includes Moodle homework/appointments)",
+        "de": "Persönliche Moodle-Kalender-Export-URL (optional, für Moodle-Hausaufgaben/-Termine)",
+        "ru": "Личная ссылка на экспорт календаря Moodle (необязательно, включает домашние задания/события Moodle)",
+        "pt": "URL pessoal de exportação do calendário Moodle (opcional, inclui trabalhos de casa/compromissos do Moodle)",
+        "nl": "Persoonlijke Moodle-kalenderexport-URL (optioneel, voor Moodle-huiswerk/-afspraken)",
+        "fr": "URL personnelle d'export du calendrier Moodle (facultatif, inclut les devoirs/rendez-vous Moodle)",
+        "it": "URL personale di esportazione del calendario Moodle (opzionale, include compiti/appuntamenti Moodle)",
+        "es": "URL personal de exportación del calendario de Moodle (opcional, incluye tareas/citas de Moodle)",
+        "pl": "Osobisty adres URL eksportu kalendarza Moodle (opcjonalnie, obejmuje zadania domowe/terminy Moodle)",
+        "uk": "Особисте посилання на експорт календаря Moodle (необов'язково, включає домашні завдання/події Moodle)",
+        "zh-cn": "个人 Moodle 日历导出链接（可选，包含 Moodle 作业/日程）"
+      },
+      "newLine": true,
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12,
+      "hidden": "!data.pollHomeworkEtc"
+    },
+    "_moodleHint": {
+      "type": "staticText",
+      "newLine": true,
+      "text": {
+        "en": "Optional and independent of Home.InfoPoint above. Find this URL in Moodle under Calendar → Export calendar → \"Events of this course\"/\"All courses\" → \"Get calendar URL\". It already contains a private access token, so keep it as secret as a password.",
+        "de": "Optional und unabhängig von Home.InfoPoint oben. Diese URL findet sich in Moodle unter Kalender → Kalender exportieren → „Ereignisse dieses Kurses“/„Alle Kurse“ → „Kalender-URL abrufen“. Sie enthält bereits ein privates Zugriffstoken, deshalb genauso geheim halten wie ein Passwort.",
+        "ru": "Необязательно и не связано с Home.InfoPoint выше. Эту ссылку можно найти в Moodle в разделе Календарь → Экспорт календаря → «События этого курса»/«Все курсы» → «Получить ссылку календаря». Она уже содержит личный токен доступа, поэтому храните её так же секретно, как пароль.",
+        "pt": "Opcional e independente do Home.InfoPoint acima. Encontre este URL no Moodle em Calendário → Exportar calendário → \"Eventos deste curso\"/\"Todos os cursos\" → \"Obter URL do calendário\". Já contém um token de acesso privado, por isso mantenha-o tão secreto quanto uma palavra-passe.",
+        "nl": "Optioneel en onafhankelijk van Home.InfoPoint hierboven. Deze URL vind je in Moodle onder Kalender → Kalender exporteren → \"Gebeurtenissen van deze cursus\"/\"Alle cursussen\" → \"Kalender-URL ophalen\". Deze bevat al een privé-toegangstoken, houd hem dus net zo geheim als een wachtwoord.",
+        "fr": "Facultatif et indépendant de Home.InfoPoint ci-dessus. Cette URL se trouve dans Moodle sous Calendrier → Exporter le calendrier → « Événements de ce cours »/« Tous les cours » → « Obtenir l'URL du calendrier ». Elle contient déjà un jeton d'accès privé, gardez-la donc aussi secrète qu'un mot de passe.",
+        "it": "Facoltativo e indipendente da Home.InfoPoint sopra. Trovi questo URL in Moodle in Calendario → Esporta calendario → \"Eventi di questo corso\"/\"Tutti i corsi\" → \"Ottieni URL calendario\". Contiene già un token di accesso privato, quindi tienilo segreto come una password.",
+        "es": "Opcional e independiente de Home.InfoPoint de arriba. Encuentra esta URL en Moodle en Calendario → Exportar calendario → \"Eventos de este curso\"/\"Todos los cursos\" → \"Obtener URL del calendario\". Ya contiene un token de acceso privado, así que manténla tan secreta como una contraseña.",
+        "pl": "Opcjonalne i niezależne od Home.InfoPoint powyżej. Ten adres URL znajdziesz w Moodle w Kalendarz → Eksportuj kalendarz → „Wydarzenia z tego kursu”/„Wszystkie kursy” → „Pobierz adres URL kalendarza”. Zawiera już prywatny token dostępu, dlatego traktuj go tak samo poufnie jak hasło.",
+        "uk": "Необов'язково і не пов'язано з Home.InfoPoint вище. Це посилання можна знайти в Moodle у розділі Календар → Експорт календаря → «Події цього курсу»/«Усі курси» → «Отримати URL календаря». Воно вже містить особистий токен доступу, тому зберігайте його так само таємно, як пароль.",
+        "zh-cn": "可选，且独立于上面的 Home.InfoPoint。在 Moodle 中依次进入 日历 → 导出日历 → “本课程的事件”/“所有课程” → “获取日历URL” 即可找到此链接。它已包含私人访问令牌，请像密码一样保密。"
+      },
+      "hidden": "!data.pollHomeworkEtc",
+      "xs": 12,
+      "sm": 12,
+      "md": 12,
+      "lg": 12,
+      "xl": 12
+    },
     "_pollHeader": {
       "type": "header",
       "text": {

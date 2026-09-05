@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.3",
+    "version": "0.5.4",
     "news": {
+      "0.5.4": {
+        "en": "Homework list can now also include Moodle calendar entries (e.g. assignment due dates) via a new optional Moodle calendar URL setting, alongside Home.InfoPoint.",
+        "de": "Die Hausaufgaben-Liste kann jetzt zusätzlich zu Home.InfoPoint auch Moodle-Kalendertermine (z. B. Abgabefristen) über eine neue, optionale Moodle-Kalender-URL-Einstellung enthalten.",
+        "ru": "Список домашних заданий теперь может также включать события календаря Moodle (например, сроки сдачи) через новую необязательную настройку URL календаря Moodle, наряду с Home.InfoPoint.",
+        "pt": "A lista de trabalhos de casa pode agora também incluir eventos do calendário Moodle (por exemplo, prazos de entrega) através de uma nova definição opcional de URL do calendário Moodle, juntamente com o Home.InfoPoint.",
+        "nl": "De huiswerklijst kan nu naast Home.InfoPoint ook Moodle-kalenderafspraken (bijv. inleverdeadlines) bevatten via een nieuwe optionele Moodle-kalender-URL-instelling.",
+        "fr": "La liste des devoirs peut désormais aussi inclure les événements du calendrier Moodle (par ex. les échéances de rendu) via un nouveau paramètre facultatif d'URL de calendrier Moodle, en plus de Home.InfoPoint.",
+        "it": "L'elenco dei compiti può ora includere anche gli eventi del calendario Moodle (ad es. le scadenze di consegna) tramite una nuova impostazione facoltativa dell'URL del calendario Moodle, insieme a Home.InfoPoint.",
+        "es": "La lista de tareas ahora también puede incluir eventos del calendario de Moodle (p. ej. fechas límite de entrega) mediante un nuevo ajuste opcional de URL del calendario de Moodle, junto con Home.InfoPoint.",
+        "pl": "Lista zadań domowych może teraz również zawierać wydarzenia z kalendarza Moodle (np. terminy oddania) dzięki nowemu opcjonalnemu ustawieniu adresu URL kalendarza Moodle, obok Home.InfoPoint.",
+        "uk": "Список домашніх завдань тепер може також включати події календаря Moodle (наприклад, терміни здачі) за допомогою нового необов'язкового налаштування URL календаря Moodle, поряд із Home.InfoPoint.",
+        "zh-cn": "除 Home.InfoPoint 外，作业列表现在还可以通过新增的可选 Moodle 日历URL设置，包含 Moodle 日历事项（例如提交截止日期）。"
+      },
       "0.5.3": {
         "en": "Automated npm releases via trusted publishing (OIDC); fixed CI pipeline (lint script, Node 22/24 test matrix); dependency updates (fast-xml-parser 5, tough-cookie 6).",
         "de": "Automatische npm-Veröffentlichungen per Trusted Publishing (OIDC); CI-Pipeline repariert (Lint-Skript, Node 22/24-Testmatrix); Abhängigkeiten aktualisiert (fast-xml-parser 5, tough-cookie 6).",
@@ -124,11 +137,13 @@
   },
   "protectedNative": [
     "vpPassword",
-    "haPassword"
+    "haPassword",
+    "moodleCalendarUrl"
   ],
   "encryptedNative": [
     "vpPassword",
-    "haPassword"
+    "haPassword",
+    "moodleCalendarUrl"
   ],
   "native": {
     "school": "eosw",
@@ -137,6 +152,7 @@
     "vpPassword": "",
     "haUsername": "",
     "haPassword": "",
+    "moodleCalendarUrl": "",
     "pollHomeworkEtc": true,
     "pollIntervalMinutes": 30
   },

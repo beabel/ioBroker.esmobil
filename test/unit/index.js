@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const { parseAvailableDateKeys, parseKlassen, parseDayPlan } = require('../../lib/vpmobil');
 const { parseHomework, parseRemarks, parseGrades } = require('../../lib/homeinfopoint');
+const { parseMoodleIcs } = require('../../lib/moodle');
 const { getSchool, vpMobilBaseUrl, homeworkLoginUrl, homeworkDataUrl } = require('../../lib/schools');
 const {
     mondayOfRelevantWeek,
@@ -298,5 +299,64 @@ describe('lib/homeinfopoint', () => {
         expect([...result.keys()]).to.deep.equal(['BIO - Biologie (Nagy)', 'MA - Mathematik (Mül)']);
         expect(result.get('BIO - Biologie (Nagy)')).to.deep.equal([{ date: '01.09.2026', grade: '2', remark: 'Test' }]);
         expect(result.get('MA - Mathematik (Mül)')).to.deep.equal([{ date: '28.08.2026', grade: '1', remark: 'Klausur' }]);
+    });
+});
+
+describe('lib/moodle', () => {
+    it('parseMoodleIcs liest SUMMARY/DTSTART/CATEGORIES eines all-day VEVENT', () => {
+        const ics = [
+            'BEGIN:VCALENDAR',
+            'BEGIN:VEVENT',
+            'SUMMARY:Abgabe Praktikumsbericht',
+            'DTSTART;VALUE=DATE:20260910',
+            'CATEGORIES:08m2-INF-2026m',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n');
+        expect(parseMoodleIcs(ics)).to.deep.equal([
+            { date: '10.09.2026', subject: 'INF', task: 'Abgabe Praktikumsbericht', source: 'moodle' }
+        ]);
+    });
+
+    it('parseMoodleIcs wertet eine DTSTART mit Uhrzeit/UTC-"Z" nur nach dem Datumsanteil aus', () => {
+        const ics = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910T235900Z', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(ics)[0].date).to.equal('10.09.2026');
+    });
+
+    it('parseMoodleIcs löst gefaltete (fortgesetzte) Zeilen nach RFC 5545 auf', () => {
+        // RFC 5545: das (einzelne) Leerzeichen direkt nach dem Zeilenumbruch ist selbst nur
+        // die Faltmarkierung und wird beim Entfalten entfernt - ein tatsächliches Leerzeichen
+        // an der Umbruchstelle muss deshalb schon VOR dem Umbruch im Originaltext stehen.
+        const ics = [
+            'BEGIN:VEVENT',
+            'SUMMARY:Ein sehr langer ',
+            ' Titel über zwei Zeilen',
+            'DTSTART:20260910',
+            'END:VEVENT'
+        ].join('\r\n');
+        expect(parseMoodleIcs(ics)[0].task).to.equal('Ein sehr langer Titel über zwei Zeilen');
+    });
+
+    it('parseMoodleIcs übernimmt eine DESCRIPTION nur, wenn sie sich von SUMMARY unterscheidet', () => {
+        const withDescription = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910', 'DESCRIPTION:Mehr Details', 'END:VEVENT'].join(
+            '\r\n'
+        );
+        expect(parseMoodleIcs(withDescription)[0].description).to.equal('Mehr Details');
+
+        const sameAsSummary = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910', 'DESCRIPTION:Test', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(sameAsSummary)[0]).to.not.have.property('description');
+    });
+
+    it('parseMoodleIcs fällt ohne CATEGORIES auf "Moodle" als Fach zurück', () => {
+        const ics = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(ics)[0].subject).to.equal('Moodle');
+    });
+
+    it('parseMoodleIcs überspringt VEVENTs ohne SUMMARY oder ohne auswertbares DTSTART', () => {
+        const missingSummary = ['BEGIN:VEVENT', 'DTSTART:20260910', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(missingSummary)).to.deep.equal([]);
+
+        const missingDate = ['BEGIN:VEVENT', 'SUMMARY:Test', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(missingDate)).to.deep.equal([]);
     });
 });

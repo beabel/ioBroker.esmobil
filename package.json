@@ -1,6 +1,6 @@
 {
   "name": "iobroker.esmobil",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "ioBroker-Adapter für Stundenplan (VpMobil/Indiware) und Hausaufgaben/Bemerkungen/Zensuren (Home.InfoPoint) der vier TEGW-Schulen (EOSW, EGW, EOSH, EGL)",
   "author": {
     "name": "Maik Ries",
@@ -52,9 +52,7 @@
   "devDependencies": {
     "@iobroker/eslint-config": "^2.3.4",
     "@iobroker/testing": "^5.2.2",
-    "@types/node": "^20",
-    "chai": "^6.2.2",
-    "mocha": "^11.7.6"
+    "@types/node": "^20"
   },
   "main": "main.js",
   "files": [
