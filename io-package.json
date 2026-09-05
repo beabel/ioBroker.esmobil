@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "news": {
+      "0.5.3": {
+        "en": "Automated npm releases via trusted publishing (OIDC); fixed CI pipeline (lint script, Node 22/24 test matrix); dependency updates (fast-xml-parser 5, tough-cookie 6).",
+        "de": "Automatische npm-Veröffentlichungen per Trusted Publishing (OIDC); CI-Pipeline repariert (Lint-Skript, Node 22/24-Testmatrix); Abhängigkeiten aktualisiert (fast-xml-parser 5, tough-cookie 6).",
+        "ru": "Автоматические публикации в npm через Trusted Publishing (OIDC); исправлен CI-конвейер (скрипт линтинга, тестовая матрица Node 22/24); обновлены зависимости (fast-xml-parser 5, tough-cookie 6).",
+        "pt": "Lançamentos automáticos no npm via Trusted Publishing (OIDC); pipeline de CI corrigido (script de lint, matriz de testes Node 22/24); dependências atualizadas (fast-xml-parser 5, tough-cookie 6).",
+        "nl": "Automatische npm-releases via Trusted Publishing (OIDC); CI-pipeline gerepareerd (lint-script, Node 22/24-testmatrix); afhankelijkheden bijgewerkt (fast-xml-parser 5, tough-cookie 6).",
+        "fr": "Publications npm automatiques via Trusted Publishing (OIDC) ; pipeline CI corrigé (script de lint, matrice de tests Node 22/24) ; dépendances mises à jour (fast-xml-parser 5, tough-cookie 6).",
+        "it": "Pubblicazioni npm automatiche tramite Trusted Publishing (OIDC); pipeline CI corretta (script di lint, matrice di test Node 22/24); dipendenze aggiornate (fast-xml-parser 5, tough-cookie 6).",
+        "es": "Publicaciones automáticas en npm mediante Trusted Publishing (OIDC); pipeline de CI corregido (script de lint, matriz de pruebas Node 22/24); dependencias actualizadas (fast-xml-parser 5, tough-cookie 6).",
+        "pl": "Automatyczne publikacje w npm przez Trusted Publishing (OIDC); naprawiono potok CI (skrypt lint, macierz testów Node 22/24); zaktualizowano zależności (fast-xml-parser 5, tough-cookie 6).",
+        "uk": "Автоматичні публікації в npm через Trusted Publishing (OIDC); виправлено CI-конвеєр (скрипт лінтингу, тестова матриця Node 22/24); оновлено залежності (fast-xml-parser 5, tough-cookie 6).",
+        "zh-cn": "通过 Trusted Publishing（OIDC）自动发布到 npm；修复了 CI 流水线（lint 脚本、Node 22/24 测试矩阵）；更新了依赖项（fast-xml-parser 5、tough-cookie 6）。"
+      },
       "0.5.2": {
         "en": "Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English.",
         "de": "Metadaten und Abhängigkeits-Versionen des Adapters an die aktuellen Repository-Anforderungen angepasst; README ins Englische übersetzt.",
@@ -16,7 +29,7 @@
         "uk": "Виправлено метадані адаптера та версії залежностей відповідно до поточних вимог репозиторію; README перекладено англійською.",
         "zh-cn": "修正了适配器元数据和依赖项版本，以符合当前仓库要求；README已翻译为英文。"
       },
-      "0.4.2": {
+      "0.4.3": {
         "en": "Initial release: school timetable, homework, remarks and grades for the four TEGW schools, including grade averages and detection of new entries for your own notifications.",
         "de": "Erstveröffentlichung: Stundenplan, Hausaufgaben, Bemerkungen und Zensuren für die vier TEGW-Schulen, inklusive Notendurchschnitt und Erkennung neuer Einträge für eigene Benachrichtigungen.",
         "ru": "Первый релиз: школьное расписание, домашние задания, замечания и оценки для четырёх школ TEGW, включая средний балл и обнаружение новых записей для собственных уведомлений.",

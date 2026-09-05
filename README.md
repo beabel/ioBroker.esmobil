@@ -188,16 +188,17 @@ A `lessons` entry has the form:
 
 ## Changelog
 
-
-### **WORK IN PROGRESS**
-- (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
+### 0.5.3 (2026-09-05)
+* Automated npm releases via trusted publishing (OIDC)
+* Fixed CI pipeline (lint script, Node 22/24 test matrix)
+* Dependency updates (fast-xml-parser 5, tough-cookie 6); adapter now requires admin >= 7.8.23
 
 ### 0.5.2 (2026-09-05)
 * Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English
 * Polling now reschedules itself only after the previous poll finishes (instead of a fixed interval), avoiding overlapping requests if a poll runs long
 * Full admin UI translations (all supported languages) and a proper CI test/lint/integration workflow
 
-### 0.4.2 (2026-09-05)
+### 0.4.3 (2026-09-05)
 Initial release.
 * Timetable (VpMobil/Indiware) as a real calendar school week (Monday-Friday, `plan.day1`-`plan.day5`) for EOSW/EGW/EOSH/EGL, including a bundled `plan.week.days` JSON
 * Homework, remarks and grades (Home.InfoPoint) for all four schools, including grade averages per subject (`grades.subjects.<subject>.average`/`.averageNote`) and overall (`grades.overallAverage`/`.overallAverageNote`)
