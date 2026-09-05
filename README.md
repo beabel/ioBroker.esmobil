@@ -216,6 +216,9 @@ SOFTWARE.
 
 ## Changelog
 
+### 0.4.5 (2026-09-05)
+* Dokumentation überarbeitet
+
 ### 0.4.4 (2026-09-05)
 * Kleinere interne Korrektur an den Paket-Metadaten (keine Funktionsänderung)
 

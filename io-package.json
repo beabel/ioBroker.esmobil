@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "news": {
+      "0.4.5": {
+        "en": "README trimmed down to end-user-relevant content only",
+        "de": "README auf endnutzerrelevante Inhalte reduziert"
+      },
       "0.4.4": {
         "en": "Fixed repository/homepage/bugs URLs in package.json and io-package.json: they used the lowercase npm-style path instead of the actual (mixed-case) GitHub repository name, which broke the ioBroker.repositories tooling's case-sensitive lookup",
         "de": "repository-/homepage-/bugs-URLs in package.json und io-package.json korrigiert: sie nutzten den npm-typischen Kleinschreibungs-Pfad statt des tatsächlichen (gemischt geschriebenen) GitHub-Repository-Namens, was die case-sensitive Suche des ioBroker.repositories-Tools brach"
