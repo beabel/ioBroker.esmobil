@@ -164,7 +164,16 @@
       "common": {
         "name": {
           "en": "Information",
-          "de": "Information"
+          "de": "Information",
+          "ru": "Информация",
+          "pt": "Informação",
+          "nl": "Informatie",
+          "fr": "Information",
+          "it": "Informazioni",
+          "es": "Información",
+          "pl": "Informacje",
+          "uk": "Інформація",
+          "zh-cn": "信息"
         }
       },
       "native": {}
@@ -176,7 +185,16 @@
         "role": "indicator.connected",
         "name": {
           "en": "Connected to the school servers",
-          "de": "Verbunden mit den Schulservern"
+          "de": "Verbunden mit den Schulservern",
+          "ru": "Подключено к серверам школы",
+          "pt": "Ligado aos servidores da escola",
+          "nl": "Verbonden met de schoolservers",
+          "fr": "Connecté aux serveurs de l'école",
+          "it": "Connesso ai server della scuola",
+          "es": "Conectado a los servidores de la escuela",
+          "pl": "Połączono z serwerami szkoły",
+          "uk": "Підключено до серверів школи",
+          "zh-cn": "已连接到学校服务器"
         },
         "type": "boolean",
         "read": true,

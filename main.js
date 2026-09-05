@@ -572,7 +572,7 @@ class ESmobil extends utils.Adapter {
                 {
                     name: 'Zeitpunkt des letzten Neuzugangs',
                     type: 'string',
-                    role: 'value.time',
+                    role: 'date',
                     read: true,
                     write: false,
                     def: '',
