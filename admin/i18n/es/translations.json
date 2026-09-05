@@ -1,0 +1,16 @@
+{
+  "School": "Escuela",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Nota: la dirección del horario para EOSH no está confirmada en la aplicación de referencia (deducida según el patrón de las otras escuelas, nunca verificada) - después de la primera ejecución, compruebe cuidadosamente si llegan datos reales.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Nota: esta escuela no tiene horario a través de VpMobil - solo están disponibles las tareas/observaciones/notas de abajo.",
+  "Timetable (VpMobil / Indiware)": "Horario (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Clase (como la indica VpMobil, p. ej. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Nombre de usuario de VpMobil (común para toda la escuela, no personal - normalmente permanece con el valor predeterminado)",
+  "VpMobil password (school-wide, not personal)": "Contraseña de VpMobil (común para toda la escuela, no personal)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Tareas / observaciones / notas (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Obtener también tareas, observaciones y notas",
+  "Home.InfoPoint username (personal login)": "Nombre de usuario de Home.InfoPoint (acceso personal)",
+  "Home.InfoPoint password (personal login)": "Contraseña de Home.InfoPoint (acceso personal)",
+  "Update interval": "Intervalo de actualización",
+  "Poll interval (minutes, minimum 5)": "Intervalo de consulta (minutos, mínimo 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Este adaptador es solo para las cuatro escuelas TEGW (las direcciones de los servidores están fijadas por escuela). Se ejecuta continuamente en segundo plano, obtiene los datos inmediatamente después de cada (re)inicio y luego de nuevo con este intervalo."
+}

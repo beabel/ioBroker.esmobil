@@ -1,0 +1,16 @@
+{
+  "School": "École",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Remarque : l'adresse de l'emploi du temps pour EOSH n'est pas confirmée dans l'application de référence (devinée d'après le modèle des autres écoles, jamais vérifiée) - après le premier lancement, veuillez vérifier attentivement si des données réelles arrivent.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Remarque : cette école n'a pas d'emploi du temps via VpMobil - seuls les devoirs/remarques/notes ci-dessous sont disponibles.",
+  "Timetable (VpMobil / Indiware)": "Emploi du temps (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Classe (telle qu'indiquée par VpMobil, par ex. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Nom d'utilisateur VpMobil (commun à toute l'école, non personnel - reste généralement à la valeur par défaut)",
+  "VpMobil password (school-wide, not personal)": "Mot de passe VpMobil (commun à toute l'école, non personnel)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Devoirs / remarques / notes (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Récupérer aussi les devoirs, remarques et notes",
+  "Home.InfoPoint username (personal login)": "Nom d'utilisateur Home.InfoPoint (accès personnel)",
+  "Home.InfoPoint password (personal login)": "Mot de passe Home.InfoPoint (accès personnel)",
+  "Update interval": "Intervalle de mise à jour",
+  "Poll interval (minutes, minimum 5)": "Intervalle d'interrogation (minutes, minimum 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Cet adaptateur est destiné uniquement aux quatre écoles TEGW (les adresses des serveurs sont fixées par école). Il fonctionne en continu en arrière-plan, récupère les données immédiatement après chaque (re)démarrage puis à nouveau selon cet intervalle."
+}

@@ -1,0 +1,16 @@
+{
+  "School": "Szkoła",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Uwaga: adres planu lekcji dla EOSH nie jest potwierdzony w aplikacji referencyjnej (odgadnięty na podstawie wzoru innych szkół, nigdy nie zweryfikowany) - po pierwszym uruchomieniu proszę dokładnie sprawdzić, czy napływają prawdziwe dane.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Uwaga: ta szkoła nie ma planu lekcji przez VpMobil - dostępne są tylko zadania domowe/uwagi/oceny poniżej.",
+  "Timetable (VpMobil / Indiware)": "Plan lekcji (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Klasa (zgodnie z danymi z VpMobil, np. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Nazwa użytkownika VpMobil (wspólna dla całej szkoły, nie osobista - zwykle pozostaje wartość domyślna)",
+  "VpMobil password (school-wide, not personal)": "Hasło VpMobil (wspólne dla całej szkoły, nie osobiste)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Zadania domowe / uwagi / oceny (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Pobieraj też zadania domowe, uwagi i oceny",
+  "Home.InfoPoint username (personal login)": "Nazwa użytkownika Home.InfoPoint (osobiste logowanie)",
+  "Home.InfoPoint password (personal login)": "Hasło Home.InfoPoint (osobiste logowanie)",
+  "Update interval": "Interwał aktualizacji",
+  "Poll interval (minutes, minimum 5)": "Interwał odpytywania (minuty, minimum 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Ten adapter jest przeznaczony wyłącznie dla czterech szkół TEGW (adresy serwerów są ustalone dla każdej szkoły). Działa w tle w sposób ciągły, pobiera dane natychmiast po każdym (ponownym) uruchomieniu, a następnie ponownie w tym interwale."
+}

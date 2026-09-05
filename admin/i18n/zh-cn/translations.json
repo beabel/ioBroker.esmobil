@@ -1,0 +1,16 @@
+{
+  "School": "学校",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "注意：EOSH的课程表地址在参考应用中未经确认（根据其他学校的模式推测，从未验证过）- 首次运行后，请仔细检查是否收到真实数据。",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "注意：该学校没有通过VpMobil提供的课程表 - 仅以下的作业/评语/成绩可用。",
+  "Timetable (VpMobil / Indiware)": "课程表（VpMobil / Indiware）",
+  "Class (as shown by VpMobil, e.g. 08m2)": "班级（VpMobil提供的名称，例如08m2）",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "VpMobil用户名（全校通用，非个人 - 通常保持默认值）",
+  "VpMobil password (school-wide, not personal)": "VpMobil密码（全校通用，非个人）",
+  "Homework / remarks / grades (Home.InfoPoint)": "作业 / 评语 / 成绩（Home.InfoPoint）",
+  "Also fetch homework, remarks and grades": "同时获取作业、评语和成绩",
+  "Home.InfoPoint username (personal login)": "Home.InfoPoint用户名（个人登录）",
+  "Home.InfoPoint password (personal login)": "Home.InfoPoint密码（个人登录）",
+  "Update interval": "更新间隔",
+  "Poll interval (minutes, minimum 5)": "轮询间隔（分钟，最少5分钟）",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "此适配器仅适用于四所TEGW学校（服务器地址按学校固定设置）。它在后台持续运行，每次（重新）启动后立即获取数据，之后按此间隔再次获取。"
+}

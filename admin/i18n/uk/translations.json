@@ -1,0 +1,16 @@
+{
+  "School": "Школа",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Примітка: адреса розкладу для EOSH не підтверджена в еталонному застосунку (визначена за зразком інших шкіл, ніколи не перевірялася) - після першого запуску, будь ласка, уважно перевірте, чи надходять реальні дані.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Примітка: ця школа не має розкладу через VpMobil - доступні лише домашні завдання/зауваження/оцінки нижче.",
+  "Timetable (VpMobil / Indiware)": "Розклад (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Клас (як зазначено у VpMobil, напр. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "Ім'я користувача VpMobil (спільне для всієї школи, не особисте - зазвичай залишається значення за замовчуванням)",
+  "VpMobil password (school-wide, not personal)": "Пароль VpMobil (спільний для всієї школи, не особистий)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Домашні завдання / зауваження / оцінки (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Також отримувати домашні завдання, зауваження та оцінки",
+  "Home.InfoPoint username (personal login)": "Ім'я користувача Home.InfoPoint (особистий логін)",
+  "Home.InfoPoint password (personal login)": "Пароль Home.InfoPoint (особистий логін)",
+  "Update interval": "Інтервал оновлення",
+  "Poll interval (minutes, minimum 5)": "Інтервал опитування (хвилини, мінімум 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Цей адаптер призначений лише для чотирьох шкіл TEGW (адреси серверів визначені для кожної школи). Він працює постійно у фоновому режимі, отримує дані одразу після кожного (пере)запуску, а потім знову з цим інтервалом."
+}

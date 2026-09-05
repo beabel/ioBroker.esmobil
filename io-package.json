@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.1",
+    "version": "0.5.2",
     "news": {
-      "0.5.1": {
+      "0.5.2": {
         "en": "Fixed adapter metadata and dependency versions to meet current repository requirements; README translated to English.",
         "de": "Metadaten und Abhängigkeits-Versionen des Adapters an die aktuellen Repository-Anforderungen angepasst; README ins Englische übersetzt.",
         "ru": "Исправлены метаданные адаптера и версии зависимостей в соответствии с текущими требованиями репозитория; README переведён на английский.",
@@ -16,7 +16,7 @@
         "uk": "Виправлено метадані адаптера та версії залежностей відповідно до поточних вимог репозиторію; README перекладено англійською.",
         "zh-cn": "修正了适配器元数据和依赖项版本，以符合当前仓库要求；README已翻译为英文。"
       },
-      "0.4.0": {
+      "0.4.2": {
         "en": "Initial release: school timetable, homework, remarks and grades for the four TEGW schools, including grade averages and detection of new entries for your own notifications.",
         "de": "Erstveröffentlichung: Stundenplan, Hausaufgaben, Bemerkungen und Zensuren für die vier TEGW-Schulen, inklusive Notendurchschnitt und Erkennung neuer Einträge für eigene Benachrichtigungen.",
         "ru": "Первый релиз: школьное расписание, домашние задания, замечания и оценки для четырёх школ TEGW, включая средний балл и обнаружение новых записей для собственных уведомлений.",

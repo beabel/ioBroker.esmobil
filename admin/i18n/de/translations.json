@@ -1,0 +1,16 @@
+{
+  "School": "Schule",
+  "Note: the timetable address for EOSH is unconfirmed in the reference app (guessed from the pattern of the other schools, never verified) - after the first run, please check closely whether real data arrives.": "Hinweis: Die Stundenplan-Adresse für EOSH ist in der Referenz-App unbestätigt (nach dem Muster der anderen Schulen geraten, nie verifiziert) - bitte nach dem ersten Lauf genau prüfen, ob echte Daten ankommen.",
+  "Note: this school has no timetable via VpMobil - only homework/remarks/grades below are available.": "Hinweis: Diese Schule hat keinen Stundenplan über VpMobil - nur Hausaufgaben/Bemerkungen/Zensuren weiter unten sind verfügbar.",
+  "Timetable (VpMobil / Indiware)": "Stundenplan (VpMobil / Indiware)",
+  "Class (as shown by VpMobil, e.g. 08m2)": "Klasse (wie von VpMobil geliefert, z. B. 08m2)",
+  "VpMobil username (school-wide, not personal - usually stays at the default)": "VpMobil-Benutzername (schulweit gleich, nicht persönlich - bleibt meist auf dem Standardwert)",
+  "VpMobil password (school-wide, not personal)": "VpMobil-Passwort (schulweit gleich, nicht persönlich)",
+  "Homework / remarks / grades (Home.InfoPoint)": "Hausaufgaben / Bemerkungen / Zensuren (Home.InfoPoint)",
+  "Also fetch homework, remarks and grades": "Auch Hausaufgaben, Bemerkungen und Zensuren abrufen",
+  "Home.InfoPoint username (personal login)": "Home.InfoPoint-Benutzername (persönlicher Zugang)",
+  "Home.InfoPoint password (personal login)": "Home.InfoPoint-Passwort (persönlicher Zugang)",
+  "Update interval": "Aktualisierungsintervall",
+  "Poll interval (minutes, minimum 5)": "Abrufintervall (Minuten, mindestens 5)",
+  "This adapter is for the four TEGW schools only (server addresses are built in per school). It runs continuously in the background, fetches data immediately after every (re)start and then again in this interval.": "Dieser Adapter ist ausschließlich für die vier TEGW-Schulen gedacht (die Serveradressen sind je Schule fest hinterlegt). Er läuft dauerhaft im Hintergrund, ruft die Daten sofort nach jedem (Neu-)Start ab und danach in diesem Intervall erneut."
+}
