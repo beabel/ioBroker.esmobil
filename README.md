@@ -169,20 +169,11 @@ absichtlich keinen eigenen Kanal, um die Objektliste nicht mit leeren
 Einträgen zu überladen - sie tauchen nur (mit leerem Array) in
 `grades.bySubject` auf.
 
-**Regeln für die Durchschnittsberechnung:**
-
-- Als Zensur zählt **nur** eine einzelne Ziffer "1".."6" mit optionalem
-  "+"/"-" (z. B. "2", "2+", "2-"). "+" verbessert den Wert um 0.3, "-"
-  verschlechtert ihn um 0.3 (z. B. "2+" → 1.7, "2-" → 2.3). Alles andere -
-  auch ein Dezimalkomma wie "1,5" oder Freitext wie "e.n." - zählt zwar
-  weiterhin zu `count`, fließt aber **nicht** in den Durchschnitt ein.
-- `average`/`grades.overallAverage` sind die daraus gemittelten Zahlenwerte
-  (auf 2 Nachkommastellen gerundet).
-- `averageNote`/`grades.overallAverageNote` bilden diesen Zahlenwert wieder
-  auf die nächstgelegene "echte" Zensur-Schreibweise ab (z. B. 1.7 → "2+").
-  Ohne jede numerisch auswertbare Zensur liefern beide "-".
-- `grades.overallAverage`/`overallAverageNote` mitteln über alle Fächer
-  hinweg, gewichtet je Einzelnote (nicht je Fach).
+`average` zeigt den Durchschnitt als Zahl (z. B. 1.7), `averageNote` denselben
+Durchschnitt als Zensur (z. B. "2+"). Zensuren, die sich nicht eindeutig als
+Note interpretieren lassen (z. B. Freitext), fließen nicht in den Durchschnitt
+ein, zählen aber weiterhin zu `count`. `grades.overallAverage`/
+`overallAverageNote` bilden denselben Durchschnitt über alle Fächer hinweg.
 
 Ein `lessons`-Eintrag hat die Form:
 
