@@ -2,7 +2,12 @@ node_modules/
 npm-debug.log
 .idea/
 *.iml
-.vscode/
+.vscode/*
+!.vscode/settings.json
 *.log
 .DS_Store
 .commitinfo
+
+# i18n intermediate files (npm run translate)
+admin/i18n/flat.txt
+admin/i18n/*/flat.txt

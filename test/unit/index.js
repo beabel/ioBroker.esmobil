@@ -80,7 +80,7 @@ describe('main.js Notendurchschnitt (Portierung aus content-zensuren.php)', () =
     });
 
     it('End-to-End wie im realen Beispiel: DE-Zensuren "1","1" -> Durchschnitt "1"', () => {
-        const values = ['1', '1'].map(parseGradeValue);
+        const values = ['1', '1'].map(parseGradeValue).filter(v => v !== null);
         expect(gradeAverageLabel(mean(values))).to.equal('1');
     });
 });

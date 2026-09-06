@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.4",
+    "version": "0.5.5",
     "news": {
+      "0.5.5": {
+        "en": "Repository quality improvements: TypeScript type-checking (npm run check), release-script/adapter-dev tooling, updated .vscode settings, i18n files converted to the short-format layout, and updated @iobroker/adapter-core; fixed several type-safety issues found along the way. No user-facing changes.",
+        "de": "Repository-Qualitätsverbesserungen: TypeScript-Typprüfung (npm run check), Tooling für Release-Script/Adapter-Dev, aktualisierte .vscode-Einstellungen, i18n-Dateien im Kurzformat sowie aktualisiertes @iobroker/adapter-core; dabei gefundene Typsicherheits-Probleme behoben. Keine für Nutzer sichtbaren Änderungen.",
+        "ru": "Улучшения качества репозитория: проверка типов TypeScript (npm run check), инструменты release-script/adapter-dev, обновлённые настройки .vscode, файлы i18n переведены в короткий формат, обновлён @iobroker/adapter-core; попутно исправлены проблемы с типобезопасностью. Изменений, видимых пользователю, нет.",
+        "pt": "Melhorias de qualidade do repositório: verificação de tipos TypeScript (npm run check), ferramentas release-script/adapter-dev, definições .vscode atualizadas, ficheiros i18n convertidos para o formato curto e @iobroker/adapter-core atualizado; corrigidos vários problemas de segurança de tipos encontrados. Sem alterações visíveis para o utilizador.",
+        "nl": "Kwaliteitsverbeteringen aan de repository: TypeScript-typecontrole (npm run check), release-script/adapter-dev-tooling, bijgewerkte .vscode-instellingen, i18n-bestanden omgezet naar het korte formaat en bijgewerkte @iobroker/adapter-core; onderweg gevonden typeveiligheidsproblemen opgelost. Geen zichtbare wijzigingen voor gebruikers.",
+        "fr": "Améliorations de la qualité du dépôt : vérification des types TypeScript (npm run check), outillage release-script/adapter-dev, paramètres .vscode mis à jour, fichiers i18n convertis au format court et @iobroker/adapter-core mis à jour ; plusieurs problèmes de sécurité de type corrigés au passage. Aucun changement visible pour l'utilisateur.",
+        "it": "Miglioramenti alla qualità del repository: controllo dei tipi TypeScript (npm run check), strumenti release-script/adapter-dev, impostazioni .vscode aggiornate, file i18n convertiti nel formato breve e @iobroker/adapter-core aggiornato; risolti diversi problemi di sicurezza dei tipi riscontrati. Nessuna modifica visibile per l'utente.",
+        "es": "Mejoras de calidad del repositorio: comprobación de tipos de TypeScript (npm run check), herramientas release-script/adapter-dev, configuración de .vscode actualizada, archivos i18n convertidos al formato corto y @iobroker/adapter-core actualizado; se corrigieron varios problemas de seguridad de tipos encontrados. Sin cambios visibles para el usuario.",
+        "pl": "Poprawki jakości repozytorium: sprawdzanie typów TypeScript (npm run check), narzędzia release-script/adapter-dev, zaktualizowane ustawienia .vscode, pliki i18n przekonwertowane na format krótki oraz zaktualizowany @iobroker/adapter-core; naprawiono kilka napotkanych po drodze problemów z bezpieczeństwem typów. Brak zmian widocznych dla użytkownika.",
+        "uk": "Покращення якості репозиторію: перевірка типів TypeScript (npm run check), інструменти release-script/adapter-dev, оновлені налаштування .vscode, файли i18n перетворено на короткий формат, оновлено @iobroker/adapter-core; попутно виправлено кілька проблем із типобезпекою. Змін, помітних користувачу, немає.",
+        "zh-cn": "仓库质量改进：TypeScript 类型检查（npm run check）、release-script/adapter-dev 工具、更新的 .vscode 设置、i18n 文件转换为短格式布局，以及更新的 @iobroker/adapter-core；顺带修复了发现的若干类型安全问题。无面向用户的变更。"
+      },
       "0.5.4": {
         "en": "Homework list can now also include Moodle calendar entries (e.g. assignment due dates) via a new optional Moodle calendar URL setting, alongside Home.InfoPoint.",
         "de": "Die Hausaufgaben-Liste kann jetzt zusätzlich zu Home.InfoPoint auch Moodle-Kalendertermine (z. B. Abgabefristen) über eine neue, optionale Moodle-Kalender-URL-Einstellung enthalten.",

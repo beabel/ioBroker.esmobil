@@ -202,6 +202,11 @@ A `lessons` entry has the form:
 
 ## Changelog
 
+### 0.5.5 (2026-09-06)
+* Repository quality improvements: TypeScript type-checking (`npm run check`), release-script/adapter-dev tooling, updated `.vscode` settings, `admin/i18n` files converted to the short-format layout, and an updated `@iobroker/adapter-core`
+* Fixed several type-safety issues found along the way (defensive null-guards, explicit type coercions)
+* No user-facing changes
+
 ### 0.5.4 (2026-09-05)
 * Homework list can now also include Moodle calendar entries (e.g. assignment due dates), in addition to Home.InfoPoint - see the new optional "Moodle calendar URL" setting
 * Each `homework.entries` item is now tagged with `source: "homeinfopoint"` or `"moodle"`

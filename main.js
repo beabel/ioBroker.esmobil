@@ -125,6 +125,11 @@ class ESmobil extends utils.Adapter {
         }
 
         const baseUrl = vpMobilBaseUrl(school);
+        if (!baseUrl) {
+            // Sollte nicht passieren: main() ruft updateTimetable() nur für Schulen mit
+            // hasStundenplan=true auf, und nur EGL (hasStundenplan=false) hat keinen vpHost.
+            throw new Error(`${school.displayName} hat keine VpMobil-Basis-URL.`);
+        }
         const username = config.vpUsername || school.vpUsernameDefault;
         const client = new VpMobilClient(baseUrl, username, config.vpPassword);
         const fileNames = await client.fetchDirectoryListing();
@@ -603,7 +608,7 @@ class ESmobil extends utils.Adapter {
         const isFirstRun = !state || state.val === null || state.val === undefined;
         let previousKeys;
         try {
-            previousKeys = new Set(isFirstRun ? [] : JSON.parse(state.val));
+            previousKeys = new Set(isFirstRun ? [] : JSON.parse(String(state.val)));
         } catch {
             previousKeys = new Set();
         }
