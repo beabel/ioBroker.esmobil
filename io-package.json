@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.8",
+    "version": "0.5.9",
     "news": {
+      "0.5.9": {
+        "en": "Repository maintenance: removed a stale changelog entry for a version that was never published to npm. No user-facing changes.",
+        "de": "Repository-Pflege: veralteten Changelog-Eintrag für eine Version entfernt, die nie auf npm veröffentlicht wurde. Keine für Nutzer sichtbaren Änderungen.",
+        "ru": "Обслуживание репозитория: удалена устаревшая запись журнала изменений для версии, которая никогда не публиковалась на npm. Изменений, видимых пользователю, нет.",
+        "pt": "Manutenção do repositório: removida uma entrada de changelog obsoleta para uma versão que nunca foi publicada no npm. Sem alterações visíveis para o utilizador.",
+        "nl": "Repository-onderhoud: verouderde changelog-vermelding verwijderd voor een versie die nooit op npm is gepubliceerd. Geen zichtbare wijzigingen voor gebruikers.",
+        "fr": "Maintenance du dépôt : suppression d'une entrée de journal des modifications obsolète pour une version qui n'a jamais été publiée sur npm. Aucun changement visible pour l'utilisateur.",
+        "it": "Manutenzione del repository: rimossa una voce del changelog obsoleta per una versione mai pubblicata su npm. Nessuna modifica visibile per l'utente.",
+        "es": "Mantenimiento del repositorio: se eliminó una entrada obsoleta del registro de cambios para una versión que nunca se publicó en npm. Sin cambios visibles para el usuario.",
+        "pl": "Utrzymanie repozytorium: usunięto nieaktualny wpis dziennika zmian dla wersji, która nigdy nie została opublikowana w npm. Brak zmian widocznych dla użytkownika.",
+        "uk": "Обслуговування репозиторію: видалено застарілий запис журналу змін для версії, яку ніколи не публікували в npm. Змін, помітних користувачу, немає.",
+        "zh-cn": "仓库维护：移除了一个从未发布到 npm 的版本的过期更新日志条目。无面向用户的变更。"
+      },
       "0.5.8": {
         "en": "Fix: a Moodle homework/exam due date with a specific time (not all-day) could be off by one day depending on the time of day, because the UTC timestamp from the calendar export was used as-is instead of being converted to the school's local time (Europe/Berlin) first. Corrected for both the timetable importer used here and the companion Android app.",
         "de": "Fix: Eine Moodle-Hausaufgaben-/Prüfungs-Abgabefrist mit Uhrzeit (kein ganztägiger Termin) konnte je nach Tageszeit einen Tag daneben liegen, weil der UTC-Zeitstempel aus dem Kalender-Export unverändert übernommen wurde, statt ihn zuvor in die Ortszeit der Schule (Europe/Berlin) umzurechnen. Korrigiert sowohl hier als auch in der begleitenden Android-App.",
@@ -15,19 +28,6 @@
         "pl": "Poprawka: termin oddania zadania domowego/egzaminu z Moodle z określoną godziną (nie całodniowy) mógł być błędny o jeden dzień w zależności od godziny, ponieważ znacznik czasu UTC z eksportu kalendarza był używany bez przeliczenia na czas lokalny szkoły (Europe/Berlin). Poprawiono zarówno tutaj, jak i w towarzyszącej aplikacji Android.",
         "uk": "Виправлення: термін здачі домашнього завдання/екзамену з Moodle із зазначеним часом (не цілий день) міг бути помилковим на один день залежно від часу доби, оскільки позначка часу UTC з експорту календаря використовувалася без перерахунку в місцевий час школи (Europe/Berlin). Виправлено як тут, так і в супровідному Android-додатку.",
         "zh-cn": "修复：带具体时间（非全天）的 Moodle 作业/考试截止日期，可能因时间段不同而相差一天，原因是日历导出的 UTC 时间戳被直接使用，而未先转换为学校本地时间（Europe/Berlin）。此问题已在本适配器及配套的 Android 应用中一并修复。"
-      },
-      "0.5.7": {
-        "en": "Repository maintenance: added Node.js 26 to the CI test matrix and updated @iobroker/testing to 6.1.0. No user-facing changes.",
-        "de": "Repository-Pflege: Node.js 26 zur CI-Testmatrix hinzugefügt und @iobroker/testing auf 6.1.0 aktualisiert. Keine für Nutzer sichtbaren Änderungen.",
-        "ru": "Обслуживание репозитория: в тестовую матрицу CI добавлен Node.js 26, @iobroker/testing обновлён до 6.1.0. Изменений, видимых пользователю, нет.",
-        "pt": "Manutenção do repositório: adicionado Node.js 26 à matriz de testes de CI e @iobroker/testing atualizado para 6.1.0. Sem alterações visíveis para o utilizador.",
-        "nl": "Repository-onderhoud: Node.js 26 toegevoegd aan de CI-testmatrix en @iobroker/testing bijgewerkt naar 6.1.0. Geen zichtbare wijzigingen voor gebruikers.",
-        "fr": "Maintenance du dépôt : ajout de Node.js 26 à la matrice de tests CI et mise à jour de @iobroker/testing vers 6.1.0. Aucun changement visible pour l'utilisateur.",
-        "it": "Manutenzione del repository: aggiunto Node.js 26 alla matrice di test CI e aggiornato @iobroker/testing alla versione 6.1.0. Nessuna modifica visibile per l'utente.",
-        "es": "Mantenimiento del repositorio: se añadió Node.js 26 a la matriz de pruebas de CI y se actualizó @iobroker/testing a 6.1.0. Sin cambios visibles para el usuario.",
-        "pl": "Utrzymanie repozytorium: dodano Node.js 26 do matrycy testów CI oraz zaktualizowano @iobroker/testing do wersji 6.1.0. Brak zmian widocznych dla użytkownika.",
-        "uk": "Обслуговування репозиторію: до тестової матриці CI додано Node.js 26, @iobroker/testing оновлено до 6.1.0. Змін, помітних користувачу, немає.",
-        "zh-cn": "仓库维护：将 Node.js 26 添加到 CI 测试矩阵，并将 @iobroker/testing 更新到 6.1.0。无面向用户的变更。"
       },
       "0.5.6": {
         "en": "New: general daily notices from the school (e.g. special schedule, event day) are now available per day as plan.dayN.zusatzInfo and included in plan.week.days.",

@@ -204,6 +204,9 @@ A `lessons` entry has the form:
 
 ## Changelog
 
+### 0.5.9 (2026-09-09)
+* Repository maintenance: removed the changelog entry for 0.5.7, a version that was tagged in this file's history but never actually published to npm (0.5.6 was followed directly by 0.5.8)
+
 ### 0.5.8 (2026-09-09)
 * Fix: a Moodle homework/exam due date with a specific time (not all-day) could be off by one day depending on the time of day, because the UTC timestamp from the calendar export was used as-is instead of being converted to the school's local time (Europe/Berlin) first (e.g. a `20260913T220000Z` deadline - 00:00 CEST on the 14th - was wrongly shown as due on the 13th)
 * Corrected for both this adapter (`lib/moodle.js`) and the companion Android app
