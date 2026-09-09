@@ -204,6 +204,10 @@ A `lessons` entry has the form:
 
 ## Changelog
 
+### 0.5.7 (2026-09-09)
+* Repository maintenance: added Node.js 26 to the CI test matrix, updated `@iobroker/testing` to 6.1.0
+* No user-facing changes
+
 ### 0.5.6 (2026-09-09)
 * New: general daily notices from the school (e.g. special schedule, event day - VpMobil/Indiware `<ZusatzInfo><ZiZeile>`) are now parsed and exposed per day as `plan.day<N>.zusatzInfo` (multiple lines joined with " | "), and included as `zusatzInfo` in each entry of `plan.week.days`
 

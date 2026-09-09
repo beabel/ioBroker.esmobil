@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.6",
+    "version": "0.5.7",
     "news": {
+      "0.5.7": {
+        "en": "Repository maintenance: added Node.js 26 to the CI test matrix and updated @iobroker/testing to 6.1.0. No user-facing changes.",
+        "de": "Repository-Pflege: Node.js 26 zur CI-Testmatrix hinzugefügt und @iobroker/testing auf 6.1.0 aktualisiert. Keine für Nutzer sichtbaren Änderungen.",
+        "ru": "Обслуживание репозитория: в тестовую матрицу CI добавлен Node.js 26, @iobroker/testing обновлён до 6.1.0. Изменений, видимых пользователю, нет.",
+        "pt": "Manutenção do repositório: adicionado Node.js 26 à matriz de testes de CI e @iobroker/testing atualizado para 6.1.0. Sem alterações visíveis para o utilizador.",
+        "nl": "Repository-onderhoud: Node.js 26 toegevoegd aan de CI-testmatrix en @iobroker/testing bijgewerkt naar 6.1.0. Geen zichtbare wijzigingen voor gebruikers.",
+        "fr": "Maintenance du dépôt : ajout de Node.js 26 à la matrice de tests CI et mise à jour de @iobroker/testing vers 6.1.0. Aucun changement visible pour l'utilisateur.",
+        "it": "Manutenzione del repository: aggiunto Node.js 26 alla matrice di test CI e aggiornato @iobroker/testing alla versione 6.1.0. Nessuna modifica visibile per l'utente.",
+        "es": "Mantenimiento del repositorio: se añadió Node.js 26 a la matriz de pruebas de CI y se actualizó @iobroker/testing a 6.1.0. Sin cambios visibles para el usuario.",
+        "pl": "Utrzymanie repozytorium: dodano Node.js 26 do matrycy testów CI oraz zaktualizowano @iobroker/testing do wersji 6.1.0. Brak zmian widocznych dla użytkownika.",
+        "uk": "Обслуговування репозиторію: до тестової матриці CI додано Node.js 26, @iobroker/testing оновлено до 6.1.0. Змін, помітних користувачу, немає.",
+        "zh-cn": "仓库维护：将 Node.js 26 添加到 CI 测试矩阵，并将 @iobroker/testing 更新到 6.1.0。无面向用户的变更。"
+      },
       "0.5.6": {
         "en": "New: general daily notices from the school (e.g. special schedule, event day) are now available per day as plan.dayN.zusatzInfo and included in plan.week.days.",
         "de": "Neu: allgemeine Tages-Hinweise der Schule (z. B. Sonderplan, Veranstaltungstag) stehen jetzt pro Tag als plan.dayN.zusatzInfo zur Verfügung und sind auch in plan.week.days enthalten.",
