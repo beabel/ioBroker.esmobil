@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.7",
+    "version": "0.5.8",
     "news": {
+      "0.5.8": {
+        "en": "Fix: a Moodle homework/exam due date with a specific time (not all-day) could be off by one day depending on the time of day, because the UTC timestamp from the calendar export was used as-is instead of being converted to the school's local time (Europe/Berlin) first. Corrected for both the timetable importer used here and the companion Android app.",
+        "de": "Fix: Eine Moodle-Hausaufgaben-/Prüfungs-Abgabefrist mit Uhrzeit (kein ganztägiger Termin) konnte je nach Tageszeit einen Tag daneben liegen, weil der UTC-Zeitstempel aus dem Kalender-Export unverändert übernommen wurde, statt ihn zuvor in die Ortszeit der Schule (Europe/Berlin) umzurechnen. Korrigiert sowohl hier als auch in der begleitenden Android-App.",
+        "ru": "Исправление: срок сдачи домашнего задания/экзамена в Moodle с указанием времени (не на весь день) мог отличаться на один день в зависимости от времени суток, так как временная метка UTC из экспорта календаря использовалась без пересчёта в местное время школы (Europe/Berlin). Исправлено как здесь, так и в сопутствующем Android-приложении.",
+        "pt": "Correção: uma data limite de trabalho de casa/exame do Moodle com hora definida (não de dia inteiro) podia estar errada em um dia, dependendo da hora, porque o timestamp UTC da exportação do calendário era usado tal como estava, em vez de ser convertido primeiro para a hora local da escola (Europe/Berlin). Corrigido aqui e também na aplicação Android associada.",
+        "nl": "Fix: een Moodle-huiswerk-/examendeadline met een specifieke tijd (geen hele dag) kon afhankelijk van het tijdstip één dag afwijken, omdat de UTC-tijdstempel uit de agenda-export ongewijzigd werd gebruikt in plaats van eerst naar de lokale tijd van de school (Europe/Berlin) te worden omgerekend. Gecorrigeerd zowel hier als in de bijbehorende Android-app.",
+        "fr": "Correctif : une échéance de devoir/examen Moodle avec une heure précise (pas toute la journée) pouvait être décalée d'un jour selon l'heure, car l'horodatage UTC de l'export du calendrier était utilisé tel quel au lieu d'être d'abord converti à l'heure locale de l'école (Europe/Berlin). Corrigé ici ainsi que dans l'application Android associée.",
+        "it": "Correzione: una scadenza di compiti/esami Moodle con un orario specifico (non per l'intera giornata) poteva risultare sbagliata di un giorno a seconda dell'ora, perché il timestamp UTC dell'esportazione del calendario veniva usato così com'era invece di essere prima convertito nell'ora locale della scuola (Europe/Berlin). Corretto sia qui che nell'app Android associata.",
+        "es": "Corrección: una fecha límite de tarea/examen de Moodle con una hora específica (no de todo el día) podía estar equivocada en un día según la hora, porque la marca de tiempo UTC de la exportación del calendario se usaba tal cual, en lugar de convertirla primero a la hora local del colegio (Europe/Berlin). Corregido tanto aquí como en la aplicación Android correspondiente.",
+        "pl": "Poprawka: termin oddania zadania domowego/egzaminu z Moodle z określoną godziną (nie całodniowy) mógł być błędny o jeden dzień w zależności od godziny, ponieważ znacznik czasu UTC z eksportu kalendarza był używany bez przeliczenia na czas lokalny szkoły (Europe/Berlin). Poprawiono zarówno tutaj, jak i w towarzyszącej aplikacji Android.",
+        "uk": "Виправлення: термін здачі домашнього завдання/екзамену з Moodle із зазначеним часом (не цілий день) міг бути помилковим на один день залежно від часу доби, оскільки позначка часу UTC з експорту календаря використовувалася без перерахунку в місцевий час школи (Europe/Berlin). Виправлено як тут, так і в супровідному Android-додатку.",
+        "zh-cn": "修复：带具体时间（非全天）的 Moodle 作业/考试截止日期，可能因时间段不同而相差一天，原因是日历导出的 UTC 时间戳被直接使用，而未先转换为学校本地时间（Europe/Berlin）。此问题已在本适配器及配套的 Android 应用中一并修复。"
+      },
       "0.5.7": {
         "en": "Repository maintenance: added Node.js 26 to the CI test matrix and updated @iobroker/testing to 6.1.0. No user-facing changes.",
         "de": "Repository-Pflege: Node.js 26 zur CI-Testmatrix hinzugefügt und @iobroker/testing auf 6.1.0 aktualisiert. Keine für Nutzer sichtbaren Änderungen.",
@@ -80,19 +93,6 @@
         "pl": "Poprawiono metadane adaptera i wersje zależności zgodnie z aktualnymi wymaganiami repozytorium; README przetłumaczono na angielski.",
         "uk": "Виправлено метадані адаптера та версії залежностей відповідно до поточних вимог репозиторію; README перекладено англійською.",
         "zh-cn": "修正了适配器元数据和依赖项版本，以符合当前仓库要求；README已翻译为英文。"
-      },
-      "0.4.3": {
-        "en": "Initial release: school timetable, homework, remarks and grades for the four TEGW schools, including grade averages and detection of new entries for your own notifications.",
-        "de": "Erstveröffentlichung: Stundenplan, Hausaufgaben, Bemerkungen und Zensuren für die vier TEGW-Schulen, inklusive Notendurchschnitt und Erkennung neuer Einträge für eigene Benachrichtigungen.",
-        "ru": "Первый релиз: школьное расписание, домашние задания, замечания и оценки для четырёх школ TEGW, включая средний балл и обнаружение новых записей для собственных уведомлений.",
-        "pt": "Lançamento inicial: horário escolar, deveres de casa, observações e notas das quatro escolas TEGW, incluindo médias de notas e deteção de novas entradas para notificações próprias.",
-        "nl": "Eerste release: schoolrooster, huiswerk, opmerkingen en cijfers voor de vier TEGW-scholen, inclusief cijfergemiddelden en detectie van nieuwe items voor eigen meldingen.",
-        "fr": "Première version : emploi du temps scolaire, devoirs, remarques et notes pour les quatre écoles TEGW, y compris les moyennes de notes et la détection de nouvelles entrées pour vos propres notifications.",
-        "it": "Prima versione: orario scolastico, compiti, note e voti per le quattro scuole TEGW, incluse le medie dei voti e il rilevamento di nuove voci per notifiche personalizzate.",
-        "es": "Primera versión: horario escolar, tareas, observaciones y notas de las cuatro escuelas TEGW, incluyendo promedios de notas y detección de nuevas entradas para notificaciones propias.",
-        "pl": "Pierwsze wydanie: plan lekcji, zadania domowe, uwagi i oceny dla czterech szkół TEGW, w tym średnie ocen i wykrywanie nowych wpisów do własnych powiadomień.",
-        "uk": "Перший випуск: шкільний розклад, домашні завдання, зауваження та оцінки для чотирьох шкіл TEGW, включно із середнім балом і виявленням нових записів для власних сповіщень.",
-        "zh-cn": "首次发布：为四所TEGW学校提供课程表、作业、评语和成绩，包括平均成绩和用于自定义通知的新条目检测。"
       }
     },
     "titleLang": {

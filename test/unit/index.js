@@ -348,8 +348,28 @@ describe('lib/moodle', () => {
         ]);
     });
 
-    it('parseMoodleIcs wertet eine DTSTART mit Uhrzeit/UTC-"Z" nur nach dem Datumsanteil aus', () => {
+    it('parseMoodleIcs rechnet eine DTSTART mit UTC-"Z" in die Ortszeit Europe/Berlin um, statt nur den UTC-Datumsanteil zu nehmen', () => {
+        // 23:59 UTC am 10.09. entspricht 01:59 CEST (Europe/Berlin, UTC+2) am 11.09. - der
+        // reine UTC-Datumsanteil ("10.09.") wäre hier bereits falsch.
         const ics = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910T235900Z', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(ics)[0].date).to.equal('11.09.2026');
+    });
+
+    it('parseMoodleIcs: eine Mitternachts-Deadline (00:00 Ortszeit) landet nicht fälschlich auf dem Vortag', () => {
+        // 00:00 CEST am 14.09. entspricht 22:00 UTC am 13.09. - genau der Fall, der den
+        // Fehler in der Praxis ausgelöst hat (Moodle zeigt 14.09., die App zeigte 13.09.).
+        const ics = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260913T220000Z', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(ics)[0].date).to.equal('14.09.2026');
+    });
+
+    it('parseMoodleIcs: eine UTC-DTSTART am Nachmittag verschiebt sich nicht auf einen anderen Tag', () => {
+        // 14:00 UTC am 10.09. entspricht 16:00 CEST am 10.09. - kein Tageswechsel zu erwarten.
+        const ics = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910T140000Z', 'END:VEVENT'].join('\r\n');
+        expect(parseMoodleIcs(ics)[0].date).to.equal('10.09.2026');
+    });
+
+    it('parseMoodleIcs: eine "floating" DTSTART mit Uhrzeit ohne "Z" wird unverändert als Ortszeit behandelt', () => {
+        const ics = ['BEGIN:VEVENT', 'SUMMARY:Test', 'DTSTART:20260910T235900', 'END:VEVENT'].join('\r\n');
         expect(parseMoodleIcs(ics)[0].date).to.equal('10.09.2026');
     });
 
