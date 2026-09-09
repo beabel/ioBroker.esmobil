@@ -611,9 +611,9 @@ class ESmobil extends utils.Adapter {
      * sonst würden beim Erstinstall/Update alle bereits bestehenden Einträge als "neu"
      * gemeldet.
      *
-     * @param prefix
-     * @param items
-     * @param keyFn
+     * @param prefix state ID prefix, e.g. "homework" (seen-keys state is stored at `${prefix}.seenKeys`)
+     * @param items current items to compare against the seen-keys list
+     * @param keyFn derives a stable key from one item, used to detect what's new
      */
     async detectNew(prefix, items, keyFn) {
         const seenId = `${prefix}.seenKeys`;
@@ -657,9 +657,9 @@ class ESmobil extends utils.Adapter {
     /**
      * Legt einen State beim ersten Aufruf an (Objekt-Definition) und schreibt danach immer den aktuellen Wert.
      *
-     * @param id
-     * @param common
-     * @param value
+     * @param id state ID
+     * @param common object definition to apply on first creation only
+     * @param value current value to write
      */
     async ensureState(id, common, value) {
         await this.setObjectNotExistsAsync(id, {
