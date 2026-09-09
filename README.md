@@ -94,6 +94,7 @@ esmobil.0.plan.day1.date           string   - date (yyyy-MM-dd) of the Monday of
 esmobil.0.plan.day1.sourceTimestamp string  - data timestamp reported by the server
 esmobil.0.plan.day1.lessonCount    number   - number of lessons
 esmobil.0.plan.day1.lessons        string   - lessons as a JSON array
+esmobil.0.plan.day1.zusatzInfo     string   - general notice(s) for the day (e.g. special schedule, event day), multiple lines joined with " | "; empty if none
 esmobil.0.plan.day2.* ... plan.day5.*       - the same states for Tuesday through Friday of the same week
 esmobil.0.plan.week.days           string   - the complete week plan (day1-day5) as one JSON array, see below
 esmobil.0.homework.count           number   - number of homework entries (Home.InfoPoint + Moodle combined)
@@ -154,17 +155,18 @@ real calendar week - not "the next 5 available days". On a weekday, that's
 the current week (including already-past weekdays, so the week view is
 always complete); on a Saturday/Sunday, it's already the upcoming week. Days
 without data from the server (e.g. holidays, or a past weekday VpMobil no
-longer keeps) still report the correct date with `lessonCount: 0` and an
-empty `lessons` array, instead of being missing. For EGL, all these states
-stay empty since there is no VpMobil timetable there.
+longer keeps) still report the correct date with `lessonCount: 0`, an
+empty `lessons` array and an empty `zusatzInfo`, instead of being missing.
+For EGL, all these states stay empty since there is no VpMobil timetable
+there.
 
 For a week view (e.g. in your own dashboard/vis widget), the simplest option
 is `plan.week.days` - a single JSON array with all five days in this form:
 
 ```json
 [
-  { "weekday": "Monday", "date": "2026-09-07", "sourceTimestamp": "04.09.2026, 10:36", "lessons": [ /* see below */ ] },
-  { "weekday": "Tuesday", "date": "2026-09-08", "sourceTimestamp": "...", "lessons": [] }
+  { "weekday": "Monday", "date": "2026-09-07", "sourceTimestamp": "04.09.2026, 10:36", "lessons": [ /* see below */ ], "zusatzInfo": [] },
+  { "weekday": "Tuesday", "date": "2026-09-08", "sourceTimestamp": "...", "lessons": [], "zusatzInfo": ["EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours"] }
 ]
 ```
 
@@ -201,6 +203,9 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
+
+### 0.5.6 (2026-09-09)
+* New: general daily notices from the school (e.g. special schedule, event day - VpMobil/Indiware `<ZusatzInfo><ZiZeile>`) are now parsed and exposed per day as `plan.day<N>.zusatzInfo` (multiple lines joined with " | "), and included as `zusatzInfo` in each entry of `plan.week.days`
 
 ### 0.5.5 (2026-09-06)
 * Repository quality improvements: TypeScript type-checking (`npm run check`), release-script/adapter-dev tooling, updated `.vscode` settings, `admin/i18n` files converted to the short-format layout, and an updated `@iobroker/adapter-core`

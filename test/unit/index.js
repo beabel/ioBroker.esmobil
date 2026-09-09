@@ -256,6 +256,36 @@ describe('lib/vpmobil', () => {
             const result = parseDayPlan(xml, '20260904', 'nicht-vorhanden');
             expect(result.lessons).to.deep.equal([]);
         });
+
+        it('liefert eine leere zusatzInfo-Liste, wenn kein <ZusatzInfo> vorhanden ist', () => {
+            const result = parseDayPlan(xml, '20260904', '08m2');
+            expect(result.zusatzInfo).to.deep.equal([]);
+        });
+
+        it('liest eine einzelne <ZiZeile> als zusatzInfo-Eintrag', () => {
+            const xmlWithZusatzInfo = `<VpMobil>
+                <Klassen><Kl><Kurz>08m2</Kurz></Kl></Klassen>
+                <ZusatzInfo><ZiZeile>EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours</ZiZeile></ZusatzInfo>
+            </VpMobil>`;
+            const result = parseDayPlan(xmlWithZusatzInfo, '20260904', '08m2');
+            expect(result.zusatzInfo).to.deep.equal(['EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours']);
+        });
+
+        it('liest mehrere <ZiZeile>-Einträge als zusatzInfo-Liste, leere Zeilen werden übersprungen', () => {
+            const xmlWithZusatzInfo = `<VpMobil>
+                <Klassen><Kl><Kurz>08m2</Kurz></Kl></Klassen>
+                <ZusatzInfo>
+                    <ZiZeile>EOSW: Kl. 7m1 1.-5. Stunde Alkoholparcours</ZiZeile>
+                    <ZiZeile></ZiZeile>
+                    <ZiZeile>EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours</ZiZeile>
+                </ZusatzInfo>
+            </VpMobil>`;
+            const result = parseDayPlan(xmlWithZusatzInfo, '20260904', '08m2');
+            expect(result.zusatzInfo).to.deep.equal([
+                'EOSW: Kl. 7m1 1.-5. Stunde Alkoholparcours',
+                'EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours',
+            ]);
+        });
     });
 });
 

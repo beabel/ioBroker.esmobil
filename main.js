@@ -149,7 +149,7 @@ class ESmobil extends utils.Adapter {
             const prefix = `plan.day${i + 1}`;
             const dayPlan = availableKeys.has(key)
                 ? parseDayPlan(await client.fetchXml(`PlanKl${key}.xml`), key, config.klasse)
-                : { dateKey: key, lessons: [], sourceTimestamp: null };
+                : { dateKey: key, lessons: [], sourceTimestamp: null, zusatzInfo: [] };
             anyLessons = anyLessons || dayPlan.lessons.length > 0;
             await this.writeDayPlan(prefix, dayPlan);
             weekDays.push({
@@ -157,6 +157,7 @@ class ESmobil extends utils.Adapter {
                 date: isoDateOf(dayPlan.dateKey),
                 sourceTimestamp: dayPlan.sourceTimestamp,
                 lessons: dayPlan.lessons,
+                zusatzInfo: dayPlan.zusatzInfo,
             });
         }
 
@@ -226,6 +227,18 @@ class ESmobil extends utils.Adapter {
                 def: '[]',
             },
             JSON.stringify(dayPlan.lessons),
+        );
+        await this.ensureState(
+            `${prefix}.zusatzInfo`,
+            {
+                name: 'Zusatzinfo (z. B. Sonderplan, Veranstaltung)',
+                type: 'string',
+                role: 'text',
+                read: true,
+                write: false,
+                def: '',
+            },
+            dayPlan.zusatzInfo.join(' | '),
         );
     }
 

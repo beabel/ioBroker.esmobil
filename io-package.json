@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.5",
+    "version": "0.5.6",
     "news": {
+      "0.5.6": {
+        "en": "New: general daily notices from the school (e.g. special schedule, event day) are now available per day as plan.dayN.zusatzInfo and included in plan.week.days.",
+        "de": "Neu: allgemeine Tages-Hinweise der Schule (z. B. Sonderplan, Veranstaltungstag) stehen jetzt pro Tag als plan.dayN.zusatzInfo zur Verfügung und sind auch in plan.week.days enthalten.",
+        "ru": "Новое: общие ежедневные уведомления школы (например, особое расписание, день мероприятия) теперь доступны для каждого дня как plan.dayN.zusatzInfo и включены в plan.week.days.",
+        "pt": "Novo: avisos gerais diários da escola (por exemplo, horário especial, dia de evento) estão agora disponíveis por dia como plan.dayN.zusatzInfo e incluídos em plan.week.days.",
+        "nl": "Nieuw: algemene dagelijkse mededelingen van de school (bijv. bijzonder rooster, evenementendag) zijn nu per dag beschikbaar als plan.dayN.zusatzInfo en ook opgenomen in plan.week.days.",
+        "fr": "Nouveau : les avis généraux quotidiens de l'école (par ex. horaire spécial, journée d'événement) sont désormais disponibles par jour sous forme de plan.dayN.zusatzInfo et inclus dans plan.week.days.",
+        "it": "Novità: gli avvisi giornalieri generali della scuola (ad es. orario speciale, giornata di eventi) sono ora disponibili per ogni giorno come plan.dayN.zusatzInfo e inclusi anche in plan.week.days.",
+        "es": "Novedad: los avisos generales diarios del colegio (p. ej. horario especial, día de evento) ahora están disponibles por día como plan.dayN.zusatzInfo y también se incluyen en plan.week.days.",
+        "pl": "Nowość: ogólne codzienne komunikaty szkoły (np. plan specjalny, dzień wydarzenia) są teraz dostępne dla każdego dnia jako plan.dayN.zusatzInfo i uwzględnione również w plan.week.days.",
+        "uk": "Нове: загальні щоденні повідомлення школи (напр., спеціальний розклад, день заходу) тепер доступні для кожного дня як plan.dayN.zusatzInfo і включені також у plan.week.days.",
+        "zh-cn": "新增：学校的每日通用提示（例如特殊课表、活动日）现在可通过 plan.dayN.zusatzInfo 按天获取，并同时包含在 plan.week.days 中。"
+      },
       "0.5.5": {
         "en": "Repository quality improvements: TypeScript type-checking (npm run check), release-script/adapter-dev tooling, updated .vscode settings, i18n files converted to the short-format layout, and updated @iobroker/adapter-core; fixed several type-safety issues found along the way. No user-facing changes.",
         "de": "Repository-Qualitätsverbesserungen: TypeScript-Typprüfung (npm run check), Tooling für Release-Script/Adapter-Dev, aktualisierte .vscode-Einstellungen, i18n-Dateien im Kurzformat sowie aktualisiertes @iobroker/adapter-core; dabei gefundene Typsicherheits-Probleme behoben. Keine für Nutzer sichtbaren Änderungen.",
