@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "esmobil",
-    "version": "0.5.10",
+    "version": "0.5.11",
     "news": {
+      "0.5.11": {
+        "en": "Fix: all `common.name` objects created in code now include translations for all 11 recommended languages (previously only `en`/`de`), fixing repository object-structure check warnings (E6001)",
+        "de": "Fix: Alle im Code erstellten `common.name`-Objekte enthalten jetzt Übersetzungen für alle 11 empfohlenen Sprachen (zuvor nur `en`/`de`), behebt Repository-Objektstruktur-Checks (E6001)",
+        "ru": "Исправление: все объекты `common.name`, созданные в коде, теперь включают переводы для всех 11 рекомендуемых языков (ранее только `en`/`de`), исправлены предупреждения о проверке объектной структуры репозитория (E6001)",
+        "pt": "Correção: todos os objetos `common.name` criados no código agora incluem traduções para os 11 idiomas recomendados (antes só `en`/`de`), corrigindo avisos de checagem (E6001)",
+        "nl": "Fix: alle `common.name` -objecten die in code zijn gemaakt, bevatten nu vertalingen voor alle 11 aanbevolen talen (voorheen alleen `en`/`de`), waarbij waarschuwingen voor het controleren van de objectstructuur van de repository zijn opgelost (E6001)",
+        "fr": "Correctif : tous les objets « common.name » créés en code sont désormais traduits dans les 11 langues recommandées (auparavant, uniquement « en`/de »), corrigeant les avertissements de vérification de la structure des objets (E6001)",
+        "it": "Correzione: tutti gli oggetti common.name creati nel codice ora includono traduzioni per tutte le 11 lingue consigliate (prima solo en`/`de`), correggendo gli avvisi di controllo (E6001)",
+        "es": "Corrección: todos los objetos `common.name` creados en código ahora incluyen traducciones a los 11 idiomas recomendados (antes solo `en`/`de`), lo que corrige las advertencias de control de la estructura de objetos del repositorio (E6001)",
+        "pl": "Poprawka: wszystkie obiekty `common.name` utworzone w kodzie zawierają teraz tłumaczenia dla wszystkich 11 zalecanych języków (wcześniej tylko `en`/`de`), naprawiając ostrzeżenia o sprawdzaniu struktury obiektów repozytorium (E6001)",
+        "uk": "Виправлено: всі об'єкти `common.name`, створені в коді, тепер включають переклади для всіх 11 рекомендованих мов (раніше лише `en`/`de`), виправлення попереджень про перевірку структури об'єктів сховища (E6001)",
+        "zh-cn": "修复：在代码中创建的所有 `common.name`对象现在都包含所有 11 种推荐语言的翻译（以前只有 `en`/`de`），修复了存储库对象结构检查警告 (E6001)"
+      },
       "0.5.10": {
         "en": "Fix: all log messages in `main.js` are now in English (were German)\nFix: all object/channel `common.name` fields created in code now use bilingual `{en, de}` names instead of German-only text\nFix: `plan.week.days` entries now carry `weekdayEn`/`weekdayDe` instead of a single German-only `weekday` field\nFix: `pollIntervalMinutes` now has an enforced upper bound (1440 minutes / 24h) to avoid a `setTimeout` overflow with very large configured values\nREADME: added a link to the [TEGW school group](https://www.tegw.de/)",
         "de": "Fix: Alle Logs in `main.js` sind jetzt in Englisch (früher Deutsch)\nFix: Alle Objekt-/Kanal-Felder im Code verwenden jetzt bilinguale Namen (en, de) statt nur Deutsch\nFix: `plan.week.days`-Einträge enthalten jetzt `WeekdayEN`/`WeekdayDE` statt eines deutschen `Wochentag`-Feldes\nFix: `PollIntervalMinutes` hat jetzt eine Obergrenze (1440 Minuten/24h), um einen `setTimeout`-Überlauf bei sehr großen Werten zu vermeiden\nREADME: Link zur [TEGW-Schulgruppe] hinzugefügt (https://www.tegw.de/)",
@@ -80,19 +93,6 @@
         "pl": "Lista zadań domowych może teraz również zawierać wydarzenia z kalendarza Moodle (np. terminy oddania) dzięki nowemu opcjonalnemu ustawieniu adresu URL kalendarza Moodle, obok Home.InfoPoint.",
         "uk": "Список домашніх завдань тепер може також включати події календаря Moodle (наприклад, терміни здачі) за допомогою нового необов'язкового налаштування URL календаря Moodle, поряд із Home.InfoPoint.",
         "zh-cn": "除 Home.InfoPoint 外，作业列表现在还可以通过新增的可选 Moodle 日历URL设置，包含 Moodle 日历事项（例如提交截止日期）。"
-      },
-      "0.5.3": {
-        "en": "Automated npm releases via trusted publishing (OIDC); fixed CI pipeline (lint script, Node 22/24 test matrix); dependency updates (fast-xml-parser 5, tough-cookie 6).",
-        "de": "Automatische npm-Veröffentlichungen per Trusted Publishing (OIDC); CI-Pipeline repariert (Lint-Skript, Node 22/24-Testmatrix); Abhängigkeiten aktualisiert (fast-xml-parser 5, tough-cookie 6).",
-        "ru": "Автоматические публикации в npm через Trusted Publishing (OIDC); исправлен CI-конвейер (скрипт линтинга, тестовая матрица Node 22/24); обновлены зависимости (fast-xml-parser 5, tough-cookie 6).",
-        "pt": "Lançamentos automáticos no npm via Trusted Publishing (OIDC); pipeline de CI corrigido (script de lint, matriz de testes Node 22/24); dependências atualizadas (fast-xml-parser 5, tough-cookie 6).",
-        "nl": "Automatische npm-releases via Trusted Publishing (OIDC); CI-pipeline gerepareerd (lint-script, Node 22/24-testmatrix); afhankelijkheden bijgewerkt (fast-xml-parser 5, tough-cookie 6).",
-        "fr": "Publications npm automatiques via Trusted Publishing (OIDC) ; pipeline CI corrigé (script de lint, matrice de tests Node 22/24) ; dépendances mises à jour (fast-xml-parser 5, tough-cookie 6).",
-        "it": "Pubblicazioni npm automatiche tramite Trusted Publishing (OIDC); pipeline CI corretta (script di lint, matrice di test Node 22/24); dipendenze aggiornate (fast-xml-parser 5, tough-cookie 6).",
-        "es": "Publicaciones automáticas en npm mediante Trusted Publishing (OIDC); pipeline de CI corregido (script de lint, matriz de pruebas Node 22/24); dependencias actualizadas (fast-xml-parser 5, tough-cookie 6).",
-        "pl": "Automatyczne publikacje w npm przez Trusted Publishing (OIDC); naprawiono potok CI (skrypt lint, macierz testów Node 22/24); zaktualizowano zależności (fast-xml-parser 5, tough-cookie 6).",
-        "uk": "Автоматичні публікації в npm через Trusted Publishing (OIDC); виправлено CI-конвеєр (скрипт лінтингу, тестова матриця Node 22/24); оновлено залежності (fast-xml-parser 5, tough-cookie 6).",
-        "zh-cn": "通过 Trusted Publishing（OIDC）自动发布到 npm；修复了 CI 流水线（lint 脚本、Node 22/24 测试矩阵）；更新了依赖项（fast-xml-parser 5、tough-cookie 6）。"
       }
     },
     "titleLang": {

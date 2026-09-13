@@ -203,7 +203,7 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.5.11 (2026-09-13)
 * Fix: all `common.name` objects created in code now include translations for all 11 recommended languages (previously only `en`/`de`), fixing repository object-structure check warnings (E6001)
 
 ### 0.5.10 (2026-09-13)
@@ -223,9 +223,6 @@ A `lessons` entry has the form:
 ### 0.5.7 (2026-09-09)
 * Repository maintenance: added Node.js 26 to the CI test matrix, updated `@iobroker/testing` to 6.1.0
 * No user-facing changes
-
-### 0.5.6 (2026-09-09)
-* New: general daily notices from the school (e.g. special schedule, event day - VpMobil/Indiware `<ZusatzInfo><ZiZeile>`) are now parsed and exposed per day as `plan.day<N>.zusatzInfo` (multiple lines joined with " | "), and included as `zusatzInfo` in each entry of `plan.week.days`
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

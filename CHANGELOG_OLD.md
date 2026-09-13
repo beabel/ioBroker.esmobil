@@ -1,4 +1,8 @@
 # Older changes
+## 0.5.6 (2026-09-09)
+* New: general daily notices from the school (e.g. special schedule, event day - VpMobil/Indiware `<ZusatzInfo><ZiZeile>`) are now parsed and exposed per day as `plan.day<N>.zusatzInfo` (multiple lines joined with " | "), and included as `zusatzInfo` in each entry of `plan.week.days`
+
+
 ## 0.5.5 (2026-09-06)
 * Repository quality improvements: TypeScript type-checking (`npm run check`), release-script/adapter-dev tooling, updated `.vscode` settings, `admin/i18n` files converted to the short-format layout, and an updated `@iobroker/adapter-core`
 * Fixed several type-safety issues found along the way (defensive null-guards, explicit type coercions)
