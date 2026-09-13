@@ -203,6 +203,9 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
+### **WORK IN PROGRESS**
+* Fix: all `common.name` objects created in code now include translations for all 11 recommended languages (previously only `en`/`de`), fixing repository object-structure check warnings (E6001)
+
 ### 0.5.10 (2026-09-13)
 * Fix: all log messages in `main.js` are now in English (were German)
 * Fix: all object/channel `common.name` fields created in code now use bilingual `{en, de}` names instead of German-only text
