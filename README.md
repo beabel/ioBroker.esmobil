@@ -11,7 +11,7 @@
 
 ioBroker adapter for the school timetable (**VpMobil/Indiware**) and homework/
 remarks/grades (**Home.InfoPoint**) - **exclusively for the four schools of
-the TEGW school group**:
+the [TEGW school group](https://www.tegw.de/)**:
 
 - **EOSW** - Europäische Oberschule Waldenburg
 - **EGW** - Europäisches Gymnasium Waldenburg
@@ -203,6 +203,13 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
+
+### **WORK IN PROGRESS**
+* Fix: all log messages in `main.js` are now in English (were German)
+* Fix: all object/channel `common.name` fields created in code now use bilingual `{en, de}` names instead of German-only text
+* Fix: `plan.week.days` entries now carry `weekdayEn`/`weekdayDe` instead of a single German-only `weekday` field
+* Fix: `pollIntervalMinutes` now has an enforced upper bound (1440 minutes / 24h) to avoid a `setTimeout` overflow with very large configured values
+* README: added a link to the [TEGW school group](https://www.tegw.de/)
 
 ### 0.5.9 (2026-09-09)
 * Repository maintenance: removed the changelog entry for 0.5.7, a version that was tagged in this file's history but never actually published to npm (0.5.6 was followed directly by 0.5.8)

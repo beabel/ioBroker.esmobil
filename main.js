@@ -8,6 +8,7 @@ const { getSchool, vpMobilBaseUrl, homeworkLoginUrl, homeworkDataUrl } = require
 const {
     WEEK_DAY_COUNT,
     WEEKDAY_NAMES,
+    WEEKDAY_NAMES_EN,
     formatDateKey,
     isoDateOf,
     mondayOfRelevantWeek,
@@ -20,6 +21,9 @@ const {
 
 const DEFAULT_POLL_INTERVAL_MINUTES = 30;
 const MIN_POLL_INTERVAL_MINUTES = 5;
+// Practical cap, well under Node's setTimeout limit of 2,147,483,647 ms (~35,791 minutes) -
+// a value above that would overflow and fire immediately on every tick instead of waiting.
+const MAX_POLL_INTERVAL_MINUTES = 1440;
 
 class ESmobil extends utils.Adapter {
     constructor(options) {
@@ -42,9 +46,12 @@ class ESmobil extends utils.Adapter {
 
     async pollAndReschedule() {
         await this.poll();
-        const minutes = Math.max(
-            MIN_POLL_INTERVAL_MINUTES,
-            Number(this.config.pollIntervalMinutes) || DEFAULT_POLL_INTERVAL_MINUTES,
+        const minutes = Math.min(
+            MAX_POLL_INTERVAL_MINUTES,
+            Math.max(
+                MIN_POLL_INTERVAL_MINUTES,
+                Number(this.config.pollIntervalMinutes) || DEFAULT_POLL_INTERVAL_MINUTES,
+            ),
         );
         this.pollTimer = this.setTimeout(() => this.pollAndReschedule(), minutes * 60 * 1000);
     }
@@ -54,12 +61,12 @@ class ESmobil extends utils.Adapter {
         try {
             connected = await this.main();
         } catch (err) {
-            this.log.error(`Unerwarteter Fehler: ${err.message}`);
+            this.log.error(`Unexpected error: ${err.message}`);
         }
         await this.ensureState(
             'info.connection',
             {
-                name: 'Verbunden mit den Schulservern',
+                name: { en: 'Connected to the school servers', de: 'Verbunden mit den Schulservern' },
                 type: 'boolean',
                 role: 'indicator.connected',
                 read: true,
@@ -74,15 +81,15 @@ class ESmobil extends utils.Adapter {
     async main() {
         const config = this.config;
         const school = getSchool(config.school);
-        this.log.info(`Schule: ${school.displayName} (${school.id})`);
+        this.log.info(`School: ${school.displayName} (${school.id})`);
         let anySuccess = false;
 
         if (school.hasStundenplan) {
             if (!school.vpHostConfirmed) {
                 this.log.warn(
-                    `Die VpMobil-Adresse für ${school.displayName} ist von der Referenz-App her ` +
-                        'unbestätigt (nach dem Muster der anderen Schulen geraten, nie verifiziert) - ' +
-                        'bitte die abgerufenen Stundenplan-Daten genau prüfen.',
+                    `The VpMobil address for ${school.displayName} is unconfirmed from the reference app ` +
+                        '(guessed based on the pattern of the other schools, never verified) - ' +
+                        'please carefully check the fetched timetable data.',
                 );
             }
             if (config.klasse) {
@@ -90,13 +97,15 @@ class ESmobil extends utils.Adapter {
                     await this.updateTimetable(school, config);
                     anySuccess = true;
                 } catch (err) {
-                    this.log.error(`VpMobil-Abruf fehlgeschlagen: ${err.message}`);
+                    this.log.error(`VpMobil fetch failed: ${err.message}`);
                 }
             } else {
-                this.log.warn('Keine Klasse eingetragen - überspringe Stundenplan-Abruf.');
+                this.log.warn('No class entered - skipping timetable fetch.');
             }
         } else {
-            this.log.info(`${school.displayName} hat laut Referenz-App keinen Stundenplan über VpMobil - überspringe.`);
+            this.log.info(
+                `${school.displayName} has no timetable via VpMobil according to the reference app - skipping.`,
+            );
         }
 
         if (config.pollHomeworkEtc) {
@@ -105,11 +114,11 @@ class ESmobil extends utils.Adapter {
                     await this.updateHomeInfoPoint(school, config);
                     anySuccess = true;
                 } catch (err) {
-                    this.log.error(`Home.InfoPoint-Abruf fehlgeschlagen: ${err.message}`);
+                    this.log.error(`Home.InfoPoint fetch failed: ${err.message}`);
                 }
             } else {
                 this.log.warn(
-                    'Weder Home.InfoPoint-Benutzername noch Moodle-Kalender-URL eingetragen - überspringe Hausaufgaben/Bemerkungen/Zensuren.',
+                    'Neither Home.InfoPoint username nor Moodle calendar URL entered - skipping homework/remarks/grades.',
                 );
             }
         }
@@ -118,10 +127,13 @@ class ESmobil extends utils.Adapter {
     }
 
     async updateTimetable(school, config) {
-        await this.ensureChannel('plan', 'Stundenplan');
-        await this.ensureChannel('plan.week', 'Wochenplan (alle Tage gebündelt)');
+        await this.ensureChannel('plan', { en: 'Timetable', de: 'Stundenplan' });
+        await this.ensureChannel('plan.week', {
+            en: 'Week plan (all days combined)',
+            de: 'Wochenplan (alle Tage gebündelt)',
+        });
         for (let i = 1; i <= WEEK_DAY_COUNT; i++) {
-            await this.ensureChannel(`plan.day${i}`, WEEKDAY_NAMES[i - 1]);
+            await this.ensureChannel(`plan.day${i}`, { en: WEEKDAY_NAMES_EN[i - 1], de: WEEKDAY_NAMES[i - 1] });
         }
 
         const baseUrl = vpMobilBaseUrl(school);
@@ -153,7 +165,8 @@ class ESmobil extends utils.Adapter {
             anyLessons = anyLessons || dayPlan.lessons.length > 0;
             await this.writeDayPlan(prefix, dayPlan);
             weekDays.push({
-                weekday: WEEKDAY_NAMES[i],
+                weekdayEn: WEEKDAY_NAMES_EN[i],
+                weekdayDe: WEEKDAY_NAMES[i],
                 date: isoDateOf(dayPlan.dateKey),
                 sourceTimestamp: dayPlan.sourceTimestamp,
                 lessons: dayPlan.lessons,
@@ -162,13 +175,13 @@ class ESmobil extends utils.Adapter {
         }
 
         if (!anyLessons) {
-            this.log.info('VpMobil: für die aktuelle Schulwoche sind aktuell keine Plandaten verfügbar.');
+            this.log.info('VpMobil: no schedule data currently available for the current school week.');
         }
 
         await this.ensureState(
             'plan.week.days',
             {
-                name: 'Wochenplan - alle Tage in einem JSON-Array',
+                name: { en: 'Week plan - all days as a JSON array', de: 'Wochenplan - alle Tage in einem JSON-Array' },
                 type: 'string',
                 role: 'json',
                 read: true,
@@ -183,7 +196,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             `${prefix}.date`,
             {
-                name: 'Datum',
+                name: { en: 'Date', de: 'Datum' },
                 type: 'string',
                 role: 'date',
                 read: true,
@@ -195,7 +208,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             `${prefix}.sourceTimestamp`,
             {
-                name: 'Stand der Daten (Server)',
+                name: { en: 'Data timestamp (server)', de: 'Stand der Daten (Server)' },
                 type: 'string',
                 role: 'text',
                 read: true,
@@ -207,7 +220,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             `${prefix}.lessonCount`,
             {
-                name: 'Anzahl Stunden',
+                name: { en: 'Number of lessons', de: 'Anzahl Stunden' },
                 type: 'number',
                 role: 'value',
                 read: true,
@@ -219,7 +232,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             `${prefix}.lessons`,
             {
-                name: 'Stunden (JSON)',
+                name: { en: 'Lessons (JSON)', de: 'Stunden (JSON)' },
                 type: 'string',
                 role: 'json',
                 read: true,
@@ -231,7 +244,10 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             `${prefix}.zusatzInfo`,
             {
-                name: 'Zusatzinfo (z. B. Sonderplan, Veranstaltung)',
+                name: {
+                    en: 'Additional info (e.g. special schedule, event)',
+                    de: 'Zusatzinfo (z. B. Sonderplan, Veranstaltung)',
+                },
                 type: 'string',
                 role: 'text',
                 read: true,
@@ -243,10 +259,10 @@ class ESmobil extends utils.Adapter {
     }
 
     async updateHomeInfoPoint(school, config) {
-        await this.ensureChannel('homework', 'Hausaufgaben');
-        await this.ensureChannel('remarks', 'Bemerkungen');
-        await this.ensureChannel('grades', 'Zensuren');
-        await this.ensureChannel('grades.subjects', 'Zensuren je Fach');
+        await this.ensureChannel('homework', { en: 'Homework', de: 'Hausaufgaben' });
+        await this.ensureChannel('remarks', { en: 'Remarks', de: 'Bemerkungen' });
+        await this.ensureChannel('grades', { en: 'Grades', de: 'Zensuren' });
+        await this.ensureChannel('grades.subjects', { en: 'Grades by subject', de: 'Zensuren je Fach' });
 
         // Home.InfoPoint und Moodle sind unabhängig voneinander optional konfigurierbar (wie in
         // der Referenz-App) - ein Fehler bei der einen Quelle darf den Abruf der anderen nicht
@@ -258,7 +274,7 @@ class ESmobil extends utils.Adapter {
                 const dataUrl = homeworkDataUrl(school);
                 html = await loginAndFetch(loginUrl, dataUrl, config.haUsername, config.haPassword);
             } catch (err) {
-                this.log.error(`Home.InfoPoint-Abruf fehlgeschlagen: ${err.message}`);
+                this.log.error(`Home.InfoPoint fetch failed: ${err.message}`);
             }
         }
 
@@ -268,7 +284,7 @@ class ESmobil extends utils.Adapter {
                 const ics = await fetchMoodleCalendar(config.moodleCalendarUrl);
                 moodleHomework = parseMoodleIcs(ics);
             } catch (err) {
-                this.log.error(`Moodle-Kalender-Abruf fehlgeschlagen: ${err.message}`);
+                this.log.error(`Moodle calendar fetch failed: ${err.message}`);
             }
         }
 
@@ -284,7 +300,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             'homework.count',
             {
-                name: 'Anzahl Hausaufgaben',
+                name: { en: 'Number of homework items', de: 'Anzahl Hausaufgaben' },
                 type: 'number',
                 role: 'value',
                 read: true,
@@ -296,7 +312,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             'homework.entries',
             {
-                name: 'Hausaufgaben (JSON)',
+                name: { en: 'Homework (JSON)', de: 'Hausaufgaben (JSON)' },
                 type: 'string',
                 role: 'json',
                 read: true,
@@ -308,7 +324,7 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             'homework.newCount',
             {
-                name: 'Neue Hausaufgaben seit dem letzten Abruf',
+                name: { en: 'New homework since the last poll', de: 'Neue Hausaufgaben seit dem letzten Abruf' },
                 type: 'number',
                 role: 'value',
                 read: true,
@@ -320,7 +336,10 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             'homework.newEntries',
             {
-                name: 'Neue Hausaufgaben seit dem letzten Abruf (JSON)',
+                name: {
+                    en: 'New homework since the last poll (JSON)',
+                    de: 'Neue Hausaufgaben seit dem letzten Abruf (JSON)',
+                },
                 type: 'string',
                 role: 'json',
                 read: true,
@@ -341,7 +360,7 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'remarks.count',
                 {
-                    name: 'Anzahl Bemerkungen',
+                    name: { en: 'Number of remarks', de: 'Anzahl Bemerkungen' },
                     type: 'number',
                     role: 'value',
                     read: true,
@@ -353,7 +372,7 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'remarks.entries',
                 {
-                    name: 'Bemerkungen (JSON)',
+                    name: { en: 'Remarks (JSON)', de: 'Bemerkungen (JSON)' },
                     type: 'string',
                     role: 'json',
                     read: true,
@@ -365,7 +384,7 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'remarks.newCount',
                 {
-                    name: 'Neue Bemerkungen seit dem letzten Abruf',
+                    name: { en: 'New remarks since the last poll', de: 'Neue Bemerkungen seit dem letzten Abruf' },
                     type: 'number',
                     role: 'value',
                     read: true,
@@ -377,7 +396,10 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'remarks.newEntries',
                 {
-                    name: 'Neue Bemerkungen seit dem letzten Abruf (JSON)',
+                    name: {
+                        en: 'New remarks since the last poll (JSON)',
+                        de: 'Neue Bemerkungen seit dem letzten Abruf (JSON)',
+                    },
                     type: 'string',
                     role: 'json',
                     read: true,
@@ -399,7 +421,10 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'grades.subjectCount',
                 {
-                    name: 'Anzahl Fächer mit mindestens einer Zensur',
+                    name: {
+                        en: 'Number of subjects with at least one grade',
+                        de: 'Anzahl Fächer mit mindestens einer Zensur',
+                    },
                     type: 'number',
                     role: 'value',
                     read: true,
@@ -411,7 +436,10 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'grades.bySubject',
                 {
-                    name: 'Alle Fächer als JSON (auch ohne Zensuren)',
+                    name: {
+                        en: 'All subjects as JSON (including those without grades)',
+                        de: 'Alle Fächer als JSON (auch ohne Zensuren)',
+                    },
                     type: 'string',
                     role: 'json',
                     read: true,
@@ -440,7 +468,7 @@ class ESmobil extends utils.Adapter {
                 await this.ensureState(
                     `${prefix}.label`,
                     {
-                        name: 'Fach',
+                        name: { en: 'Subject', de: 'Fach' },
                         type: 'string',
                         role: 'text',
                         read: true,
@@ -452,7 +480,7 @@ class ESmobil extends utils.Adapter {
                 await this.ensureState(
                     `${prefix}.count`,
                     {
-                        name: 'Anzahl Zensuren',
+                        name: { en: 'Number of grades', de: 'Anzahl Zensuren' },
                         type: 'number',
                         role: 'value',
                         read: true,
@@ -464,7 +492,10 @@ class ESmobil extends utils.Adapter {
                 await this.ensureState(
                     `${prefix}.average`,
                     {
-                        name: 'Durchschnitt als Zahl (nur numerisch auswertbare Zensuren)',
+                        name: {
+                            en: 'Average as a number (numerically evaluable grades only)',
+                            de: 'Durchschnitt als Zahl (nur numerisch auswertbare Zensuren)',
+                        },
                         type: 'number',
                         role: 'value',
                         read: true,
@@ -476,7 +507,10 @@ class ESmobil extends utils.Adapter {
                 await this.ensureState(
                     `${prefix}.averageNote`,
                     {
-                        name: 'Durchschnitt als Zensur (wie im PHP-Original, z. B. "1+")',
+                        name: {
+                            en: 'Average as a grade (as in the PHP original, e.g. "1+")',
+                            de: 'Durchschnitt als Zensur (wie im PHP-Original, z. B. "1+")',
+                        },
                         type: 'string',
                         role: 'text',
                         read: true,
@@ -488,7 +522,7 @@ class ESmobil extends utils.Adapter {
                 await this.ensureState(
                     `${prefix}.entries`,
                     {
-                        name: 'Zensuren (JSON)',
+                        name: { en: 'Grades (JSON)', de: 'Zensuren (JSON)' },
                         type: 'string',
                         role: 'json',
                         read: true,
@@ -506,7 +540,10 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'grades.overallAverage',
                 {
-                    name: 'Durchschnitt über alle Fächer als Zahl (unwertet je Einzelnote, nicht je Fach)',
+                    name: {
+                        en: 'Average across all subjects as a number (weighted per individual grade, not per subject)',
+                        de: 'Durchschnitt über alle Fächer als Zahl (bewertet je Einzelnote, nicht je Fach)',
+                    },
                     type: 'number',
                     role: 'value',
                     read: true,
@@ -518,7 +555,10 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'grades.overallAverageNote',
                 {
-                    name: 'Durchschnitt über alle Fächer als Zensur',
+                    name: {
+                        en: 'Average across all subjects as a grade',
+                        de: 'Durchschnitt über alle Fächer als Zensur',
+                    },
                     type: 'string',
                     role: 'text',
                     read: true,
@@ -544,7 +584,7 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'grades.newCount',
                 {
-                    name: 'Neue Zensuren seit dem letzten Abruf',
+                    name: { en: 'New grades since the last poll', de: 'Neue Zensuren seit dem letzten Abruf' },
                     type: 'number',
                     role: 'value',
                     read: true,
@@ -556,7 +596,10 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'grades.newEntries',
                 {
-                    name: 'Neue Zensuren seit dem letzten Abruf (JSON)',
+                    name: {
+                        en: 'New grades since the last poll (JSON)',
+                        de: 'Neue Zensuren seit dem letzten Abruf (JSON)',
+                    },
                     type: 'string',
                     role: 'json',
                     read: true,
@@ -571,7 +614,10 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             'info.newItemsCount',
             {
-                name: 'Neue Einträge in diesem Abruf (Hausaufgaben+Bemerkungen+Zensuren)',
+                name: {
+                    en: 'New entries in this poll (homework+remarks+grades)',
+                    de: 'Neue Einträge in diesem Abruf (Hausaufgaben+Bemerkungen+Zensuren)',
+                },
                 type: 'number',
                 role: 'value',
                 read: true,
@@ -588,7 +634,7 @@ class ESmobil extends utils.Adapter {
             await this.ensureState(
                 'info.lastNewAt',
                 {
-                    name: 'Zeitpunkt des letzten Neuzugangs',
+                    name: { en: 'Timestamp of the last new entry', de: 'Zeitpunkt des letzten Neuzugangs' },
                     type: 'string',
                     role: 'date',
                     read: true,
@@ -598,7 +644,7 @@ class ESmobil extends utils.Adapter {
                 new Date().toISOString(),
             );
             this.log.info(
-                `Neu seit dem letzten Abruf: ${newHomework.length} Hausaufgabe(n), ${newRemarks.length} Bemerkung(en), ${newGrades.length} Zensur(en).`,
+                `New since the last poll: ${newHomework.length} homework item(s), ${newRemarks.length} remark(s), ${newGrades.length} grade(s).`,
             );
         }
     }
@@ -632,7 +678,10 @@ class ESmobil extends utils.Adapter {
         await this.ensureState(
             seenId,
             {
-                name: 'Interne Merkliste bereits gesehener Einträge (nicht für Nutzer gedacht)',
+                name: {
+                    en: 'Internal list of already-seen entries (not intended for users)',
+                    de: 'Interne Merkliste bereits gesehener Einträge (nicht für Nutzer gedacht)',
+                },
                 type: 'string',
                 role: 'json',
                 read: true,
@@ -646,10 +695,16 @@ class ESmobil extends utils.Adapter {
         return newItems;
     }
 
+    /**
+     * @param id channel ID
+     * @param name either a plain string (used as-is for both en/de, e.g. for a subject label
+     *   taken verbatim from Home.InfoPoint) or an `{en, de}` object for hardcoded UI text
+     */
     async ensureChannel(id, name) {
+        const channelName = typeof name === 'string' ? { en: name, de: name } : name;
         await this.setObjectNotExistsAsync(id, {
             type: 'channel',
-            common: { name: { en: name, de: name } },
+            common: { name: channelName },
             native: {},
         });
     }
