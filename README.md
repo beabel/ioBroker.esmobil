@@ -203,7 +203,7 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.5.12 (2026-09-22)
 * Fix: `plan.day1`-`plan.day5` channel names now include translations for all 11 recommended languages (previously only `en`/`de`)
 * Fix: README's `plan.week.days` example now shows `weekdayEn`/`weekdayDe` instead of the removed single `weekday` field
 
@@ -223,10 +223,6 @@ A `lessons` entry has the form:
 ### 0.5.8 (2026-09-09)
 * Fix: a Moodle homework/exam due date with a specific time (not all-day) could be off by one day depending on the time of day, because the UTC timestamp from the calendar export was used as-is instead of being converted to the school's local time (Europe/Berlin) first (e.g. a `20260913T220000Z` deadline - 00:00 CEST on the 14th - was wrongly shown as due on the 13th)
 * Corrected for both this adapter (`lib/moodle.js`) and the companion Android app
-
-### 0.5.7 (2026-09-09)
-* Repository maintenance: added Node.js 26 to the CI test matrix, updated `@iobroker/testing` to 6.1.0
-* No user-facing changes
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
