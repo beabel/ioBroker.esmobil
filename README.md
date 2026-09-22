@@ -165,8 +165,8 @@ is `plan.week.days` - a single JSON array with all five days in this form:
 
 ```json
 [
-  { "weekday": "Monday", "date": "2026-09-07", "sourceTimestamp": "04.09.2026, 10:36", "lessons": [ /* see below */ ], "zusatzInfo": [] },
-  { "weekday": "Tuesday", "date": "2026-09-08", "sourceTimestamp": "...", "lessons": [], "zusatzInfo": ["EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours"] }
+  { "weekdayEn": "Monday", "weekdayDe": "Montag", "date": "2026-09-07", "sourceTimestamp": "04.09.2026, 10:36", "lessons": [ /* see below */ ], "zusatzInfo": [] },
+  { "weekdayEn": "Tuesday", "weekdayDe": "Dienstag", "date": "2026-09-08", "sourceTimestamp": "...", "lessons": [], "zusatzInfo": ["EOSW: Kl. 7m2 1.-5. Stunde Alkoholparcours"] }
 ]
 ```
 

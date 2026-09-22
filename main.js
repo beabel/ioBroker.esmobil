@@ -9,6 +9,7 @@ const {
     WEEK_DAY_COUNT,
     WEEKDAY_NAMES,
     WEEKDAY_NAMES_EN,
+    WEEKDAY_NAMES_I18N,
     formatDateKey,
     isoDateOf,
     mondayOfRelevantWeek,
@@ -166,7 +167,7 @@ class ESmobil extends utils.Adapter {
             'zh-cn': '周计划（所有天合计）',
         });
         for (let i = 1; i <= WEEK_DAY_COUNT; i++) {
-            await this.ensureChannel(`plan.day${i}`, { en: WEEKDAY_NAMES_EN[i - 1], de: WEEKDAY_NAMES[i - 1] });
+            await this.ensureChannel(`plan.day${i}`, WEEKDAY_NAMES_I18N[i - 1]);
         }
 
         const baseUrl = vpMobilBaseUrl(school);
