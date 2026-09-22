@@ -203,6 +203,10 @@ A `lessons` entry has the form:
 ```
 
 ## Changelog
+### **WORK IN PROGRESS**
+* Fix: `plan.day1`-`plan.day5` channel names now include translations for all 11 recommended languages (previously only `en`/`de`)
+* Fix: README's `plan.week.days` example now shows `weekdayEn`/`weekdayDe` instead of the removed single `weekday` field
+
 ### 0.5.11 (2026-09-13)
 * Fix: all `common.name` objects created in code now include translations for all 11 recommended languages (previously only `en`/`de`), fixing repository object-structure check warnings (E6001)
 
