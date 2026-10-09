@@ -46,7 +46,7 @@
     "@iobroker/adapter-core": "^3.4.3",
     "axios": "^1.7.9",
     "cheerio": "^1.0.0",
-    "fast-xml-parser": "^5.11.1",
+    "fast-xml-parser": "^5.11.2",
     "tough-cookie": "^6.0.2"
   },
   "devDependencies": {
